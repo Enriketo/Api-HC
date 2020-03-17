@@ -1,3 +1,4 @@
+import { Column, CreateDateColumn, Entity, ManyToOne, OneToMany, PrimaryGeneratedColumn, UpdateDateColumn, Unique } from 'typeorm';
 
 @Entity()
 export class TimeItemEntity {
@@ -5,7 +6,7 @@ export class TimeItemEntity {
     id: number;
 
     @Column({ length: 30 })
-    name: string; 
+    name: string;
 
     @Column({ length: 9 })
     cost: number;

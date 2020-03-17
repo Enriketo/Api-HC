@@ -1,3 +1,5 @@
+import { Column, CreateDateColumn, Entity, ManyToOne, OneToMany, PrimaryGeneratedColumn, UpdateDateColumn, Unique } from 'typeorm';
+
 export enum match_status {
     accepted = 'accepted',
     rejected = 'rejected',

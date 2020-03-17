@@ -1,3 +1,5 @@
+import { Column, CreateDateColumn, Entity, ManyToOne, OneToMany, PrimaryGeneratedColumn, UpdateDateColumn, Unique } from 'typeorm';
+
 @Entity()
 @Unique(["email"])
 export class ResidenceEntity {
@@ -11,16 +13,16 @@ export class ResidenceEntity {
     email: string; // [not null]
 
     @Column({ length: 20 })
-    name: string; 
+    name: string;
 
     @Column({ length: 20 })
-    location: number; // [increment] 
+    location: number; // [increment]
 
     @Column({ length: 40 })
-    address: string; 
+    address: string;
 
     @Column({ length: 1 })
-    place_avalaible: boolean; 
+    place_avalaible: boolean;
 
     @Column({ length: 9 })
     media_id: number; // [ref: > media.id]
@@ -31,7 +33,7 @@ export class ResidenceEntity {
     @UpdateDateColumn({ type: 'timestamp' })
     updatedAt: Date;
 }
- 
+
 
 
 

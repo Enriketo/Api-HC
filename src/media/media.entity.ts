@@ -1,3 +1,5 @@
+import { Column, CreateDateColumn, Entity, ManyToOne, OneToMany, PrimaryGeneratedColumn, UpdateDateColumn, Unique } from 'typeorm';
+
 export enum type {
     avatar = 'avatar',
     profile = 'profile',
@@ -22,7 +24,7 @@ export class MediaEntity {
 
     @Column({ length: 200 })
     url: string;
-    
+
     @CreateDateColumn({ type: 'timestamp' })
     createdAt: Date;
 

@@ -1,3 +1,5 @@
+import { Column, CreateDateColumn, Entity, ManyToOne, OneToMany, PrimaryGeneratedColumn, UpdateDateColumn, Unique } from 'typeorm';
+
 export enum meeting_status {
     pending = 'pending',
     user_arrived = 'user_arrived',

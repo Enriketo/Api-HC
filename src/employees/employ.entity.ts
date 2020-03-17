@@ -1,7 +1,10 @@
+import { Column, CreateDateColumn, Entity, ManyToOne, OneToMany, PrimaryGeneratedColumn, UpdateDateColumn, Unique } from 'typeorm';
+
+
 export enum doc_type {
     cc = 'cc',
     nit = 'nit',
-    ce = 'ce'    
+    ce = 'ce'
 }
 
 export enum gender {
@@ -11,31 +14,31 @@ export enum gender {
     tramsexual_female = 'tramsexual_female',
     gay = 'gay',
     lesbian = 'lesbian',
-    undefined = 'undefined'    
+    undefined = 'undefined'
 }
 
 export enum bank {
     bank1 = 'Bancolombia',
     bank2 = 'Davivienda',
-    bank3 = 'Colmena'    
+    bank3 = 'Colmena'
 }
 
 export enum status {
     online = 'online',
     offline = 'offline',
-    disconected = 'disconected'    
+    disconected = 'disconected'
 }
 
 export enum role {
     admin = 'admin',
     worker = 'worker',
-    place = 'place'    
+    place = 'place'
 }
 
 export enum penality {
     low = 'low',
     middle = 'middle',
-    high = 'high'    
+    high = 'high'
 }
 
 @Entity()
@@ -77,13 +80,10 @@ export class EmployEntity {
         enum: gender,
         default: gender.male,
     })
-    type: gender;
+    gender: gender;
 
     @Column({ length: 1 })
     showName: boolean;
-
-    @Column({ type: 'timestamp' })
-    createdAt: Date;
 
     @Column({ length: 25 })
     preferences: string; // json
@@ -109,23 +109,23 @@ export class EmployEntity {
     @Column({
         type: 'enum',
         enum: bank,
-        default: bank.Bancolombia,
+        default: bank.bank1,
     })
-    type: bank;
+    bank: bank;
 
     @Column({
         type: 'enum',
         enum: status,
         default: status.online,
     })
-    type: status;
+    status: status;
 
     @Column({
         type: 'enum',
         enum: role,
-        default: role.online,
+        default: role.admin,
     })
-    type: role;
+    role: role;
 
     @Column({ length: 1 })
     opt_in: boolean;
@@ -138,7 +138,7 @@ export class EmployEntity {
         enum: penality,
         default: penality.low,
     })
-    type: penality;
+    penality: penality;
 
     @Column({ length: 3 })
     total_penalities: number;
@@ -146,9 +146,9 @@ export class EmployEntity {
     @Column({ length: 9 })
     media_id: number; // int[ref: > media.id]
 
-    @CreateDateColumn({ type: 'timestamp' })
+    @CreateDateColumn({type: 'timestamp'})
     createdAt: Date;
 
-    @UpdateDateColumn({ type: 'timestamp' })
+    @UpdateDateColumn({type: 'timestamp'})
     updatedAt: Date;
 }

@@ -1,3 +1,4 @@
+import { Column, CreateDateColumn, Entity, ManyToOne, OneToMany, PrimaryGeneratedColumn, UpdateDateColumn, Unique } from 'typeorm';
 
 @Entity()
 export class StateEntity {

@@ -1,3 +1,5 @@
+import { Column, CreateDateColumn, Entity, ManyToOne, OneToMany, PrimaryGeneratedColumn, UpdateDateColumn, Unique } from 'typeorm';
+
 export enum payment_type {
     cash = 'cash',
     credit_card = 'credit card',
@@ -32,9 +34,9 @@ export class OrderEntity {
     @Column({
         type: 'enum',
         enum: order_status,
-        default: order_status.cash,
+        default: order_status.approved,
     })
-    status: order_status;
+    order_status: order_status;
 
     @CreateDateColumn({ type: 'timestamp' })
     createdAt: Date;
