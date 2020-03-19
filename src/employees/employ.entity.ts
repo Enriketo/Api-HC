@@ -61,7 +61,7 @@ export class EmployEntity {
         enum: doc_type,
         default: doc_type.cc,
     })
-    type: doc_type;
+    doc_type: doc_type;
 
     @Column({ length: 12 })
     doc_number: number;
