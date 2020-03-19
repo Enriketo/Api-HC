@@ -1,4 +1,5 @@
 import { Column, CreateDateColumn, Entity, ManyToOne, OneToMany, PrimaryGeneratedColumn, UpdateDateColumn } from 'typeorm';
+import { States } from '../states/state.entity';
 
 @Entity()
 export class CityEntity {
@@ -22,6 +23,9 @@ export class CityEntity {
 
     @Column({ length: 20 })
     location: string;
+
+    @ManyToOne(type => States, state => state)
+    States: States;
 
     @CreateDateColumn({ type: 'timestamp' })
     createdAt: Date;

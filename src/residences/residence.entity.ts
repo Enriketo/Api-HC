@@ -1,4 +1,6 @@
 import { Column, CreateDateColumn, Entity, ManyToOne, OneToMany, PrimaryGeneratedColumn, UpdateDateColumn, Unique } from 'typeorm';
+import { Cities } from '../cities/city.entity';
+import { Media } from '../media/media.entity';
 
 @Entity()
 @Unique(["email"])
@@ -26,6 +28,12 @@ export class ResidenceEntity {
 
     @Column({ length: 9 })
     media_id: number; // [ref: > media.id]
+
+    @ManyToOne(type => Cities, city => city)
+    city: Cities;
+
+    @OneToOne(type => Media, media => media)
+    media: Media;    
 
     @CreateDateColumn({ type: 'timestamp' })
     createdAt: Date;

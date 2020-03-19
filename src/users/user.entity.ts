@@ -1,18 +1,18 @@
-import { Column, CreateDateColumn, Entity, ManyToOne, OneToMany, PrimaryGeneratedColumn, UpdateDateColumn, Unique, OneToOne } from 'typeorm';
-import { cities } from '../cities/city.entity';
-import { media } from '../media/media.entity';
+import { Column, CreateDateColumn, Entity, ManyToOne, OneToMany, OneToOne, PrimaryGeneratedColumn, UpdateDateColumn, Unique, OneToOne } from 'typeorm';
+import { Cities } from '../cities/city.entity';
+import { Media } from '../media/media.entity';
 
 export enum doc_type {
-    cc = 'cc',
-    nit = 'nit',
-    ce = 'ce'    
+    cc = 'Cédula de ciudadanía',
+    nit = 'Número de indentificación tributaria',
+    ce = 'Cédula de extranjería'    
 }
 
 export enum gender {
     male = 'male',
     female = 'female',
-    transexual_male = 'transexual_male',
-    tramsexual_female = 'tramsexual_female',
+    tx_male = 'transexual_male',
+    tx_female = 'tramsexual_female',
     gay = 'gay',
     lesbian = 'lesbian',
     undefined = 'undefined'    
@@ -84,11 +84,11 @@ export class UserEntity {
     @Column({ length: 9 })
     media_id: number; // int[ref: > media.id]
 
-    @ManyToOne(type => cities, city => city)
-    city: cities;
+    @ManyToOne(type => Cities, city => city)
+    city: Cities;
 
-    @OneToOne(type => media, media => media)
-    media: media;    
+    @OneToOne(type => Media, media => media)
+    media: Media;    
     
     @CreateDateColumn({ type: 'timestamp' })
     createdAt: Date;
