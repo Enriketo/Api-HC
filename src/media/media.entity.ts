@@ -1,4 +1,15 @@
-import { Column, CreateDateColumn, Entity, ManyToOne, OneToMany, PrimaryGeneratedColumn, UpdateDateColumn, Unique } from 'typeorm';
+import {
+    Column,
+    CreateDateColumn,
+    Entity,
+    ManyToOne,
+    OneToMany,
+    PrimaryGeneratedColumn,
+    UpdateDateColumn,
+    Unique,
+    OneToOne
+} from 'typeorm';
+import { EmployEntity } from "../employees/employ.entity";
 
 export enum type {
     avatar = 'avatar',
@@ -24,6 +35,10 @@ export class MediaEntity {
 
     @Column({ length: 200 })
     url: string;
+
+    @OneToOne(type => EmployEntity, employ => employ)
+    media: EmployEntity[];
+
 
     @CreateDateColumn({ type: 'timestamp' })
     createdAt: Date;

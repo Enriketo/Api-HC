@@ -1,4 +1,5 @@
 import { Column, CreateDateColumn, Entity, ManyToOne, OneToMany, PrimaryGeneratedColumn, UpdateDateColumn, Unique } from 'typeorm';
+import {EmployEntity} from "../employees/employ.entity";
 
 @Entity()
 export class TimeItemEntity {
@@ -10,6 +11,9 @@ export class TimeItemEntity {
 
     @Column({ length: 9 })
     cost: number;
+
+    @OneToMany(type => EmployEntity, id => id)
+    timeItem: EmployEntity[];
 
     @CreateDateColumn({ type: 'timestamp' })
     createdAt: Date;

@@ -1,12 +1,12 @@
 import { Column, CreateDateColumn, Entity, ManyToOne, OneToMany, OneToOne, PrimaryGeneratedColumn, UpdateDateColumn, Unique } from 'typeorm';
-import { TimeItems } from '../time-items/time-item.entity';
-import { Cities } from '../cities/city.entity';
-import { Media } from '../media/media.entity';
+import { TimeItemEntity } from '../time-items/time-item.entity';
+import { CityEntity } from '../cities/city.entity';
+import { MediaEntity } from '../media/media.entity';
 
 export enum doc_type {
     cc = 'Cédula de ciudadanía',
     nit = 'Número de indentificación tributaria',
-    ce = 'Cédula de extranjería'    
+    ce = 'Cédula de extranjería'
 }
 
 export enum gender {
@@ -16,7 +16,7 @@ export enum gender {
     tx_female = 'tramsexual_female',
     gay = 'gay',
     lesbian = 'lesbian',
-    undefined = 'undefined'    
+    undefined = 'undefined'
 }
 
 export enum bank {
@@ -45,6 +45,7 @@ export enum penality {
 
 @Entity()
 @Unique(["username", "email"])
+
 export class EmployEntity {
     @PrimaryGeneratedColumn()
     id: number;
@@ -148,17 +149,17 @@ export class EmployEntity {
     @Column({ length: 9 })
     media_id: number; // int[ref: > media.id]
 
-    @OneToMany(type => TimeItems, id => id)
-    timeItem: TimeItems;
+    @OneToMany(type => TimeItemEntity, id => id)
+    timeItem: TimeItemEntity[];
 
-    @ManyToOne(type => Cities, city => city)
-    city: Cities;
+    @ManyToOne(type => CityEntity, city => city)
+    city: CityEntity[];
 
     @CreateDateColumn({type: 'timestamp'})
     createdAt: Date;
 
-    @OneToOne(type => Media, media => media)
-    media: Media;    
+    @OneToOne(type => MediaEntity, media => media)
+    media: MediaEntity[];
 
     @UpdateDateColumn({type: 'timestamp'})
     updatedAt: Date;
