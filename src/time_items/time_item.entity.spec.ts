@@ -1,4 +1,4 @@
-import { TimeItemEntity } from './time-item.entity';
+import { TimeItemEntity } from './time_item.entity';
 
 describe('TimeItemEntity', () => {
   it('should be defined', () => {

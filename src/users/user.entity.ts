@@ -1,6 +1,7 @@
-import { Column, CreateDateColumn, Entity, ManyToOne, OneToMany, OneToOne, PrimaryGeneratedColumn, UpdateDateColumn, Unique, OneToOne } from 'typeorm';
-import { Cities } from '../cities/city.entity';
-import { Media } from '../media/media.entity';
+import { Column, CreateDateColumn, Entity, ManyToOne, OneToMany, OneToOne, PrimaryGeneratedColumn, UpdateDateColumn, Unique } from 'typeorm';
+import { CityEntity } from '../cities/city.entity';
+import { MediaEntity } from '../media/media.entity';
+import { MatchEntity} from '../matches/match.entity';
 
 export enum doc_type {
     cc = 'Cédula de ciudadanía',
@@ -17,7 +18,6 @@ export enum gender {
     lesbian = 'lesbian',
     undefined = 'undefined'    
 }
-
 
 @Entity()
 @Unique(["username", "email"])
@@ -84,12 +84,15 @@ export class UserEntity {
     @Column({ length: 9 })
     media_id: number; // int[ref: > media.id]
 
-    @ManyToOne(type => Cities, city => city)
-    city: Cities;
+    @ManyToOne(type => CityEntity, city => city)
+    City: CityEntity[];
 
-    @OneToOne(type => Media, media => media)
-    media: Media;    
-    
+    @OneToOne(type => MediaEntity, media => media)
+    Media: MediaEntity[];
+
+    @OneToMany(type => MatchEntity, match => match)
+    Match: MatchEntity[];
+
     @CreateDateColumn({ type: 'timestamp' })
     createdAt: Date;
 

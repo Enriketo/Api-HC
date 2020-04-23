@@ -1,6 +1,7 @@
-import { Column, CreateDateColumn, Entity, ManyToOne, OneToMany, PrimaryGeneratedColumn, UpdateDateColumn, Unique } from 'typeorm';
-import { Cities } from '../cities/city.entity';
-import { Media } from '../media/media.entity';
+import { Column, CreateDateColumn, Entity, ManyToOne, OneToOne, OneToMany, PrimaryGeneratedColumn, UpdateDateColumn, Unique } from 'typeorm';
+import { CityEntity } from '../cities/city.entity';
+import { MediaEntity } from '../media/media.entity';
+import { ScheduleEntity } from '../schedule/schedule.entity';
 
 @Entity()
 @Unique(["email"])
@@ -29,11 +30,14 @@ export class ResidenceEntity {
     @Column({ length: 9 })
     media_id: number; // [ref: > media.id]
 
-    @ManyToOne(type => Cities, city => city)
-    city: Cities;
+    @ManyToOne(type => CityEntity, city => city)
+    States: CityEntity[];
 
-    @OneToOne(type => Media, media => media)
-    media: Media;    
+    @OneToOne(type => MediaEntity, media => media)
+    Media: MediaEntity[];
+
+    @OneToMany(type => ScheduleEntity, schedule => schedule)
+    Schedule: ScheduleEntity[];
 
     @CreateDateColumn({ type: 'timestamp' })
     createdAt: Date;
@@ -41,7 +45,3 @@ export class ResidenceEntity {
     @UpdateDateColumn({ type: 'timestamp' })
     updatedAt: Date;
 }
-
-
-
-

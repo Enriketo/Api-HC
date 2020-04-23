@@ -1,4 +1,4 @@
-import { Column, CreateDateColumn, Entity, OneToMany, PrimaryGeneratedColumn, UpdateDateColumn } from 'typeorm';
+import { Column, CreateDateColumn, Entity, OneToMany, PrimaryGeneratedColumn, UpdateDateColumn, ManyToOne } from 'typeorm';
 import { StateEntity } from "../states/state.entity";
 
 
@@ -9,9 +9,6 @@ export class CountryEntity {
 
     @Column({ length: 30 })
     country: string;
-
-    @OneToMany(type => StateEntity, state => state.country)
-    states: StateEntity[];
 
     @Column({ length: 10 })
     code: string;
@@ -28,11 +25,12 @@ export class CountryEntity {
     @Column({ length: 10 })
     prefix: number;
 
+    @OneToMany(type => StateEntity, state => state.country)
+    State: StateEntity[];
+
     @CreateDateColumn({ type: 'timestamp' })
     createdAt: Date;
 
     @UpdateDateColumn({ type: 'timestamp' })
     updatedAt: Date;
 }
-
-

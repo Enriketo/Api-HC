@@ -1,5 +1,6 @@
-import { Column, CreateDateColumn, Entity, ManyToOne, OneToMany, PrimaryGeneratedColumn, UpdateDateColumn, Unique } from 'typeorm';
+import { Column, CreateDateColumn, Entity, ManyToOne, OneToMany, PrimaryGeneratedColumn, UpdateDateColumn } from 'typeorm';
 import { CountryEntity } from '../countries/country.entity';
+import { CityEntity } from '../cities/city.entity';
 
 @Entity()
 export class StateEntity {
@@ -26,6 +27,9 @@ export class StateEntity {
 
     @ManyToOne(type => CountryEntity, country => country)
     country: CountryEntity[];
+
+    @OneToMany(type => CityEntity, city => city)
+    city: CityEntity[];
 
     @CreateDateColumn({ type: 'timestamp' })
     createdAt: Date;

@@ -1,4 +1,7 @@
-import { Column, CreateDateColumn, Entity, ManyToOne, OneToMany, PrimaryGeneratedColumn, UpdateDateColumn, Unique } from 'typeorm';
+import { Column, CreateDateColumn, Entity, ManyToOne, OneToOne, PrimaryGeneratedColumn, UpdateDateColumn, Unique } from 'typeorm';
+import { UserEntity } from '../users/user.entity';
+import { EmployEntity } from '../employees/employ.entity';
+import { ScheduleEntity } from '../schedule/schedule.entity';
 
 export enum match_status {
     accepted = 'accepted',
@@ -32,17 +35,18 @@ export class MatchEntity {
     @Column({ length: 25 })
     order_approved: boolean;
 
+    @ManyToOne(type => UserEntity, user => user.id)
+    User: UserEntity[];
+
+    @ManyToOne(type => EmployEntity, employ => employ.id)
+    Employ: EmployEntity[];
+
+    @OneToOne(type => ScheduleEntity, schedule => schedule.id)
+    Schedule: ScheduleEntity[];
+
     @CreateDateColumn({ type: 'timestamp' })
     createdAt: Date;
 
     @UpdateDateColumn({ type: 'timestamp' })
     updatedAt: Date;
 }
-
-
-
-
-
-
-
-

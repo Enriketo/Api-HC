@@ -1,7 +1,8 @@
 import { Column, CreateDateColumn, Entity, ManyToOne, OneToMany, OneToOne, PrimaryGeneratedColumn, UpdateDateColumn, Unique } from 'typeorm';
-import { TimeItemEntity } from '../time-items/time-item.entity';
+import { TimeItemEntity } from '../time_items/time_item.entity';
 import { CityEntity } from '../cities/city.entity';
 import { MediaEntity } from '../media/media.entity';
+import { MatchEntity } from '../matches/match.entity';
 
 export enum doc_type {
     cc = 'Cédula de ciudadanía',
@@ -149,17 +150,20 @@ export class EmployEntity {
     @Column({ length: 9 })
     media_id: number; // int[ref: > media.id]
 
-    @OneToMany(type => TimeItemEntity, id => id)
-    timeItem: TimeItemEntity[];
-
     @ManyToOne(type => CityEntity, city => city)
     city: CityEntity[];
 
+    @ManyToOne(type => MediaEntity, media => media)
+    media: MediaEntity[];
+
+    @ManyToOne(type => TimeItemEntity, id => id)
+    timeItem: TimeItemEntity[];
+
+    @OneToMany(type => MatchEntity, match => match)
+    Match: MatchEntity[];
+
     @CreateDateColumn({type: 'timestamp'})
     createdAt: Date;
-
-    @OneToOne(type => MediaEntity, media => media)
-    media: MediaEntity[];
 
     @UpdateDateColumn({type: 'timestamp'})
     updatedAt: Date;
