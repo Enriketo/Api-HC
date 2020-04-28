@@ -1,7 +1,7 @@
 import { Column, CreateDateColumn, Entity, ManyToOne, OneToMany, PrimaryGeneratedColumn, UpdateDateColumn } from 'typeorm';
 import { CityEntity } from './src/cities/city.entity';
 import { UserEntity } from './src/users/user.entity';
-import { OrderEntity } from './src/order/order.entity';
+import { OrderEntity } from './src/orders/order.entity';
 
 export enum addressType {
   BILLING = 'billing',

@@ -1,6 +1,6 @@
 import { Column, CreateDateColumn, Entity, ManyToOne, OneToOne, PrimaryGeneratedColumn, UpdateDateColumn, Unique } from 'typeorm';
 import { ScheduleEntity } from '../schedule/schedule.entity';
-import { OrderEntity } from '../order/order.entity';
+import { OrderEntity } from '../orders/order.entity';
 
 export enum meeting_status {
     pending = 'pending',

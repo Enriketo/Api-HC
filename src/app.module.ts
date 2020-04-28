@@ -17,18 +17,31 @@ import { StatesController } from './states/states.controller';
 import { StatesService } from './states/states.service';
 import { CitiesController } from './cities/cities.controller';
 import { CitiesService } from './cities/cities.service';
+import { CitiesModule } from './cities/cities.module';
 import { MatchesController } from './matches/matches.controller';
 import { MatchesService } from './matches/matches.service';
-import { OrderController } from './order/order.controller';
-import { OrderService } from './order/order.service';
+import { OrdersController } from './orders/orders.controller';
+import { OrdersService } from './orders/orders.service';
 import { ScheduleController } from './schedule/schedule.controller';
 import { ScheduleService } from './schedule/schedule.service';
 import { MeetingsController } from './meetings/meetings.controller';
 import { MeetingsService } from './meetings/meetings.service';
+import { UsersModule } from './users/users.module';
+import { EmployeesModule } from './employees/employees.module';
+import { ResidencesModule } from './residences/residences.module';
+import { TimeItemsModule } from './time_items/time_items.module';
+import { MeetingsModule } from './meetings/meetings.module';
+import { ScheduleModule } from './schedule/schedule.module';
+import { OrderModule } from './orders/orders.module';
+import { MatchesModule } from './matches/matches.module';
+import { StatesModule } from './states/states.module';
+import { CountriesModule } from './countries/countries.module';
+import { MediaModule } from './media/media.module';
+
 
 @Module({
-  imports: [],
-  controllers: [AppController, UsersController, EmployeesController, ResidencesController, TimeItemsController, MediaController, CountriesController, StatesController, CitiesController, MatchesController, OrderController, ScheduleController, MeetingsController],
-  providers: [AppService, UsersService, EmployeesService, ResidencesService, TimeItemsService, MediaService, CountriesService, StatesService, CitiesService, MatchesService, OrderService, ScheduleService, MeetingsService],
+  imports: [CitiesModule, UsersModule, EmployeesModule, ResidencesModule, TimeItemsModule, MediaModule, CountriesModule, StatesModule, MatchesModule, OrderModule, ScheduleModule, MeetingsModule],
+  controllers: [AppController, UsersController, EmployeesController, ResidencesController, TimeItemsController, MediaController, CountriesController, StatesController, CitiesController, MatchesController, OrdersController, ScheduleController, MeetingsController],
+  providers: [AppService, UsersService, EmployeesService, ResidencesService, TimeItemsService, MediaService, CountriesService, StatesService, CitiesService, MatchesService, OrdersService, ScheduleService, MeetingsService],
 })
 export class AppModule {}
