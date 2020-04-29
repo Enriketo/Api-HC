@@ -1,6 +1,8 @@
 export class CreateMediaDTO {
     readonly id: number;
-    readonly title: string;
-    readonly description: string;
-    readonly author: string;
+    //readonly type: type;
+    readonly format: string;
+    readonly url: string;
+    readonly createdAt: Date;
+    readonly updatedAt: Date;
 }

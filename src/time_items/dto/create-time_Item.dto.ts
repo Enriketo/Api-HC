@@ -1,6 +1,7 @@
 export class CreateTimeItemDTO {
     readonly id: number;
-    readonly title: string;
-    readonly description: string;
-    readonly author: string;
+    readonly name: string;
+    readonly cost: number;
+    readonly createdAt: Date;
+    readonly updatedAt: Date;
 }
