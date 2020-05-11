@@ -1,4 +1,6 @@
 import { Module } from '@nestjs/common';
+import { TypeOrmModule } from '@nestjs/typeorm';
+import { Connection } from 'typeorm';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { UsersController } from './users/users.controller';
@@ -32,16 +34,32 @@ import { ResidencesModule } from './residences/residences.module';
 import { TimeItemsModule } from './time_items/time_items.module';
 import { MeetingsModule } from './meetings/meetings.module';
 import { ScheduleModule } from './schedule/schedule.module';
-import { OrderModule } from './orders/orders.module';
+import { OrdersModule } from './orders/orders.module';
 import { MatchesModule } from './matches/matches.module';
 import { StatesModule } from './states/states.module';
 import { CountriesModule } from './countries/countries.module';
 import { MediaModule } from './media/media.module';
+import { UserEntity } from './users/user.entity';
+import { EmployeeEntity } from './employees/employee.entity';
+import { ResidenceEntity } from './residences/residence.entity';
+import { TimeItemEntity } from './time_items/time_item.entity';
+import { MediaEntity } from './media/media.entity';
+import { CountryEntity } from './countries/country.entity';
+import { StateEntity } from './states/state.entity';
+import { CityEntity } from './cities/city.entity';
+import { MatchEntity } from './matches/match.entity';
+import { OrderEntity } from './orders/order.entity';
+import { ScheduleEntity } from './schedule/schedule.entity';
+import { MeetEntity } from './meetings/meet.entity';
+
 
 
 @Module({
-  imports: [CitiesModule, UsersModule, EmployeesModule, ResidencesModule, TimeItemsModule, MediaModule, CountriesModule, StatesModule, MatchesModule, OrderModule, ScheduleModule, MeetingsModule],
+  imports: [TypeOrmModule.forRoot(), CitiesModule, UsersModule, EmployeesModule, ResidencesModule, TimeItemsModule, MediaModule, CountriesModule, StatesModule, MatchesModule, OrdersModule, ScheduleModule, MeetingsModule],
   controllers: [AppController, UsersController, EmployeesController, ResidencesController, TimeItemsController, MediaController, CountriesController, StatesController, CitiesController, MatchesController, OrdersController, ScheduleController, MeetingsController],
   providers: [AppService, UsersService, EmployeesService, ResidencesService, TimeItemsService, MediaService, CountriesService, StatesService, CitiesService, MatchesService, OrdersService, ScheduleService, MeetingsService],
 })
-export class AppModule {}
+
+export class AppModule {
+  constructor(private connection: Connection) {}
+}

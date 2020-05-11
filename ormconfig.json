@@ -1,0 +1,10 @@
+{
+    "type": "mysql",
+    "host": "dev-hc.ccwsw5pi0yw8.us-east-2.rds.amazonaws.com",
+    "port": 3306, 
+    "username": "HC_userdb", 
+    "password": "tO3IdR48LNO5lp4qxz2G", 
+    "database": "dev_hc",
+    "entities": ["src/**/*.entity.{ts,js}"],
+    "synchronize": false
+}

@@ -1,4 +1,7 @@
 import { Injectable, HttpException } from '@nestjs/common';
+import { InjectRepository } from '@nestjs/typeorm';
+import { Repository } from 'typeorm';
+import { EmployeeEntity } from './employee.entity';
 import { EMPLOYEES } from '../../mocks/employees.mock';
 
 @Injectable()
@@ -36,5 +39,21 @@ export class EmployeesService {
             this.employees.splice(1, index);
             resolve(this.employees);
         });
+    }
+    constructor(
+        @InjectRepository(EmployeeEntity)
+        private employeesRepository: Repository<EmployeeEntity>,
+    ) { }
+
+    findAll(): Promise<EmployeeEntity[]> {
+        return this.employeesRepository.find();
+    }
+
+    findOne(id: string): Promise<EmployeeEntity> {
+        return this.employeesRepository.findOne(id);
+    }
+
+    async remove(id: string): Promise<void> {
+        await this.employeesRepository.delete(id);
     }
 }

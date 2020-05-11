@@ -1,4 +1,7 @@
 import { Injectable, HttpException } from '@nestjs/common';
+import { InjectRepository } from '@nestjs/typeorm';
+import { Repository } from 'typeorm';
+import { MediaEntity } from './media.entity';
 import { MEDIA } from '../../mocks/media.mock';
 
 
@@ -32,5 +35,21 @@ export class MediaService {
             this.media.splice(1, index);
             resolve(this.media);
         });
+    }
+    constructor(
+        @InjectRepository(MediaEntity)
+        private MediaEntity: Repository<MediaEntity>,
+    ) { }
+
+    findAll(): Promise<MediaEntity[]> {
+        return this.MediaEntity.find();
+    }
+
+    findOne(id: string): Promise<MediaEntity> {
+        return this.MediaEntity.findOne(id);
+    }
+
+    async remove(id: string): Promise<void> {
+        await this.MediaEntity.delete(id);
     }
 }

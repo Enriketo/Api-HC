@@ -3,11 +3,11 @@ export class CreateUserDTO {
     readonly first_name: string;
     readonly last_name: string;
     readonly username: string; // [not null, unique]
-    //readonly doc_type: doc_type;
+    readonly doc_type: string;
     readonly doc_number: number;
     readonly email: string; // [not null, unique]
     readonly password: string;// varbinary[not null]
-    //readonly gender: gender;
+    readonly gender: string;
     readonly phone: number;
     readonly discapacity: boolean;
     readonly opt_in: boolean;

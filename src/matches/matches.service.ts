@@ -1,4 +1,7 @@
 import { Injectable, HttpException } from '@nestjs/common';
+import { InjectRepository } from '@nestjs/typeorm';
+import { Repository } from 'typeorm';
+import { MatchEntity } from './match.entity';
 import { MATCHES } from '../../mocks/matches.mock';
 
 @Injectable()
@@ -36,5 +39,21 @@ export class MatchesService {
             this.matches.splice(1, index);
             resolve(this.matches);
         });
+    }
+    constructor(
+        @InjectRepository(MatchEntity)
+        private matchesRepository: Repository<MatchEntity>,
+    ) { }
+
+    findAll(): Promise<MatchEntity[]> {
+        return this.matchesRepository.find();
+    }
+
+    findOne(id: string): Promise<MatchEntity> {
+        return this.matchesRepository.findOne(id);
+    }
+
+    async remove(id: string): Promise<void> {
+        await this.matchesRepository.delete(id);
     }
 }

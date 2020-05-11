@@ -1,5 +1,5 @@
 import { Column, CreateDateColumn, Entity, ManyToOne, OneToOne, PrimaryGeneratedColumn, UpdateDateColumn, Unique } from 'typeorm';
-import { MeetingEntity } from '../meetings/meeting.entity';
+import { MeetEntity } from '../meetings/meet.entity';
 
 export enum payment_type {
     cash = 'cash',
@@ -39,8 +39,8 @@ export class OrderEntity {
     })
     order_status: order_status;
 
-    @OneToOne(type => MeetingEntity, meeting => meeting)
-    Meeting: MeetingEntity[];
+    @OneToOne(type => MeetEntity, meet => meet.id)
+    Meet: MeetEntity[];
 
     @CreateDateColumn({ type: 'timestamp' })
     createdAt: Date;

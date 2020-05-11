@@ -47,7 +47,7 @@ export enum penality {
 @Entity()
 @Unique(["username", "email"])
 
-export class EmployEntity {
+export class EmployeeEntity {
     @PrimaryGeneratedColumn()
     id: number;
 

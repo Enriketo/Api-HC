@@ -1,4 +1,7 @@
 import { Injectable, HttpException } from '@nestjs/common';
+import { InjectRepository } from '@nestjs/typeorm';
+import { Repository } from 'typeorm';
+import { CountryEntity } from './country.entity';
 import { COUNTRIES } from '../../mocks/countries.mock';
 
 @Injectable()
@@ -36,5 +39,21 @@ export class CountriesService {
             this.countries.splice(1, index);
             resolve(this.countries);
         });
+    }
+    constructor(
+        @InjectRepository(CountryEntity)
+        private countriesRepository: Repository<CountryEntity>,
+    ) { }
+
+    findAll(): Promise<CountryEntity[]> {
+        return this.countriesRepository.find();
+    }
+
+    findOne(id: string): Promise<CountryEntity> {
+        return this.countriesRepository.findOne(id);
+    }
+
+    async remove(id: string): Promise<void> {
+        await this.countriesRepository.delete(id);
     }
 }

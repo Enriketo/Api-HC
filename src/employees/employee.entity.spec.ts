@@ -1,7 +1,7 @@
-import { EmployEntity } from './employ.entity';
+import { EmployeeEntity } from './employee.entity';
 
 describe('EmployEntity', () => {
   it('should be defined', () => {
-    expect(new EmployEntity()).toBeDefined();
+    expect(new EmployeeEntity()).toBeDefined();
   });
 });

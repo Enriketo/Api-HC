@@ -1,4 +1,4 @@
-import { MeetingEntity } from './meeting.entity';
+import { MeetingEntity } from './meet.entity';
 
 describe('MeetingEntity', () => {
   it('should be defined', () => {

@@ -1,8 +1,8 @@
 import { Column, CreateDateColumn, Entity, ManyToOne, OneToMany, PrimaryGeneratedColumn, UpdateDateColumn, Unique, OneToOne } from 'typeorm';
 import { ResidenceEntity } from 'src/residences/residence.entity';
 import { UserEntity } from "../users/user.entity";
-import { EmployEntity } from "../employees/employ.entity";
-import { from } from 'rxjs';
+import { EmployeeEntity } from "../employees/employee.entity";
+
 
 export enum type {
     avatar = 'avatar',
@@ -34,6 +34,9 @@ export class MediaEntity {
 
     @OneToOne(type => UserEntity, user => user.id)
     User: UserEntity[];
+
+    @OneToOne(type => EmployeeEntity, employee => employee.id)
+    Employee: UserEntity[];
 
     @CreateDateColumn({ type: 'timestamp' })
     createdAt: Date;

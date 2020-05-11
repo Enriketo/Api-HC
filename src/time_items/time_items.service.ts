@@ -1,4 +1,7 @@
 import { Injectable, HttpException } from '@nestjs/common';
+import { InjectRepository } from '@nestjs/typeorm';
+import { Repository } from 'typeorm';
+import { TimeItemEntity } from './time_item.entity';
 import { TIME_ITEMS } from '../../mocks/time-items.mock';
 
 @Injectable()
@@ -36,5 +39,21 @@ export class TimeItemsService {
             this.time_items.splice(1, index);
             resolve(this.time_items);
         });
+    }
+    constructor(
+        @InjectRepository(TimeItemEntity)
+        private TimeItemsRepository: Repository<TimeItemEntity>,
+    ) { }
+
+    findAll(): Promise<TimeItemEntity[]> {
+        return this.TimeItemsRepository.find();
+    }
+
+    findOne(id: string): Promise<TimeItemEntity> {
+        return this.TimeItemsRepository.findOne(id);
+    }
+
+    async remove(id: string): Promise<void> {
+        await this.TimeItemsRepository.delete(id);
     }
 }

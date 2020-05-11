@@ -5,13 +5,13 @@ import { OrderEntity } from '../orders/order.entity';
 export enum meeting_status {
     pending = 'pending',
     user_arrived = 'user_arrived',
-    employ_arrived = 'employ_arrived',
+    employee_arrived = 'employee_arrived',
     on_process = 'on_process',
     finished = 'finished'
 }
 
 @Entity()
-export class MeetingEntity {
+export class MeetEntity {
     @PrimaryGeneratedColumn()
     id: number;
 
@@ -22,7 +22,7 @@ export class MeetingEntity {
     user_arrived: boolean;
 
     @Column({ length: 1 })
-    employ_arrived: boolean;
+    employee_arrived: boolean;
 
     @Column({
         type: 'enum',

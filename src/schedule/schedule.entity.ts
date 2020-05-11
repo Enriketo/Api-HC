@@ -1,6 +1,6 @@
 import { Column, CreateDateColumn, Entity, ManyToOne, OneToOne, PrimaryGeneratedColumn, UpdateDateColumn, Unique } from 'typeorm';
 import { ResidenceEntity } from "../residences/residence.entity";
-import { MeetingEntity } from '../meetings/meeting.entity';
+import { MeetEntity } from '../meetings/meet.entity';
 import { MatchEntity } from '../matches/match.entity';
 
 @Entity()
@@ -29,8 +29,8 @@ export class ScheduleEntity {
     @ManyToOne(type => ResidenceEntity, residence => residence)
     Residence: ResidenceEntity[];
 
-    @OneToOne(type => MeetingEntity, meeting => meeting)
-    Meeting: MeetingEntity[];
+    @OneToOne(type => MeetEntity, meet  => meet.id)
+    Meet: MeetEntity[];
 
     @OneToOne(type => MatchEntity, match => match)
     Match: MatchEntity[];

@@ -1,8 +1,8 @@
-import { Column, CreateDateColumn, Entity, ManyToOne, OneToMany, PrimaryGeneratedColumn, UpdateDateColumn, OneToOne } from 'typeorm';
+import { Entity, PrimaryGeneratedColumn, Column, ManyToOne, OneToMany, CreateDateColumn, UpdateDateColumn } from 'typeorm';
 import { StateEntity } from '../states/state.entity';
 import { ResidenceEntity } from '../residences/residence.entity';
 import { UserEntity } from "../users/user.entity";
-import { EmployEntity }from "../employees/employ.entity";
+import { EmployeeEntity }from "../employees/employee.entity";
 
 @Entity()
 export class CityEntity {
@@ -36,8 +36,8 @@ export class CityEntity {
     @OneToMany(type => UserEntity, user => user.id)
     User: UserEntity[];
 
-    @OneToMany(type => EmployEntity, employ => employ.id)
-    Employ: EmployEntity[];
+    @OneToMany(type => EmployeeEntity, employee => employee.id)
+    Employee: EmployeeEntity[];
 
     @CreateDateColumn({ type: 'timestamp' })
     createdAt: Date;
