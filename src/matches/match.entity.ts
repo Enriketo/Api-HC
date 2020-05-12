@@ -16,10 +16,10 @@ export class MatchEntity {
     @PrimaryGeneratedColumn()
     id: number;
 
-    @Column({ length: 20 })
+    @Column()
     user_id: number; // [ref: > users.id]
 
-    @Column({ length: 20 })
+    @Column()
     employee_id: number; // [ref: > employees.id]
 
     @Column({
@@ -29,10 +29,10 @@ export class MatchEntity {
     })
     type: match_status;
 
-    @Column({ length: 20 })
+    @Column()
     username: string; // [not null, unique]
 
-    @Column({ length: 25 })
+    @Column()
     order_approved: boolean;
 
     @ManyToOne(type => UserEntity, user => user.id)

@@ -19,10 +19,10 @@ export class OrderEntity {
     @PrimaryGeneratedColumn()
     id: number;
 
-    @Column({ length: 9 })
+    @Column()
     match_id: number; // [ref: > matches.id]
 
-    @Column({ length: 9 })
+    @Column()
     price: number;
 
     @Column({

@@ -6,7 +6,7 @@ import { MatchEntity} from '../matches/match.entity';
 export enum doc_type {
     cc = 'Cédula de ciudadanía',
     nit = 'Número de indentificación tributaria',
-    ce = 'Cédula de extranjería'    
+    ce = 'Cédula de extranjería'
 }
 
 export enum gender {
@@ -16,7 +16,7 @@ export enum gender {
     tx_female = 'tramsexual_female',
     gay = 'gay',
     lesbian = 'lesbian',
-    undefined = 'undefined'    
+    undefined = 'undefined'
 }
 
 @Entity()
@@ -25,13 +25,13 @@ export class UserEntity {
     @PrimaryGeneratedColumn()
     id: number;
 
-    @Column({ length: 20 })
+    @Column()
     first_name: string;
 
-    @Column({ length: 20 })
+    @Column()
     last_name: string;
 
-    @Column({ length: 25 })
+    @Column()
     username: string; // [not null, unique]
 
     @Column({
@@ -41,13 +41,13 @@ export class UserEntity {
     })
     doc_type: doc_type;
 
-    @Column({ length: 12 })
+    @Column()
     doc_number: number;
 
-    @Column({ length: 25 })
+    @Column()
     email: string; // [not null, unique]
 
-    @Column({ length: 20 })
+    @Column()
     password: string;// varbinary[not null]
 
     @Column({
@@ -57,31 +57,31 @@ export class UserEntity {
     })
     gender: gender;
 
-    @Column({ length: 12 })
+    @Column()
     phone: number;
 
-    @Column({ length: 25 })
+    @Column()
     discapacity: boolean;
 
-    @Column({ length: 1 })
+    @Column()
     opt_in: boolean;
 
-    @Column({ length: 1 })
+    @Column()
     showName: boolean;
 
     @Column({ type: 'timestamp' })
     dob: Date;
 
-    @Column({ length: 25 })
+    @Column()
     preferences: string; // json
 
-    @Column({ length: 30 })
+    @Column()
     address: string;
 
-    @Column({ length: 4 })
+    @Column()
     city_id: number; // [ref: > cities.id]
 
-    @Column({ length: 9 })
+    @Column()
     media_id: number; // int[ref: > media.id]
 
     @ManyToOne(type => CityEntity, city => city)

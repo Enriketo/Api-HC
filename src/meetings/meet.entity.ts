@@ -15,13 +15,13 @@ export class MeetEntity {
     @PrimaryGeneratedColumn()
     id: number;
 
-    @Column({ length: 9 })
+    @Column()
     schedule_id: number; // [ref: > schedule.id]
 
-    @Column({ length: 1 })
+    @Column()
     user_arrived: boolean;
 
-    @Column({ length: 1 })
+    @Column()
     employee_arrived: boolean;
 
     @Column({
@@ -31,10 +31,10 @@ export class MeetEntity {
     })
     status: meeting_status;
 
-    @Column({ length: 1 })
+    @Column()
     califications: number;
 
-    @Column({ length: 200 })
+    @Column()
     coment: string;
 
     @OneToOne(type => ScheduleEntity, schedule => schedule)

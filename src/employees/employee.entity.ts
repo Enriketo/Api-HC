@@ -51,13 +51,13 @@ export class EmployeeEntity {
     @PrimaryGeneratedColumn()
     id: number;
 
-    @Column({ length: 20 })
+    @Column()
     first_name: string;
 
-    @Column({ length: 20 })
+    @Column()
     last_name: string;
 
-    @Column({ length: 25 })
+    @Column()
     username: string; // [not null, unique]
 
     @Column({
@@ -67,16 +67,16 @@ export class EmployeeEntity {
     })
     doc_type: doc_type;
 
-    @Column({ length: 12 })
+    @Column()
     doc_number: number;
 
-    @Column({ length: 25 })
+    @Column()
     email: string; // [not null, unique]
 
-    @Column({ length: 25 })
+    @Column()
     password: string;// varbinary[not null]
 
-    @Column({ length: 1 })
+    @Column()
     isAdmin: boolean;
 
     @Column({
@@ -86,28 +86,28 @@ export class EmployeeEntity {
     })
     gender: gender;
 
-    @Column({ length: 1 })
+    @Column()
     showName: boolean;
 
-    @Column({ length: 25 })
+    @Column()
     preferences: string; // json
 
-    @Column({ length: 1 })
+    @Column()
     discapacity: boolean;
 
-    @Column({ length: 25 })
+    @Column()
     discapacity_acpt: boolean;
 
-    @Column({ length: 25 })
+    @Column()
     time_item_id: number; // [ref: > time_items.id]
 
-    @Column({ length: 4 })
+    @Column()
     city_id: number; // [ref: > cities.id]
 
-    @Column({ length: 30 })
+    @Column()
     address: string;
 
-    @Column({ length: 30 })
+    @Column()
     payment_code: string;
 
     @Column({
@@ -131,10 +131,10 @@ export class EmployeeEntity {
     })
     role: role;
 
-    @Column({ length: 1 })
+    @Column()
     opt_in: boolean;
 
-    @Column({ length: 1 })
+    @Column()
     average_calification: number; // float
 
     @Column({
@@ -144,10 +144,10 @@ export class EmployeeEntity {
     })
     penality: penality;
 
-    @Column({ length: 3 })
+    @Column()
     total_penalities: number;
 
-    @Column({ length: 9 })
+    @Column()
     media_id: number; // int[ref: > media.id]
 
     @ManyToOne(type => CityEntity, city => city)

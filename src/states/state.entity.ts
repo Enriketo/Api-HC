@@ -7,22 +7,22 @@ export class StateEntity {
     @PrimaryGeneratedColumn()
     id: number;
 
-    @Column({ length: 100 })
+    @Column()
     country_id: number; // [ref: > countries.id]
 
-    @Column({ length: 30 })
+    @Column()
     state: string;
 
-    @Column({ length: 10 })
+    @Column()
     code: string; //  [ref: > residences.id]
 
-    @Column({ length: 10 })
+    @Column()
     iso_code2: string;
 
-    @Column({ length: 10 })
+    @Column()
     iso_code3: string;
 
-    @Column({ length: 20 })
+    @Column()
     location: string; // json
 
     @ManyToOne(type => CountryEntity, country => country)

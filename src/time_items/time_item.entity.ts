@@ -6,10 +6,10 @@ export class TimeItemEntity {
     @PrimaryGeneratedColumn()
     id: number;
 
-    @Column({ length: 30 })
+    @Column()
     name: string;
 
-    @Column({ length: 9 })
+    @Column()
     cost: number;
 
     @OneToMany(type => EmployeeEntity, employee => employee.id)

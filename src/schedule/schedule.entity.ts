@@ -8,7 +8,7 @@ export class ScheduleEntity {
     @PrimaryGeneratedColumn()
     id: number;
 
-    @Column({ length: 9 })
+    @Column()
     match_id: number; // [ref: > matches.id]
 
     @Column({ type: 'timestamp' })
@@ -17,13 +17,13 @@ export class ScheduleEntity {
     @Column({ type: 'timestamp' })
     end_date: Date;
 
-    @Column({ length: 100 })
+    @Column()
     residences_id: number; //  [ref: > residences.id]
 
-    @Column({ length: 20 })
+    @Column()
     location: string; //json
 
-    @Column({ length: 30 })
+    @Column()
     address: string;
 
     @ManyToOne(type => ResidenceEntity, residence => residence)

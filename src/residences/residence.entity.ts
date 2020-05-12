@@ -9,25 +9,25 @@ export class ResidenceEntity {
     @PrimaryGeneratedColumn()
     id: number;
 
-    @Column({ length: 9 })
+    @Column()
     city_id : number; // [ref: > cities.id]
 
-    @Column({ length: 25 })
+    @Column()
     email: string; // [not null]
 
-    @Column({ length: 20 })
+    @Column()
     name: string;
 
-    @Column({ length: 20 })
+    @Column()
     location: number; // [increment]
 
-    @Column({ length: 40 })
+    @Column()
     address: string;
 
-    @Column({ length: 1 })
+    @Column()
     place_avalaible: boolean;
 
-    @Column({ length: 9 })
+    @Column()
     media_id: number; // [ref: > media.id]
 
     @ManyToOne(type => CityEntity, city => city)

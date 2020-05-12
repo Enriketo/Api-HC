@@ -9,22 +9,22 @@ export class CityEntity {
     @PrimaryGeneratedColumn()
     id: number;
 
-    @Column({ length: 4 })
+    @Column()
     state_id: number; // [ref: > states.id] //
 
-    @Column({ length: 30 })
+    @Column()
     city: string;
 
-    @Column({ length: 10 })
+    @Column()
     code: string;
 
-    @Column({ length: 10 })
+    @Column()
     iso_code2: string;
 
-    @Column({ length: 10 })
+    @Column()
     iso_code3: string;
 
-    @Column({ length: 20 })
+    @Column()
     location: string;
 
     @ManyToOne(type => StateEntity, state => state.city)

@@ -39,27 +39,27 @@ import { MatchesModule } from './matches/matches.module';
 import { StatesModule } from './states/states.module';
 import { CountriesModule } from './countries/countries.module';
 import { MediaModule } from './media/media.module';
-import { UserEntity } from './users/user.entity';
-import { EmployeeEntity } from './employees/employee.entity';
-import { ResidenceEntity } from './residences/residence.entity';
-import { TimeItemEntity } from './time_items/time_item.entity';
-import { MediaEntity } from './media/media.entity';
-import { CountryEntity } from './countries/country.entity';
-import { StateEntity } from './states/state.entity';
-import { CityEntity } from './cities/city.entity';
-import { MatchEntity } from './matches/match.entity';
-import { OrderEntity } from './orders/order.entity';
-import { ScheduleEntity } from './schedule/schedule.entity';
-import { MeetEntity } from './meetings/meet.entity';
+import fs = require('fs');
+
+
+
+//TODO Dont forget setup typeorm config
 
 
 
 @Module({
-  imports: [TypeOrmModule.forRoot(), CitiesModule, UsersModule, EmployeesModule, ResidencesModule, TimeItemsModule, MediaModule, CountriesModule, StatesModule, MatchesModule, OrdersModule, ScheduleModule, MeetingsModule],
-  controllers: [AppController, UsersController, EmployeesController, ResidencesController, TimeItemsController, MediaController, CountriesController, StatesController, CitiesController, MatchesController, OrdersController, ScheduleController, MeetingsController],
-  providers: [AppService, UsersService, EmployeesService, ResidencesService, TimeItemsService, MediaService, CountriesService, StatesService, CitiesService, MatchesService, OrdersService, ScheduleService, MeetingsService],
+  imports: [TypeOrmModule.forRoot( {
+        type: 'mysql',
+        host: '127.0.0.1',
+        port: 3306,
+        username: 'root',
+        password: 'mariana040609',
+        database: 'apihc',
+        entities: [__dirname + '/**/*.entity{.ts,.js}'],
+        synchronize: false,
+      },
+  ), CitiesModule, UsersModule, EmployeesModule, ResidencesModule, TimeItemsModule, MediaModule, CountriesModule, StatesModule, MatchesModule, OrdersModule, ScheduleModule, MeetingsModule],
+  providers: [AppService],
 })
 
-export class AppModule {
-  constructor(private connection: Connection) {}
-}
+export class AppModule {}
