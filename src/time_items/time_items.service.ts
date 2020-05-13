@@ -1,12 +1,17 @@
 import { Injectable, HttpException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { Repository } from 'typeorm';
+import { Repository, Connection} from 'typeorm';
 import { TimeItemEntity } from './time_item.entity';
 import { TIME_ITEMS } from '../../mocks/time-items.mock';
 
 @Injectable()
 export class TimeItemsService {
     time_items = TIME_ITEMS;
+    constructor(
+        @InjectRepository(TimeItemEntity)
+        private TimeItemsRepository: Repository<TimeItemEntity>,
+        private connection: Connection,
+    ) {}
 
     getTimeItems(): Promise<any> {
         return new Promise(resolve => {
@@ -40,10 +45,7 @@ export class TimeItemsService {
             resolve(this.time_items);
         });
     }
-    constructor(
-        @InjectRepository(TimeItemEntity)
-        private TimeItemsRepository: Repository<TimeItemEntity>,
-    ) { }
+
 
     findAll(): Promise<TimeItemEntity[]> {
         return this.TimeItemsRepository.find();
@@ -56,4 +58,26 @@ export class TimeItemsService {
     async remove(id: string): Promise<void> {
         await this.TimeItemsRepository.delete(id);
     }
+    async createMany(time_items: TimeItemEntity[]) {
+        const queryRunner = this.connection.createQueryRunner();
+             
+        await queryRunner.connect();
+        await queryRunner.startTransaction();
+        try {
+          await queryRunner.manager.save(time_items[0]);
+          await queryRunner.manager.save(time_items[1]);
+      
+          await queryRunner.commitTransaction();
+        } catch (err) {
+          // since we have errors lets rollback the changes we made
+          await queryRunner.rollbackTransaction();
+        } finally {
+          // you need to release a queryRunner which was manually instantiated
+          await queryRunner.release();
+        }
+        await this.connection.transaction(async manager => {
+            await manager.save(time_items[0]);
+            await manager.save(time_items[1]);
+          });
+      }
 }

@@ -1,12 +1,17 @@
 import { Injectable, HttpException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { Repository } from 'typeorm';
+import { Repository, Connection } from 'typeorm';
 import { UserEntity } from './user.entity';
 import { USERS } from '../../mocks/users.mock';
 
 @Injectable()
 export class UsersService {
     users = USERS;
+    constructor(
+        @InjectRepository(UserEntity)
+        private usersRepository: Repository<UserEntity>,
+        private connection: Connection,
+    ) {}
 
     getUsers(): Promise<any> {
         return new Promise(resolve => {
@@ -40,12 +45,8 @@ export class UsersService {
             resolve(this.users);
         });
     }
-    constructor(
-        @InjectRepository(UserEntity)
-        private usersRepository: Repository<UserEntity>,
-    ) { }
 
-    findAll(): Promise<UserEntity[]> {
+     findAll(): Promise<UserEntity[]> {
         return this.usersRepository.find();
     }
 
@@ -56,4 +57,27 @@ export class UsersService {
     async remove(id: string): Promise<void> {
         await this.usersRepository.delete(id);
     }
+    async createMany(users: UserEntity[]) {
+        const queryRunner = this.connection.createQueryRunner();
+             
+        await queryRunner.connect();
+        await queryRunner.startTransaction();
+        try {
+          await queryRunner.manager.save(users[0]);
+          await queryRunner.manager.save(users[1]);
+      
+          await queryRunner.commitTransaction();
+        } catch (err) {
+          // since we have errors lets rollback the changes we made
+          await queryRunner.rollbackTransaction();
+        } finally {
+          // you need to release a queryRunner which was manually instantiated
+          await queryRunner.release();
+        }
+        await this.connection.transaction(async manager => {
+            await manager.save(users[0]);
+            await manager.save(users[1]);
+          });
+      }
 }
+
