@@ -2,56 +2,56 @@ import { Injectable, HttpException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository, Connection} from 'typeorm';
 import { MediaEntity } from './media.entity';
-import { MEDIA } from '../../mocks/media.mock';
+//import { MEDIA } from '8//../../mocks/media.mock';
 
 
 @Injectable()
 export class MediaService {
-    media = MEDIA;
+    MediaEntity: any;
     constructor(
         @InjectRepository(MediaEntity)
-        private MediaEntity: Repository<MediaEntity>,
+        private MediaRepository: Repository<MediaEntity>,
         private connection: Connection,
     ) { }
 
-    getMedia(mediaID: any): Promise<any> {
+    getMedia(mediaID): Promise<any> {
         let id = Number(mediaID);
         return new Promise(resolve => {
-            const Media = this.media.find(Media => Media.id === id);
-            if (!Media) {
+            const media = this.MediaEntity.find(media => media.id === id);
+            if (!media) {
                 throw new HttpException('Media does not exist!', 404);
             }
-            resolve(Media);
+            resolve(media);
         });
     }
-    addMedia(Media): Promise<any> {
+    addMedia(media): Promise<any> {
         return new Promise(resolve => {
-            this.media.push(Media);
-            resolve(this.media);
+            this.MediaEntity.push(media);
+            resolve(this.MediaEntity);
         });
     }
-    deleteMedia(MediaID): Promise<any> {
-        let id = Number(MediaID);
+    deleteMedia(mediaID): Promise<any> {
+        let id = Number(mediaID);
         return new Promise(resolve => {
-            let index = this.media.findIndex(Media => Media.id === id);
+            let index = this.MediaEntity.findIndex(media => media.id === id);
             if (index === -1) {
                 throw new HttpException('Media does not exist!', 404);
             }
-            this.media.splice(1, index);
-            resolve(this.media);
+            this.MediaEntity.splice(1, index);
+            resolve(this.MediaEntity);
         });
     }
 
     findAll(): Promise<MediaEntity[]> {
-        return this.MediaEntity.find();
+        return this.MediaRepository.find();
     }
 
     findOne(id: string): Promise<MediaEntity> {
-        return this.MediaEntity.findOne(id);
+        return this.MediaRepository.findOne(id);
     }
 
     async remove(id: string): Promise<void> {
-        await this.MediaEntity.delete(id);
+        await this.MediaRepository.delete(id);
     }
     async createMany(media: MediaEntity[]) {
         const queryRunner = this.connection.createQueryRunner();

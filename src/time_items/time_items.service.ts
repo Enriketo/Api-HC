@@ -2,11 +2,11 @@ import { Injectable, HttpException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository, Connection} from 'typeorm';
 import { TimeItemEntity } from './time_item.entity';
-import { TIME_ITEMS } from '../../mocks/time-items.mock';
+//import { TIME_ITEMS } from '../../mocks/time-items.mock';
 
 @Injectable()
 export class TimeItemsService {
-    time_items = TIME_ITEMS;
+    TimeItemEntity: any;
     constructor(
         @InjectRepository(TimeItemEntity)
         private TimeItemsRepository: Repository<TimeItemEntity>,
@@ -15,13 +15,13 @@ export class TimeItemsService {
 
     getTimeItems(): Promise<any> {
         return new Promise(resolve => {
-            resolve(this.time_items);
+            resolve(this.TimeItemEntity);
         });
     }
     getTimeItem(time_itemID): Promise<any> {
         let id = Number(time_itemID);
         return new Promise(resolve => {
-            const time_item = this.time_items.find(time_item => time_item.id === id);
+            const time_item = this.TimeItemEntity.find(time_item => time_item.id === id);
             if (!time_item) {
                 throw new HttpException('Time items does not exist!', 404);
             }
@@ -30,19 +30,19 @@ export class TimeItemsService {
     }
     addTimeItem(time_item): Promise<any> {
         return new Promise(resolve => {
-            this.time_items.push(time_item);
-            resolve(this.time_items);
+            this.TimeItemEntity.push(time_item);
+            resolve(this.TimeItemEntity);
         });
     }
     deleteTimeItem(time_itemID): Promise<any> {
         let id = Number(time_itemID);
         return new Promise(resolve => {
-            let index = this.time_items.findIndex(time_item => time_item.id === id);
+            let index = this.TimeItemEntity.findIndex(time_item => time_item.id === id);
             if (index === -1) {
                 throw new HttpException('Time items does not exist!', 404);
             }
-            this.time_items.splice(1, index);
-            resolve(this.time_items);
+            this.TimeItemEntity.splice(1, index);
+            resolve(this.TimeItemEntity);
         });
     }
 

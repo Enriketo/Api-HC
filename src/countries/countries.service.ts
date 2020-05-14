@@ -6,7 +6,7 @@ import { COUNTRIES } from '../../mocks/countries.mock';
 
 @Injectable()
 export class CountriesService {
-    countries = COUNTRIES;
+    CountryEntity: any;
     constructor(
         @InjectRepository(CountryEntity)
         private countriesRepository: Repository<CountryEntity>,
@@ -15,13 +15,13 @@ export class CountriesService {
 
     getCountries(): Promise<any> {
         return new Promise(resolve => {
-            resolve(this.countries);
+            resolve(this.CountryEntity);
         });
     }
     getCountry(countryID): Promise<any> {
         let id = Number(countryID);
         return new Promise(resolve => {
-            const country = this.countries.find(country => country.id === id);
+            const country = this.CountryEntity.find(country => country.id === id);
             if (!country) {
                 throw new HttpException('Country does not exist!', 404);
             }
@@ -30,19 +30,19 @@ export class CountriesService {
     }
     addCountry(country): Promise<any> {
         return new Promise(resolve => {
-            this.countries.push(country);
-            resolve(this.countries);
+            this.CountryEntity.push(country);
+            resolve(this.CountryEntity);
         });
     }
     deleteCountry(countryID): Promise<any> {
         let id = Number(countryID);
         return new Promise(resolve => {
-            let index = this.countries.findIndex(country => country.id === id);
+            let index = this.CountryEntity.findIndex(country => country.id === id);
             if (index === -1) {
                 throw new HttpException('Country does not exist!', 404);
             }
-            this.countries.splice(1, index);
-            resolve(this.countries);
+            this.CountryEntity.splice(1, index);
+            resolve(this.CountryEntity);
         });
     }
 

@@ -2,11 +2,11 @@ import { Injectable, HttpException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository, Connection } from 'typeorm';
 import { ResidenceEntity } from './residence.entity';
-import { RESIDENCES } from '../../mocks/residences.mock';
+//import { RESIDENCES } from '../../mocks/residences.mock';
 
 @Injectable()
 export class ResidencesService {
-    residences = RESIDENCES;
+    ResidenceEntity: any;
     constructor(
         @InjectRepository(ResidenceEntity)
         private residencesRepository: Repository<ResidenceEntity>,
@@ -15,13 +15,13 @@ export class ResidencesService {
 
     getResidences(): Promise<any> {
         return new Promise(resolve => {
-            resolve(this.residences);
+            resolve(this.ResidenceEntity);
         });
     }
     getResidence(residenceID): Promise<any> {
         let id = Number(residenceID);
         return new Promise(resolve => {
-            const residence = this.residences.find(residence => residence.id === id);
+            const residence = this.ResidenceEntity.find(residence => residence.id === id);
             if (!residence) {
                 throw new HttpException('Residence does not exist!', 404);
             }
@@ -30,19 +30,19 @@ export class ResidencesService {
     }
     addResidence(residence): Promise<any> {
         return new Promise(resolve => {
-            this.residences.push(residence);
-            resolve(this.residences);
+            this.ResidenceEntity.push(residence);
+            resolve(this.ResidenceEntity);
         });
     }
     deleteResidence(residenceID): Promise<any> {
         let id = Number(residenceID);
         return new Promise(resolve => {
-            let index = this.residences.findIndex(residence => residence.id === id);
+            let index = this.ResidenceEntity.findIndex(residence => residence.id === id);
             if (index === -1) {
                 throw new HttpException('Residence does not exist!', 404);
             }
-            this.residences.splice(1, index);
-            resolve(this.residences);
+            this.ResidenceEntity.splice(1, index);
+            resolve(this.ResidenceEntity);
         });
     }
     findAll(): Promise<ResidenceEntity[]> {

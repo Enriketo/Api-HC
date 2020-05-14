@@ -2,11 +2,11 @@ import { Injectable, HttpException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository, Connection} from 'typeorm';
 import { ScheduleEntity } from './schedule.entity';
-import { SCHEDULE } from '../../mocks/schedule.mock';
+//import { SCHEDULE } from '../../mocks/schedule.mock';
 
 @Injectable()
 export class ScheduleService {
-    schedule = SCHEDULE;
+    ScheduleEntity: any;
     constructor(
         @InjectRepository(ScheduleEntity)
         private scheduleRepository: Repository<ScheduleEntity>,
@@ -16,7 +16,7 @@ export class ScheduleService {
     getSchedule(scheduleID): Promise<any> {
         let id = Number(scheduleID);
         return new Promise(resolve => {
-            const schedule = this.schedule.find(schedule => schedule.id === id);
+            const schedule = this.ScheduleEntity.find(schedule => schedule.id === id);
             if (!schedule) {
                 throw new HttpException('Schedule does not exist!', 404);
             }
@@ -25,19 +25,19 @@ export class ScheduleService {
     }
     addSchedule(schedule): Promise<any> {
         return new Promise(resolve => {
-            this.schedule.push(schedule);
-            resolve(this.schedule);
+            this.ScheduleEntity.push(schedule);
+            resolve(this.ScheduleEntity);
         });
     }
     deleteSchedule(scheduleID): Promise<any> {
         let id = Number(scheduleID);
         return new Promise(resolve => {
-            let index = this.schedule.findIndex(schedule => schedule.id === id);
+            let index = this.ScheduleEntity.findIndex(schedule => schedule.id === id);
             if (index === -1) {
                 throw new HttpException('Schedule does not exist!', 404);
             }
-            this.schedule.splice(1, index);
-            resolve(this.schedule);
+            this.ScheduleEntity.splice(1, index);
+            resolve(this.ScheduleEntity);
         });
     }
 

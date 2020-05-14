@@ -2,11 +2,11 @@ import { Injectable, HttpException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository, Connection} from 'typeorm';
 import { MeetEntity } from './meet.entity';
-import { MEETINGS } from '../../mocks/meetings.mock';
+//import { MEETINGS } from '../../mocks/meetings.mock';
 
 @Injectable()
 export class MeetingsService {
-    meetings = MEETINGS;
+    MeetEntity: any;
     constructor(
         @InjectRepository(MeetEntity)
         private meetingsRepository: Repository<MeetEntity>,
@@ -15,13 +15,13 @@ export class MeetingsService {
 
     getMeetings(): Promise<any> {
         return new Promise(resolve => {
-            resolve(this.meetings);
+            resolve(this.MeetEntity);
         });
     }
     getMeet(meetID): Promise<any> {
         let id = Number(meetID);
         return new Promise(resolve => {
-            const meet = this.meetings.find(meet => meet.id === id);
+            const meet = this.MeetEntity.find(meet => meet.id === id);
             if (!meet) {
                 throw new HttpException('Meet does not exist!', 404);
             }
@@ -30,19 +30,19 @@ export class MeetingsService {
     }
     addMeet(meet): Promise<any> {
         return new Promise(resolve => {
-            this.meetings.push(meet);
-            resolve(this.meetings);
+            this.MeetEntity.push(meet);
+            resolve(this.MeetEntity);
         });
     }
     deleteMeet(meetID): Promise<any> {
         let id = Number(meetID);
         return new Promise(resolve => {
-            let index = this.meetings.findIndex(meet => meet.id === id);
+            let index = this.MeetEntity.findIndex(meet => meet.id === id);
             if (index === -1) {
                 throw new HttpException('Meet does not exist!', 404);
             }
-            this.meetings.splice(1, index);
-            resolve(this.meetings);
+            this.MeetEntity.splice(1, index);
+            resolve(this.MeetEntity);
         });
     }
 

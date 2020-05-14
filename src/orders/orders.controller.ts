@@ -2,7 +2,7 @@ import { Controller, Get, Param, Post, Body, Query, Delete } from '@nestjs/commo
 import { OrdersService } from './orders.service';
 import { CreateOrderDTO } from './dto/create-order.dto';
 
-@Controller('order')
+@Controller('orders')
 export class OrdersController {
     constructor(private ordersService: OrdersService) { }
 

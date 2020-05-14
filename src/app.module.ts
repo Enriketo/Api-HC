@@ -1,6 +1,7 @@
 import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { AppService } from './app.service';
+//import { SequelizeModule } from '@nestjs/sequelize';
 import { CitiesModule } from './cities/cities.module';
 import { UsersModule } from './users/users.module';
 import { EmployeesModule } from './employees/employees.module';
@@ -18,21 +19,46 @@ import fs = require('fs');
 //TODO Dont forget setup typeorm config
 
 @Module({
-  imports: [TypeOrmModule.forRoot( {
-        type: 'mysql',
-        host: 'localhost',
-        port: 3306,
-        username: 'enrique',
-        password: '1234',
-        database: 'apihc',
-        entities: [__dirname + '/**/*.entity{.ts,.js}'],
-        synchronize: false,
-      },
+  imports: [TypeOrmModule.forRoot({
+    type: 'mysql',
+    host: 'localhost',
+    port: 3306,
+    username: 'enrique',
+    password: '1234',
+    database: 'apihc',
+    entities: [__dirname + '/**/*.entity{.ts,.js}'],
+    synchronize: false,
+    autoLoadEntities: true,
+  },
   ), CitiesModule, UsersModule, EmployeesModule, ResidencesModule, TimeItemsModule, MediaModule, CountriesModule, StatesModule, MatchesModule, OrdersModule, ScheduleModule, MeetingsModule],
   providers: [AppService],
+//  imports: [SequelizeModule.forRoot({
+//    dialect: 'mysql',
+//    host: 'localhost',
+//    port: 3306,
+//    username: 'enrique',
+//    password: '1234',
+//    database: 'apihc',
+//    models: [__dirname + '/**/*.entity{.ts,.js}'],
+//    synchronize: false,
+//    autoLoadModels: true,
+//  },
+    //imports: [TypeOrmModule.forRootAsync({
+    //        type: 'mysql',
+    //        host: 'localhost',
+    //        port: 3306,
+    //        username: 'enrique',
+    //        password: '1234',
+    //        database: 'apihc',
+    //        entities: [__dirname + '/**/*.entity{.ts,.js}'],
+    //        synchronize: true,
+    //        autoLoadEntities: true,
+    //     },
+//  ), TypeOrmModule, CitiesModule, UsersModule, EmployeesModule, ResidencesModule, TimeItemsModule, MediaModule, CountriesModule, StatesModule, MatchesModule, OrdersModule, ScheduleModule, MeetingsModule],
+//  providers: [AppService],
 })
 
-export class AppModule {}
+export class AppModule { }
 
 //import { Connection } from 'typeorm';
 //import { AppController } from './app.controller';

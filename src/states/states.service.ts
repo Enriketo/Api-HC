@@ -2,11 +2,11 @@ import { Injectable, HttpException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository, Connection} from 'typeorm';
 import { StateEntity } from './state.entity';
-import { STATES } from '../../mocks/states.mock';
+//import { STATES } from '../../mocks/states.mock';
 
 @Injectable()
 export class StatesService {
-    states = STATES;
+    StateEntity: any;
     constructor(
         @InjectRepository(StateEntity)
         private statesRepository: Repository<StateEntity>,
@@ -15,13 +15,13 @@ export class StatesService {
 
     getStates(): Promise<any> {
         return new Promise(resolve => {
-            resolve(this.states);
+            resolve(this.StateEntity);
         });
     }
     getState(stateID): Promise<any> {
         let id = Number(stateID);
         return new Promise(resolve => {
-            const state = this.states.find(state => state.id === id);
+            const state = this.StateEntity.find(state => state.id === id);
             if (!state) {
                 throw new HttpException('State does not exist!', 404);
             }
@@ -30,19 +30,19 @@ export class StatesService {
     }
     addState(state): Promise<any> {
         return new Promise(resolve => {
-            this.states.push(state);
-            resolve(this.states);
+            this.StateEntity.push(state);
+            resolve(this.StateEntity);
         });
     }
     deleteState(stateID): Promise<any> {
         let id = Number(stateID);
         return new Promise(resolve => {
-            let index = this.states.findIndex(state => state.id === id);
+            let index = this.StateEntity.findIndex(state => state.id === id);
             if (index === -1) {
                 throw new HttpException('State does not exist!', 404);
             }
-            this.states.splice(1, index);
-            resolve(this.states);
+            this.StateEntity.splice(1, index);
+            resolve(this.StateEntity);
         });
     }
 

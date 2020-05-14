@@ -2,11 +2,11 @@ import { Injectable, HttpException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository, Connection} from 'typeorm';
 import { OrderEntity } from './order.entity';
-import { ORDERS } from '../../mocks/orders.mock';
+//import { ORDERS } from '../../mocks/orders.mock';
 
 @Injectable()
 export class OrdersService {
-    orders = ORDERS;
+    OrderEntity: any;
     constructor(
         @InjectRepository(OrderEntity)
         private ordersRepository: Repository<OrderEntity>,
@@ -15,13 +15,13 @@ export class OrdersService {
 
     getOrders(): Promise<any> {
         return new Promise(resolve => {
-            resolve(this.orders);
+            resolve(this.OrderEntity);
         });
     }
     getOrder(orderID): Promise<any> {
         let id = Number(orderID);
         return new Promise(resolve => {
-            const order = this.orders.find(order => order.id === id);
+            const order = this.OrderEntity.find(order => order.id === id);
             if (!order) {
                 throw new HttpException('Order does not exist!', 404);
             }
@@ -30,19 +30,19 @@ export class OrdersService {
     }
     addOrder(order): Promise<any> {
         return new Promise(resolve => {
-            this.orders.push(order);
-            resolve(this.orders);
+            this.OrderEntity.push(order);
+            resolve(this.OrderEntity);
         });
     }
     deleteOrder(orderID): Promise<any> {
         let id = Number(orderID);
         return new Promise(resolve => {
-            let index = this.orders.findIndex(order => order.id === id);
+            let index = this.OrderEntity.findIndex(order => order.id === id);
             if (index === -1) {
                 throw new HttpException('Order does not exist!', 404);
             }
-            this.orders.splice(1, index);
-            resolve(this.orders);
+            this.OrderEntity.splice(1, index);
+            resolve(this.OrderEntity);
         });
     }
 

@@ -2,11 +2,11 @@ import { Injectable, HttpException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository, Connection } from 'typeorm';
 import { UserEntity } from './user.entity';
-import { USERS } from '../../mocks/users.mock';
+//import { USERS } from '../../mocks/users.mock';
 
 @Injectable()
 export class UsersService {
-    users = USERS;
+    UserEntity: any;
     constructor(
         @InjectRepository(UserEntity)
         private usersRepository: Repository<UserEntity>,
@@ -15,13 +15,13 @@ export class UsersService {
 
     getUsers(): Promise<any> {
         return new Promise(resolve => {
-            resolve(this.users);
+            resolve(this.UserEntity);
         });
     }
     getUser(userID): Promise<any> {
         let id = Number(userID);
         return new Promise(resolve => {
-            const user = this.users.find(user => user.id === id);
+            const user = this.UserEntity.find(user => user.id === id);
             if (!user) {
                 throw new HttpException('User does not exist!', 404);
             }
@@ -30,19 +30,19 @@ export class UsersService {
     }
     addUser(user): Promise<any> {
         return new Promise(resolve => {
-            this.users.push(user);
-            resolve(this.users);
+            this.UserEntity.push(user);
+            resolve(this.UserEntity);
         });
     }
     deleteUser(userID): Promise<any> {
         let id = Number(userID);
         return new Promise(resolve => {
-            let index = this.users.findIndex(user => user.id === id);
+            let index = this.UserEntity.findIndex(user => user.id === id);
             if (index === -1) {
                 throw new HttpException('User does not exist!', 404);
             }
-            this.users.splice(1, index);
-            resolve(this.users);
+            this.UserEntity.splice(1, index);
+            resolve(this.UserEntity);
         });
     }
 
