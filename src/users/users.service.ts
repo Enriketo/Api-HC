@@ -1,10 +1,16 @@
-import { Injectable, HttpException } from '@nestjs/common';
+import {Injectable, HttpException, HttpStatus} from '@nestjs/common';
+import { SECRET } from '../config';
+import { CreateUserDTO } from './dto/create-user.dto';
 import { InjectRepository } from '@nestjs/typeorm';
-import { Repository, Connection } from 'typeorm';
-//import { UserEntity } from './user.entity';
+import { validate } from 'class-validator';
+import {Repository, Connection, getRepository} from 'typeorm';
+import { UserEntity } from './user.entity';
 //import { USERS } from '../../mocks/users.mock';
 
 export type User = any;
+
+const jwt = require('jsonwebtoken');
+
 
 @Injectable()
 export class UsersService {
@@ -12,9 +18,8 @@ export class UsersService {
     private readonly users: User[];
 
     constructor(
-//        @InjectRepository(UserEntity)
-//        private usersRepository: Repository<UserEntity>,
-//        private connection: Connection,
+        @InjectRepository(UserEntity)
+        private usersRepository: Repository<UserEntity>,
 
     ) {
         this.users = [
@@ -35,9 +40,47 @@ export class UsersService {
             },
         ];
     }
+
+    async addUser(dto: CreateUserDTO): Promise<{ user: { email: string; username: string; token: any } }> {
+
+        // check uniqueness of username/email
+        const {username, email, password} = dto;
+        const qb = await getRepository(UserEntity)
+            .createQueryBuilder('user')
+            .where('user.username = :username', { username })
+            .orWhere('user.email = :email', { email });
+
+        const user = await qb.getOne();
+
+        if (user) {
+            const errs = {username: 'Username and email must be unique.'};
+            throw new HttpException({message: 'Input data validation failed', errs}, HttpStatus.BAD_REQUEST);
+
+        }
+
+        // create new user
+        const newUser = new UserEntity();
+        newUser.username = username;
+        newUser.email = email;
+        newUser.password = password;
+
+        const errors = await validate(newUser);
+        if (errors.length > 0) {
+            const err = {username: 'Userinput is not valid.'};
+            throw new HttpException({message: 'Input data validation failed', err}, HttpStatus.BAD_REQUEST);
+
+        } else {
+            const savedUser = await this.usersRepository.save(newUser);
+            return this.buildUserRO(savedUser);
+        }
+    }
+
+
+
     async findOne(username: string): Promise<User | undefined> {
         return this.users.find(user => user.username === username);
     }
+
     getUsers(): Promise<any> {
         return new Promise(resolve => {
             resolve(this.UserEntity);
@@ -53,12 +96,7 @@ export class UsersService {
             resolve(user);
         });
     }
-    addUser(user): Promise<any> {
-        return new Promise(resolve => {
-            this.UserEntity.push(user);
-            resolve(this.UserEntity);
-        });
-    }
+
     deleteUser(userID): Promise<any> {
         let id = Number(userID);
         return new Promise(resolve => {
@@ -104,5 +142,28 @@ export class UsersService {
 //            await manager.save(users[1]);
 //        });
 //    }
+
+    public generateJWT(user) {
+        const today = new Date();
+        const exp = new Date(today);
+        exp.setDate(today.getDate() + 60);
+
+        return jwt.sign({
+            id: user.id,
+            username: user.username,
+            email: user.email,
+            exp: exp.getTime() / 1000,
+        }, SECRET);
+    }
+
+    private buildUserRO(user: UserEntity) {
+        const userRO = {
+            username: user.username,
+            email: user.email,
+            token: this.generateJWT(user),
+        };
+
+        return {user: userRO};
+    }
 }
 

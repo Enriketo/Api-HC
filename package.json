@@ -27,6 +27,8 @@
     "@nestjs/platform-express": "^6.10.14",
     "@nestjs/sequelize": "^0.1.0",
     "@nestjs/typeorm": "^7.0.0",
+    "class-validator": "^0.12.2",
+    "jsonwebtoken": "^8.5.1",
     "mysql": "^2.18.1",
     "mysql2": "^2.1.0",
     "passport": "^0.4.1",

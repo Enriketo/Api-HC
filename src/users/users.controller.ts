@@ -1,6 +1,7 @@
-import { Controller, Get, Param, Post, Body, Query, Delete } from '@nestjs/common';
+import { Controller, HttpException, Get, Param, Post, Body, Query, Delete } from '@nestjs/common';
 import { UsersService } from './users.service';
 import { CreateUserDTO } from './dto/create-user.dto';
+import { LoginUserDto } from './dto/login-user';
 
 
 @Controller('users')
@@ -23,6 +24,20 @@ export class UsersController {
     async addUser(@Body() createUserDTO: CreateUserDTO) {
         const user = await this.usersService.addUser(createUserDTO);
         return user;
+    }
+
+    @Post('login')
+    async login(@Body() loginUserDto: LoginUserDto): Promise<{ email: string; token: any; username: string }> {
+        const usr = await this.usersService.getUser(loginUserDto);
+
+        const errors = {User: ' not found'};
+        if (!usr) {
+            throw new HttpException({errors}, 401);
+        }
+
+        const token = await this.usersService.generateJWT(usr);
+        const {email, username} = usr;
+        return {email, token, username};
     }
 
     @Delete()
