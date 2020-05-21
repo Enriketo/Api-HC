@@ -2,11 +2,22 @@ import { Injectable, HttpException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository, Connection} from 'typeorm';
 import { MeetEntity } from './meet.entity';
-//import { MEETINGS } from '../../mocks/meetings.mock';
+import { CreateMeetDTO } from './dto/create-meet.dto';
+import { MeetClass } from './classes/meet.class';
+
+export type Meet = any;
 
 @Injectable()
 export class MeetingsService {
     MeetEntity: any;
+
+    private readonly meetings: Meet[];
+
+    create(meet: CreateMeetDTO): MeetClass {
+        this.meetings.push(meet);
+        return meet;
+    }
+
     constructor(
         @InjectRepository(MeetEntity)
         private meetingsRepository: Repository<MeetEntity>,

@@ -2,11 +2,21 @@ import { Injectable, HttpException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository, Connection} from 'typeorm';
 import { OrderEntity } from './order.entity';
-//import { ORDERS } from '../../mocks/orders.mock';
+import { CreateOrderDTO } from './dto/create-order.dto';
+import { OrderClass } from './classes/order.class';
+
+export type Order = any;
 
 @Injectable()
 export class OrdersService {
     OrderEntity: any;
+    
+    private readonly users: Order[];
+    create(user: CreateOrderDTO): OrderClass {
+        this.users.push(user);
+        return user;
+    }
+    
     constructor(
         @InjectRepository(OrderEntity)
         private ordersRepository: Repository<OrderEntity>,

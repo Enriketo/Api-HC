@@ -1,12 +1,43 @@
 import { Controller, Get, Param, Post, Body, Query, Delete } from '@nestjs/common';
+import { ApiOperation, ApiResponse, ApiBearerAuth, ApiTags } from '@nestjs/swagger';
 import { TimeItemsService } from './time_items.service';
 import { CreateTimeItemDTO } from './dto/create-time_Item.dto';
+import { TimeItemEntity } from './time_item.entity';
 
+@ApiBearerAuth()
+@ApiTags('time_items')
 @Controller('time_items')
 export class TimeItemsController {
     constructor(private time_itemsService: TimeItemsService) { }
 
+    @Post()
+    @ApiOperation({ 
+        summary: 'Create time item' 
+    })
+    @ApiResponse({ 
+        status: 201, 
+        description: 'Time item has been created.' 
+    })
+    @ApiResponse({ 
+        status: 404, 
+        description: 'Not found.' 
+    })
+    async create(@Body() CreateTimeItemDTO: CreateTimeItemDTO){
+      return this.time_itemsService.create(CreateTimeItemDTO);
+    }
+
+    @Post()
+    async addTimeItem(@Body() createTimeItemDTO: CreateTimeItemDTO) {
+        const time_item = await this.time_itemsService.addTimeItem(createTimeItemDTO);
+        return time_item;
+    }
+    
     @Get()
+    @ApiResponse({
+        status: 200,
+        description: 'The found record',
+        type: TimeItemEntity,
+    })
     async getTimeItems() {
         const time_items = await this.time_itemsService.getTimeItems();
         return time_items;
@@ -15,12 +46,6 @@ export class TimeItemsController {
     @Get(':time_itemID')
     async getTimeItem(@Param('time_itemID') time_itemID) {
         const time_item = await this.time_itemsService.getTimeItem(time_itemID);
-        return time_item;
-    }
-
-    @Post()
-    async addTimeItem(@Body() createTimeItemDTO: CreateTimeItemDTO) {
-        const time_item = await this.time_itemsService.addTimeItem(createTimeItemDTO);
         return time_item;
     }
 

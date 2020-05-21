@@ -12,8 +12,8 @@ export enum doc_type {
 export enum gender {
     male = 'male',
     female = 'female',
-    tx_male = 'transexual_male',
-    tx_female = 'tramsexual_female',
+    tx_male = 'transexual male',
+    tx_female = 'tramsexual female',
     gay = 'gay',
     lesbian = 'lesbian',
     undefined = 'undefined'

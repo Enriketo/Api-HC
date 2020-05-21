@@ -2,11 +2,21 @@ import { Injectable, HttpException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository, Connection} from 'typeorm';
 import { ScheduleEntity } from './schedule.entity';
-//import { SCHEDULE } from '../../mocks/schedule.mock';
+import { CreateScheduleDTO } from './dto/create-schedule.dto';
+import { ScheduleClass } from './classes/schedule.class';
+
+export type Schedule = any;
 
 @Injectable()
 export class ScheduleService {
     ScheduleEntity: any;
+
+    private readonly users: Schedule[];
+    create(user: CreateScheduleDTO): ScheduleClass {
+        this.users.push(user);
+        return user;
+      }
+    
     constructor(
         @InjectRepository(ScheduleEntity)
         private scheduleRepository: Repository<ScheduleEntity>,

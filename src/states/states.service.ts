@@ -2,11 +2,20 @@ import { Injectable, HttpException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository, Connection} from 'typeorm';
 import { StateEntity } from './state.entity';
-//import { STATES } from '../../mocks/states.mock';
+import { StateClass } from './classes/state.class';
+import { CreateStateDTO } from './dto/create-state.dto';
 
+export type State = any;
 @Injectable()
 export class StatesService {
     StateEntity: any;
+
+    private readonly states: State[];
+    create(state: CreateStateDTO): StateClass {
+        this.states.push(state);
+        return state;
+    }
+
     constructor(
         @InjectRepository(StateEntity)
         private statesRepository: Repository<StateEntity>,

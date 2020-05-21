@@ -1,22 +1,123 @@
+import { ApiProperty } from '@nestjs/swagger';
+
 export class CreateUserDTO {
-    readonly id: number;
-    readonly first_name: string;
-    readonly last_name: string;
-    readonly username: string; // [not null, unique]
-    readonly doc_type: string;
-    readonly doc_number: number;
-    readonly email: string; // [not null, unique]
-    readonly password: string;// varbinary[not null]
-    readonly gender: string;
-    readonly phone: number;
-    readonly discapacity: boolean;
-    readonly opt_in: boolean;
-    readonly showName: boolean;
-    readonly dob: Date;
-    readonly preferences: string; // json
-    readonly address: string;
-    readonly city_id: number; // [ref: > cities.id]
-    readonly media_id: number; // int[ref: > media.id]
-    readonly createdAt: Date;
-    readonly updatedAt: Date;
+    @ApiProperty({
+        description: 'Key field',
+        type: Number,
+    })
+    id: number;
+
+    @ApiProperty({
+        description: 'User first name',
+        type: String,
+    })
+    first_name: string;
+
+    @ApiProperty({
+        description: 'User last name',
+        type: String,
+    })
+    last_name: string;
+
+    @ApiProperty({
+        description: 'User name',
+        type: String,
+    })
+    username: string;
+
+    @ApiProperty({
+        description: 'User email',
+        type: String,
+    })
+    email: string; 
+
+    @ApiProperty({
+        description: 'User password',
+        type: String,
+    })
+    password: string;
+
+    @ApiProperty({
+        description: 'User document type',
+        type: String,
+    })
+    doc_type: string;
+
+    @ApiProperty({
+        description: 'User document number',
+        type: Number,
+    })
+    doc_number: number;
+
+    @ApiProperty({
+        description: 'User gender',
+        type: String,
+    })
+    gender: string;
+
+    @ApiProperty({
+        description: 'User phone number',
+        type: Number,
+    })
+    phone: number;
+
+    @ApiProperty({
+        description: 'User have discapacity yes or not',
+        type: Boolean,
+    })
+    discapacity: boolean;
+
+    @ApiProperty({
+        description: 'User acept discapacity yes or not',
+        type: Boolean,
+    })
+    opt_in: boolean;
+
+    @ApiProperty({
+        description: 'Show user names yes or not',
+        type: Boolean,
+    })
+    show_name: boolean;
+
+    @ApiProperty({
+        description: 'Date of birthday',
+        type: Date,
+    })
+    dob: Date;
+
+    @ApiProperty({
+        description: 'User preferences',
+        type: String,
+    })
+    preferences: string;
+
+    @ApiProperty({
+        description: 'User address',
+        type: String,
+    })
+    address: string;
+
+    @ApiProperty({
+        description: 'Relation user-city',
+        type: Number,
+    })
+    city_id: number;
+
+    @ApiProperty({
+        description: 'User media number',
+        type: Number,
+    })
+    media_id: number;
+
+    @ApiProperty({
+        description: 'Created date',
+        type: Date,
+    })
+    createdAt: Date;
+
+    @ApiProperty({
+        description: 'Updated date',
+        type: Date,
+    })
+    updatedAt: Date;
 }

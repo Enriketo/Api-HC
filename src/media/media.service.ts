@@ -2,12 +2,21 @@ import { Injectable, HttpException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository, Connection} from 'typeorm';
 import { MediaEntity } from './media.entity';
-//import { MEDIA } from '8//../../mocks/media.mock';
+import { CreateMediaDTO } from './dto/create-media.dto';
+import { MediaClass } from './classes/media.class';
 
+export type Media = any;
 
 @Injectable()
 export class MediaService {
     MediaEntity: any;
+
+    private readonly media: Media[];
+    create(media: CreateMediaDTO): MediaClass {
+        this.media.push(media);
+        return media;
+    }
+
     constructor(
         @InjectRepository(MediaEntity)
         private MediaRepository: Repository<MediaEntity>,

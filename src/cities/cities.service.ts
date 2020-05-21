@@ -2,11 +2,21 @@ import { Injectable, HttpException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository, Connection} from 'typeorm';
 import { CityEntity } from './city.entity';
-import { CITIES } from '../../mocks/cities.mock';
+import { CreateCityDTO } from './dto/create-city.dto';
+import { CityClass } from './classes/city.class';
+
+export type City = any;
 
 @Injectable()
 export class CitiesService {
-    cities = CITIES;
+    CityEntity: any;
+
+    private readonly cities: City[];
+    create(city: CreateCityDTO): CityClass {
+        this.cities.push(city);
+        return city;
+    }
+
     constructor(
         @InjectRepository(CityEntity)
         private citiesRepository: Repository<CityEntity>,

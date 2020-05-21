@@ -1,45 +1,30 @@
-import {Injectable, HttpException, HttpStatus} from '@nestjs/common';
+import { Injectable, HttpException, HttpStatus } from '@nestjs/common';
 import { SECRET } from '../config';
 import { CreateUserDTO } from './dto/create-user.dto';
 import { InjectRepository } from '@nestjs/typeorm';
 import { validate } from 'class-validator';
-import {Repository, Connection, getRepository} from 'typeorm';
+import { Repository, Connection, getRepository} from 'typeorm';
 import { UserEntity } from './user.entity';
-//import { USERS } from '../../mocks/users.mock';
+import { UserClass } from './classes/user.class';
 
 export type User = any;
-
 const jwt = require('jsonwebtoken');
-
 
 @Injectable()
 export class UsersService {
     UserEntity: any;
+
     private readonly users: User[];
+    create(user: CreateUserDTO): UserClass {
+        this.users.push(user);
+        return user;
+    }
 
     constructor(
         @InjectRepository(UserEntity)
         private usersRepository: Repository<UserEntity>,
-
-    ) {
-        this.users = [
-            {
-                userId: 1,
-                username: 'john',
-                password: 'changeme',
-            },
-            {
-                userId: 2,
-                username: 'chris',
-                password: 'secret',
-            },
-            {
-                userId: 3,
-                username: 'maria',
-                password: 'guess',
-            },
-        ];
-    }
+        private connection: Connection,
+    ) {}
 
     async addUser(dto: CreateUserDTO): Promise<{ user: { email: string; username: string; token: any } }> {
 
@@ -75,8 +60,6 @@ export class UsersService {
         }
     }
 
-
-
     async findOne(username: string): Promise<User | undefined> {
         return this.users.find(user => user.username === username);
     }
@@ -103,45 +86,42 @@ export class UsersService {
             let index = this.UserEntity.findIndex(user => user.id === id);
             if (index === -1) {
                 throw new HttpException('User does not exist!', 404);
+            } else {
+                this.UserEntity.splice(1, index);
+                resolve(this.UserEntity);
             }
-            this.UserEntity.splice(1, index);
-            resolve(this.UserEntity);
         });
     }
-//
-//    findAll(): Promise<UserEntity[]> {
-//        return this.usersRepository.find();
-//    }
-//
-//    //    findOne(id: string): Promise<UserEntity> {
-//    //        return this.usersRepository.findOne(id);
-//    //    }
-//
-//    async remove(id: string): Promise<void> {
-//        await this.usersRepository.delete(id);
-//    }
-//    async createMany(users: UserEntity[]) {
-//        const queryRunner = this.connection.createQueryRunner();
-//
-//        await queryRunner.connect();
-//        await queryRunner.startTransaction();
-//        try {
-//            await queryRunner.manager.save(users[0]);
-//            await queryRunner.manager.save(users[1]);
-//
-//            await queryRunner.commitTransaction();
-//        } catch (err) {
-//            // since we have errors lets rollback the changes we made
-//            await queryRunner.rollbackTransaction();
-//        } finally {
-//            // you need to release a queryRunner which was manually instantiated
-//            await queryRunner.release();
-//        }
-//        await this.connection.transaction(async manager => {
-//            await manager.save(users[0]);
-//            await manager.save(users[1]);
-//        });
-//    }
+
+    findAll(): Promise<UserEntity[]> {
+        return this.usersRepository.find();
+    }
+
+    async remove(id: string): Promise<void> {
+        await this.usersRepository.delete(id);
+    }
+    async createMany(users: UserEntity[]) {
+        const queryRunner = this.connection.createQueryRunner();
+
+        await queryRunner.connect();
+        await queryRunner.startTransaction();
+        try {
+            await queryRunner.manager.save(users[0]);
+            await queryRunner.manager.save(users[1]);
+
+            await queryRunner.commitTransaction();
+        } catch (err) {
+            // since we have errors lets rollback the changes we made
+            await queryRunner.rollbackTransaction();
+        } finally {
+            // you need to release a queryRunner which was manually instantiated
+            await queryRunner.release();
+        }
+        await this.connection.transaction(async manager => {
+            await manager.save(users[0]);
+            await manager.save(users[1]);
+        });
+    }
 
     public generateJWT(user) {
         const today = new Date();
@@ -166,4 +146,3 @@ export class UsersService {
         return {user: userRO};
     }
 }
-

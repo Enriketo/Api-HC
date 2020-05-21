@@ -1,7 +1,33 @@
+import { ApiProperty } from '@nestjs/swagger';
+
 export class CreateTimeItemDTO {
-    readonly id: number;
-    readonly name: string;
-    readonly cost: number;
-    readonly createdAt: Date;
-    readonly updatedAt: Date;
+    @ApiProperty({
+        description: 'Key field',
+        type: Number,
+    })
+    id: number;
+
+    @ApiProperty({
+        description: 'Time item name',
+        type: String,
+    })
+    name: string;
+
+    @ApiProperty({
+        description: 'Time cost',
+        type: String,
+    })
+    cost: number;
+
+    @ApiProperty({
+        description: 'Created date',
+        type: Date,
+    })
+    createdAt: Date;
+    
+    @ApiProperty({
+        description: 'Updated date',
+        type: Date,
+    })
+    updatedAt: Date;
 }

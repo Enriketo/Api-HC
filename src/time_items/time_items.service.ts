@@ -2,11 +2,20 @@ import { Injectable, HttpException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository, Connection} from 'typeorm';
 import { TimeItemEntity } from './time_item.entity';
-//import { TIME_ITEMS } from '../../mocks/time-items.mock';
+import { TimeItemClass } from './classes/time_item.class';
+import { CreateTimeItemDTO } from './dto/create-time_Item.dto';
 
+export type TimeItem = any;
 @Injectable()
 export class TimeItemsService {
     TimeItemEntity: any;
+    
+    private readonly time_items: TimeItem[];
+    create(timeItem: CreateTimeItemDTO): TimeItemClass {
+        this.time_items.push(timeItem);
+        return timeItem;
+      }
+
     constructor(
         @InjectRepository(TimeItemEntity)
         private TimeItemsRepository: Repository<TimeItemEntity>,

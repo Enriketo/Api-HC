@@ -2,11 +2,21 @@ import { Injectable, HttpException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository, Connection} from 'typeorm';
 import { MatchEntity } from './match.entity';
-//import { MATCHES } from '../../mocks/matches.mock';
+import { CreateMatchDTO } from './dto/create-match.dto';
+import { MatchClass } from './classes/match.class';
+
+export type Match = any;
 
 @Injectable()
 export class MatchesService {
     MatchEntity: any;
+
+    private readonly matches: Match[];
+    create(match: CreateMatchDTO): MatchClass {
+        this.matches.push(match);
+        return match;
+    }
+
     constructor(
         @InjectRepository(MatchEntity)
         private matchesRepository: Repository<MatchEntity>,

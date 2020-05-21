@@ -1,11 +1,56 @@
+import { ApiProperty } from '@nestjs/swagger';
+
 export class CreateCountryDTO {
-    readonly id: number;
-    readonly country: string;
-    readonly code: string;
-    readonly iso_code2: string;
-    readonly iso_code3: string;
-    readonly location: string; // json
-    readonly prefix: number;
-    readonly createdAt: Date;
-    readonly updatedAt: Date;
+    @ApiProperty({
+        description: 'Key field',
+        type: Number,
+    })
+    id: number;
+
+    @ApiProperty({
+        description: 'Country name',
+        type: String,
+    })
+    country: string;
+
+    @ApiProperty({
+        description: 'Country geo-code 1',
+        type: String,
+    })
+    code: string;
+
+    @ApiProperty({
+        description: 'Country geo-code 2',
+        type: String,
+    })
+    iso_code2: string;
+
+    @ApiProperty({
+        description: 'Country geo-code 3',
+        type: String,
+    })
+    iso_code3: string;
+
+    @ApiProperty({
+        description: 'Country location',
+        type: String,
+    })
+    location: string; // json
+
+    @ApiProperty({
+        description: 'Country geo-code 2',
+        type: String,
+    }) prefix: number;
+
+    @ApiProperty({
+        description: 'Created date',
+        type: Date,
+    })
+    createdAt: Date;
+    
+    @ApiProperty({
+        description: 'Updated date',
+        type: Date,
+    })
+    updatedAt: Date;
 }
