@@ -1,5 +1,5 @@
 import { Column, CreateDateColumn, Entity, ManyToOne, OneToMany, PrimaryGeneratedColumn, UpdateDateColumn } from 'typeorm';
-import { CountryEntity } from '../countries/country.entity';
+import { Countries } from '../countries/country.entity';
 import { CityEntity } from '../cities/city.entity';
 
 @Entity()
@@ -25,8 +25,8 @@ export class StateEntity {
     @Column()
     location: string; // json
 
-    @ManyToOne(type => CountryEntity, country => country)
-    country: CountryEntity[];
+    @ManyToOne(type => Countries, country => country)
+    country: Countries[];
 
     @OneToMany(type => CityEntity, city => city)
     city: CityEntity[];

@@ -1,9 +1,8 @@
 import { Injectable, HttpException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { Repository, Connection} from 'typeorm';
-import { CountryEntity } from './country.entity';
+import { Repository, Connection, UpdateResult, DeleteResult } from 'typeorm';
+import { Countries } from './country.entity';
 import { CreateCountryDTO } from './dto/create-country.dto';
-import { CountryClass } from './classes/country.class';
 
 export type Country = any;
 
@@ -11,17 +10,17 @@ export type Country = any;
 export class CountriesService {
     CountryEntity: any;
 
-    private readonly countries: Country[];
-    create(country: CreateCountryDTO): CountryClass {
-        this.countries.push(country);
-        return country;
-    }
-
     constructor(
-        @InjectRepository(CountryEntity)
-        private countriesRepository: Repository<CountryEntity>,
+        @InjectRepository(Countries)
+        private countryRepository: Repository<Countries>, //TODO CHECK NAMING IN REPOSITORY VAR IS SINGULAR
         private connection: Connection,
     ) { }
+
+    private readonly countries: Country[]; //TODO REMOVE THIS VARIABLE
+
+    async create(country): Promise<Countries> {
+        return await this.countryRepository.save(country); //TODO CHECK IN ALL CREATE MODELS (WHY USE OBJ COUNTRY?) AND DATA SAVE WITH REPOSITORY
+    }
 
     getCountries(): Promise<any> {
         return new Promise(resolve => {
@@ -56,26 +55,27 @@ export class CountriesService {
         });
     }
 
-    findAll(): Promise<CountryEntity[]> {
-        return this.countriesRepository.find();
+    findAll(): Promise<Countries[]> {
+        return this.countryRepository.find();
     }
 
-    findOne(id: string): Promise<CountryEntity> {
-        return this.countriesRepository.findOne(id);
+    findOne(id: string): Promise<Countries> {
+        return this.countryRepository.findOne(id);
     }
 
     async remove(id: string): Promise<void> {
-        await this.countriesRepository.delete(id);
+        await this.countryRepository.delete(id);
     }
-    async createMany(countries: CountryEntity[]) {
+
+    async createMany(countries: Countries[]) {
         const queryRunner = this.connection.createQueryRunner();
-             
+
         await queryRunner.connect();
         await queryRunner.startTransaction();
         try {
           await queryRunner.manager.save(countries[0]);
           await queryRunner.manager.save(countries[1]);
-      
+
           await queryRunner.commitTransaction();
         } catch (err) {
           // since we have errors lets rollback the changes we made

@@ -9,7 +9,6 @@ async function bootstrap() {
   .setTitle('HC API')
   .setDescription('Hot Ccompany')
   .setVersion('1.0')
-  .addTag('HC')
   .addBearerAuth()
   .build();
 

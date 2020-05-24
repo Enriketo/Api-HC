@@ -11,7 +11,8 @@ import { ScheduleModule } from './schedule/schedule.module';
 import { OrdersModule } from './orders/orders.module';
 import { MatchesModule } from './matches/matches.module';
 import { StatesModule } from './states/states.module';
-import { CountriesModule } from './countries/countries.module';
+// TODO CHECK IMPORT COUNTRYTEST import { CountriesModule } from './countries/countries.module';
+import { CountriesModule } from "./countriesTest/countries.module";
 import { MediaModule } from './media/media.module';
 import { AuthModule } from './auth/auth.module'
 import fs = require('fs');
@@ -23,11 +24,11 @@ import fs = require('fs');
     type: 'mysql',
     host: 'localhost',
     port: 3306,
-    username: 'enrique',
-    password: '1234',
+    username: 'root',
+    password: 'mariana040609',
     database: 'apihc',
     entities: [__dirname + '/**/*.entity{.ts,.js}'],
-    synchronize: false,
+    synchronize: true,
     autoLoadEntities: true,
   },
   ), CitiesModule, UsersModule, EmployeesModule, ResidencesModule, TimeItemsModule, MediaModule, CountriesModule, StatesModule, MatchesModule, OrdersModule, ScheduleModule, MeetingsModule, AuthModule],

@@ -3,7 +3,7 @@ import { StateEntity } from "../states/state.entity";
 
 
 @Entity()
-export class CountryEntity {
+export class Countries {
     @PrimaryGeneratedColumn()
     id: number;
 
