@@ -1,27 +1,27 @@
 import { Column, CreateDateColumn, Entity, ManyToOne, OneToMany, OneToOne, PrimaryGeneratedColumn, UpdateDateColumn, Unique } from 'typeorm';
-import { CityEntity } from '../cities/city.entity';
-import { MediaEntity } from '../media/media.entity';
-import { MatchEntity} from '../matches/match.entity';
+import { Cities } from '../cities/city.entity';
+import { Media } from '../media/media.entity';
+import { Matches } from '../matches/match.entity';
 
 export enum doc_type {
     cc = 'Cédula de ciudadanía',
     nit = 'Número de indentificación tributaria',
-    ce = 'Cédula de extranjería'    
+    ce = 'Cédula de extranjería'
 }
 
 export enum gender {
     male = 'male',
     female = 'female',
-    tx_male = 'transexual_male',
-    tx_female = 'tramsexual_female',
+    tx_male = 'transexual male',
+    tx_female = 'tramsexual female',
     gay = 'gay',
     lesbian = 'lesbian',
-    undefined = 'undefined'    
+    undefined = 'undefined'
 }
 
 @Entity()
 @Unique(["username", "email"])
-export class UserEntity {
+export class Users {
     @PrimaryGeneratedColumn()
     id: number;
 
@@ -31,8 +31,8 @@ export class UserEntity {
     @Column({ length: 20 })
     last_name: string;
 
-    @Column({ length: 25 })
-    username: string; // [not null, unique]
+    @Column({ length: 15 })
+    username: string; 
 
     @Column({
         type: 'enum',
@@ -41,14 +41,14 @@ export class UserEntity {
     })
     doc_type: doc_type;
 
-    @Column({ length: 12 })
+    @Column()
     doc_number: number;
 
-    @Column({ length: 25 })
-    email: string; // [not null, unique]
+    @Column({ length: 30 })
+    email: string; 
 
-    @Column({ length: 20 })
-    password: string;// varbinary[not null]
+    @Column({ length: 15 })
+    password: string;
 
     @Column({
         type: 'enum',
@@ -57,41 +57,41 @@ export class UserEntity {
     })
     gender: gender;
 
-    @Column({ length: 12 })
+    @Column()
     phone: number;
 
-    @Column({ length: 25 })
+    @Column()
     discapacity: boolean;
 
-    @Column({ length: 1 })
+    @Column()
     opt_in: boolean;
 
-    @Column({ length: 1 })
+    @Column()
     showName: boolean;
 
     @Column({ type: 'timestamp' })
     dob: Date;
 
-    @Column({ length: 25 })
-    preferences: string; // json
+    @Column({ length: 20 })
+    preferences: string; 
 
-    @Column({ length: 30 })
+    @Column({ length: 20 })
     address: string;
 
-    @Column({ length: 4 })
-    city_id: number; // [ref: > cities.id]
+    @Column()
+    city_id: number; 
 
-    @Column({ length: 9 })
-    media_id: number; // int[ref: > media.id]
+    @Column()
+    media_id: number; 
 
-    @ManyToOne(type => CityEntity, city => city)
-    City: CityEntity[];
+    @ManyToOne(type => Cities, city => city)
+    city: Cities[];
 
-    @OneToOne(type => MediaEntity, media => media)
-    Media: MediaEntity[];
+    @OneToOne(type => Media, media => media)
+    media: Media[];
 
-    @OneToMany(type => MatchEntity, match => match)
-    Match: MatchEntity[];
+    @OneToMany(type => Matches, match => match)
+    match: Matches[];
 
     @CreateDateColumn({ type: 'timestamp' })
     createdAt: Date;

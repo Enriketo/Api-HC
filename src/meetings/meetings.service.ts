@@ -1,59 +1,35 @@
-import { Injectable, HttpException } from '@nestjs/common';
+import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
-import { MeetEntity } from './meet.entity';
-import { MEETINGS } from '../../mocks/meetings.mock';
+import { Meetings } from './meet.entity';
+import { UpdateResult, DeleteResult } from  'typeorm';
 
 @Injectable()
 export class MeetingsService {
-    meetings = MEETINGS;
 
-    getMeetings(): Promise<any> {
-        return new Promise(resolve => {
-            resolve(this.meetings);
-        });
-    }
-    getMeet(meetID): Promise<any> {
-        let id = Number(meetID);
-        return new Promise(resolve => {
-            const meet = this.meetings.find(meet => meet.id === id);
-            if (!meet) {
-                throw new HttpException('Meet does not exist!', 404);
-            }
-            resolve(meet);
-        });
-    }
-    addMeet(meet): Promise<any> {
-        return new Promise(resolve => {
-            this.meetings.push(meet);
-            resolve(this.meetings);
-        });
-    }
-    deleteMeet(meetID): Promise<any> {
-        let id = Number(meetID);
-        return new Promise(resolve => {
-            let index = this.meetings.findIndex(meet => meet.id === id);
-            if (index === -1) {
-                throw new HttpException('Meet does not exist!', 404);
-            }
-            this.meetings.splice(1, index);
-            resolve(this.meetings);
-        });
-    }
-    constructor(
-        @InjectRepository(MeetEntity)
-        private meetingsRepository: Repository<MeetEntity>,
-    ) { }
+  constructor(
+    @InjectRepository(Meetings)
+    private meetRepository: Repository<Meetings>,
+  ) {}
 
-    findAll(): Promise<MeetEntity[]> {
-        return this.meetingsRepository.find();
-    }
+  async create(meet): Promise<Meetings> {
+    console.log(meet);
+    return await this.meetRepository.save(meet);
+  }
 
-    findOne(id: string): Promise<MeetEntity> {
-        return this.meetingsRepository.findOne(id);
-    }
+  async findAll(): Promise<Meetings[]> {
+    return await this.meetRepository.find();
+  }
 
-    async remove(id: string): Promise<void> {
-        await this.meetingsRepository.delete(id);
-    }
+  async findOneById(meetId): Promise<Meetings> {
+    return await this.meetRepository.findOne(meetId);
+  }
+
+  async editMeet(meetId, meet): Promise<UpdateResult> {
+    return await this.meetRepository.update(meetId, meet);
+  }
+
+  async deleteMeet(meetId): Promise<DeleteResult> {
+    return await this.meetRepository.delete(meetId);
+  }
 }

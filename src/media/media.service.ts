@@ -1,55 +1,35 @@
-import { Injectable, HttpException } from '@nestjs/common';
+import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
-import { MediaEntity } from './media.entity';
-import { MEDIA } from '../../mocks/media.mock';
-
+import { Media } from './media.entity';
+import { UpdateResult, DeleteResult } from  'typeorm';
 
 @Injectable()
 export class MediaService {
-    media = MEDIA;
 
-    getMedia(mediaID: any): Promise<any> {
-        let id = Number(mediaID);
-        return new Promise(resolve => {
-            const Media = this.media.find(Media => Media.id === id);
-            if (!Media) {
-                throw new HttpException('Media does not exist!', 404);
-            }
-            resolve(Media);
-        });
-    }
-    addMedia(Media): Promise<any> {
-        return new Promise(resolve => {
-            this.media.push(Media);
-            resolve(this.media);
-        });
-    }
-    deleteMedia(MediaID): Promise<any> {
-        let id = Number(MediaID);
-        return new Promise(resolve => {
-            let index = this.media.findIndex(Media => Media.id === id);
-            if (index === -1) {
-                throw new HttpException('Media does not exist!', 404);
-            }
-            this.media.splice(1, index);
-            resolve(this.media);
-        });
-    }
-    constructor(
-        @InjectRepository(MediaEntity)
-        private MediaEntity: Repository<MediaEntity>,
-    ) { }
+  constructor(
+    @InjectRepository(Media)
+    private mediaRepository: Repository<Media>,
+  ) {}
 
-    findAll(): Promise<MediaEntity[]> {
-        return this.MediaEntity.find();
-    }
+  async create(media): Promise<Media> {
+    console.log(media);
+    return await this.mediaRepository.save(media);
+  }
 
-    findOne(id: string): Promise<MediaEntity> {
-        return this.MediaEntity.findOne(id);
-    }
+  async findAll(): Promise<Media[]> {
+    return await this.mediaRepository.find();
+  }
 
-    async remove(id: string): Promise<void> {
-        await this.MediaEntity.delete(id);
-    }
+  async findOneById(mediaId): Promise<Media> {
+    return await this.mediaRepository.findOne(mediaId);
+  }
+
+  async editMedia(mediaId, media): Promise<UpdateResult> {
+    return await this.mediaRepository.update(mediaId, media);
+  }
+
+  async deleteMedia(mediaId): Promise<DeleteResult> {
+    return await this.mediaRepository.delete(mediaId);
+  }
 }

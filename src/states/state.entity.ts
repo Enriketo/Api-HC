@@ -1,39 +1,38 @@
 import { Column, CreateDateColumn, Entity, ManyToOne, OneToMany, PrimaryGeneratedColumn, UpdateDateColumn } from 'typeorm';
-import { CountryEntity } from '../countries/country.entity';
-import { CityEntity } from '../cities/city.entity';
+import { Countries } from '../countries/country.entity';
+import { Cities } from '../cities/city.entity';
 
 @Entity()
-export class StateEntity {
+export class States {
+
     @PrimaryGeneratedColumn()
     id: number;
 
-    @Column({ length: 100 })
-    country_id: number; // [ref: > countries.id]
+    @Column()
+    country_id: number; 
 
-    @Column({ length: 30 })
+    @Column({ length: 25 })
     state: string;
 
-    @Column({ length: 10 })
-    code: string; //  [ref: > residences.id]
-
-    @Column({ length: 10 })
+    @Column({ length: 4 })
     iso_code2: string;
 
-    @Column({ length: 10 })
+    @Column({ length: 4 })
     iso_code3: string;
 
-    @Column({ length: 20 })
-    location: string; // json
+    @Column({ length: 25 })
+    location: string; 
 
-    @ManyToOne(type => CountryEntity, country => country)
-    country: CountryEntity[];
+    @ManyToOne(type => Countries, country => country)
+    country: Countries[];
 
-    @OneToMany(type => CityEntity, city => city)
-    city: CityEntity[];
+    @OneToMany(type => Cities, city => city)
+    city: Cities[];
 
     @CreateDateColumn({ type: 'timestamp' })
     createdAt: Date;
 
     @UpdateDateColumn({ type: 'timestamp' })
     updatedAt: Date;
+
 }

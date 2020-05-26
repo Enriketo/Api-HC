@@ -1,59 +1,35 @@
-import { Injectable, HttpException } from '@nestjs/common';
+import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
-import { TimeItemEntity } from './time_item.entity';
-import { TIME_ITEMS } from '../../mocks/time-items.mock';
+import { TimeItems } from './time_item.entity';
+import { UpdateResult, DeleteResult } from  'typeorm';
 
 @Injectable()
 export class TimeItemsService {
-    time_items = TIME_ITEMS;
 
-    getTimeItems(): Promise<any> {
-        return new Promise(resolve => {
-            resolve(this.time_items);
-        });
-    }
-    getTimeItem(time_itemID): Promise<any> {
-        let id = Number(time_itemID);
-        return new Promise(resolve => {
-            const time_item = this.time_items.find(time_item => time_item.id === id);
-            if (!time_item) {
-                throw new HttpException('Time items does not exist!', 404);
-            }
-            resolve(time_item);
-        });
-    }
-    addTimeItem(time_item): Promise<any> {
-        return new Promise(resolve => {
-            this.time_items.push(time_item);
-            resolve(this.time_items);
-        });
-    }
-    deleteTimeItem(time_itemID): Promise<any> {
-        let id = Number(time_itemID);
-        return new Promise(resolve => {
-            let index = this.time_items.findIndex(time_item => time_item.id === id);
-            if (index === -1) {
-                throw new HttpException('Time items does not exist!', 404);
-            }
-            this.time_items.splice(1, index);
-            resolve(this.time_items);
-        });
-    }
-    constructor(
-        @InjectRepository(TimeItemEntity)
-        private TimeItemsRepository: Repository<TimeItemEntity>,
-    ) { }
+  constructor(
+    @InjectRepository(TimeItems)
+    private timeItemRepository: Repository<TimeItems>,
+  ) {}
 
-    findAll(): Promise<TimeItemEntity[]> {
-        return this.TimeItemsRepository.find();
-    }
+  async create(timeItem): Promise<TimeItems> {
+    console.log(timeItem);
+    return await this.timeItemRepository.save(timeItem);
+  }
 
-    findOne(id: string): Promise<TimeItemEntity> {
-        return this.TimeItemsRepository.findOne(id);
-    }
+  async findAll(): Promise<TimeItems[]> {
+    return await this.timeItemRepository.find();
+  }
 
-    async remove(id: string): Promise<void> {
-        await this.TimeItemsRepository.delete(id);
-    }
+  async findOneById(timeItemId): Promise<TimeItems> {
+    return await this.timeItemRepository.findOne(timeItemId);
+  }
+
+  async editTimeItem(timeItemId, timeItem): Promise<UpdateResult> {
+    return await this.timeItemRepository.update(timeItemId, timeItem);
+  }
+
+  async deleteTimeItem(timeItemId): Promise<DeleteResult> {
+    return await this.timeItemRepository.delete(timeItemId);
+  }
 }

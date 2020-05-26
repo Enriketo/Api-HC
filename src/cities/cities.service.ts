@@ -1,60 +1,35 @@
-import { Injectable, HttpException } from '@nestjs/common';
+import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
-import { CityEntity } from './city.entity';
-import { CITIES } from '../../mocks/cities.mock';
+import { Cities } from './city.entity';
+import { UpdateResult, DeleteResult } from  'typeorm';
 
 @Injectable()
 export class CitiesService {
-    cities = CITIES;
 
-    getCities(): Promise<any> {
-        return new Promise(resolve => {
-            resolve(this.cities);
-        });
-    }
-    getCity(cityID): Promise<any> {
-        let id = Number(cityID);
-        return new Promise(resolve => {
-            const city = this.cities.find(city => city.id === id);
-            if (!city) {
-                throw new HttpException('City does not exist!', 404);
-            }
-            resolve(city);
-        });
-    }
-    addCity(city): Promise<any> {
-        return new Promise(resolve => {
-            this.cities.push(city);
-            resolve(this.cities);
-        });
-    }
-    deleteCity(cityID): Promise<any> {
-        let id = Number(cityID);
-        return new Promise(resolve => {
-            let index = this.cities.findIndex(city => city.id === id);
-            if (index === -1) {
-                throw new HttpException('City does not exist!', 404);
-            }
-            this.cities.splice(1, index);
-            resolve(this.cities);
-        });
-    }
+  constructor(
+    @InjectRepository(Cities)
+    private cityRepository: Repository<Cities>,
+  ) {}
 
-    constructor(
-        @InjectRepository(CityEntity)
-        private citiesRepository: Repository<CityEntity>,
-    ) { }
+  async create(city): Promise<Cities> {
+    console.log(city);
+    return await this.cityRepository.save(city);
+  }
 
-    findAll(): Promise<CityEntity[]> {
-        return this.citiesRepository.find();
-    }
+  async findAll(): Promise<Cities[]> {
+    return await this.cityRepository.find();
+  }
 
-    findOne(id: string): Promise<CityEntity> {
-        return this.citiesRepository.findOne(id);
-    }
+  async findOneById(cityId): Promise<Cities> {
+    return await this.cityRepository.findOne(cityId);
+  }
 
-    async remove(id: string): Promise<void> {
-        await this.citiesRepository.delete(id);
-    }
+  async editCity(cityId, city): Promise<UpdateResult> {
+    return await this.cityRepository.update(cityId, city);
+  }
+
+  async deleteCity(cityId): Promise<DeleteResult> {
+    return await this.cityRepository.delete(cityId);
+  }
 }

@@ -1,15 +1,15 @@
 import { Column, CreateDateColumn, Entity, ManyToOne, OneToOne, PrimaryGeneratedColumn, UpdateDateColumn, Unique } from 'typeorm';
-import { ResidenceEntity } from "../residences/residence.entity";
-import { MeetEntity } from '../meetings/meet.entity';
-import { MatchEntity } from '../matches/match.entity';
+import { Residences } from "../residences/residence.entity";
+import { Meetings } from '../meetings/meet.entity';
+import { Matches } from '../matches/match.entity';
 
 @Entity()
-export class ScheduleEntity {
+export class Schedule {
     @PrimaryGeneratedColumn()
     id: number;
 
-    @Column({ length: 9 })
-    match_id: number; // [ref: > matches.id]
+    @Column()
+    match_id: number; 
 
     @Column({ type: 'timestamp' })
     start_date: Date;
@@ -17,23 +17,23 @@ export class ScheduleEntity {
     @Column({ type: 'timestamp' })
     end_date: Date;
 
-    @Column({ length: 100 })
-    residences_id: number; //  [ref: > residences.id]
+    @Column()
+    residences_id: number; 
 
-    @Column({ length: 20 })
-    location: string; //json
+    @Column({ length: 25 }) //Address
+    location: string; 
 
-    @Column({ length: 30 })
+    @Column()
     address: string;
 
-    @ManyToOne(type => ResidenceEntity, residence => residence)
-    Residence: ResidenceEntity[];
+    @ManyToOne(type => Residences, residence => residence)
+    Residence: Residences[];
 
-    @OneToOne(type => MeetEntity, meet  => meet.id)
-    Meet: MeetEntity[];
+    @OneToOne(type => Meetings, meet  => meet.id)
+    meet: Meetings[];
 
-    @OneToOne(type => MatchEntity, match => match)
-    Match: MatchEntity[];
+    @OneToOne(type => Matches, match => match)
+    match: Matches[];
 
     @CreateDateColumn({ type: 'timestamp' })
     createdAt: Date;

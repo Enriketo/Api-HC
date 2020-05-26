@@ -1,5 +1,5 @@
-import { Column, CreateDateColumn, Entity, ManyToOne, OneToOne, PrimaryGeneratedColumn, UpdateDateColumn, Unique } from 'typeorm';
-import { MeetEntity } from '../meetings/meet.entity';
+import { Column, CreateDateColumn, Entity, OneToOne, PrimaryGeneratedColumn, UpdateDateColumn} from 'typeorm';
+import { Meetings } from '../meetings/meet.entity';
 
 export enum payment_type {
     cash = 'cash',
@@ -15,14 +15,14 @@ export enum order_status {
 }
 
 @Entity()
-export class OrderEntity {
+export class Orders {
     @PrimaryGeneratedColumn()
     id: number;
 
-    @Column({ length: 9 })
-    match_id: number; // [ref: > matches.id]
+    @Column()
+    match_id: number; 
 
-    @Column({ length: 9 })
+    @Column()
     price: number;
 
     @Column({
@@ -39,8 +39,8 @@ export class OrderEntity {
     })
     order_status: order_status;
 
-    @OneToOne(type => MeetEntity, meet => meet.id)
-    Meet: MeetEntity[];
+    @OneToOne(type => Meetings, meet => meet.id)
+    meet: Meetings[];
 
     @CreateDateColumn({ type: 'timestamp' })
     createdAt: Date;

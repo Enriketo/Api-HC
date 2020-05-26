@@ -1,7 +1,7 @@
-import { TimeItemEntity } from './time_item.entity';
+import { TimeItems } from './time_item.entity';
 
-describe('TimeItemEntity', () => {
+describe('TimeItems', () => {
   it('should be defined', () => {
-    expect(new TimeItemEntity()).toBeDefined();
+    expect(new TimeItems()).toBeDefined();
   });
 });

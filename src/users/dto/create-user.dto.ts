@@ -1,22 +1,85 @@
-export class CreateUserDTO {
+import { IsNotEmpty } from 'class-validator';
+import { ApiProperty } from '@nestjs/swagger';
+
+export class CreateUserDto {
+
+    @IsNotEmpty()
+    @ApiProperty()
     readonly id: number;
+
+    @IsNotEmpty()
+    @ApiProperty()
     readonly first_name: string;
+
+    @IsNotEmpty()
+    @ApiProperty()
     readonly last_name: string;
-    readonly username: string; // [not null, unique]
+
+    @IsNotEmpty()
+    @ApiProperty()
+    readonly username: string;
+
+    @IsNotEmpty()
+    @ApiProperty()
+    readonly email: string; 
+
+    @IsNotEmpty()
+    @ApiProperty()
+    readonly password: string;
+
+    @IsNotEmpty()
+    @ApiProperty()
     readonly doc_type: string;
+
+    @IsNotEmpty()
+    @ApiProperty()
     readonly doc_number: number;
-    readonly email: string; // [not null, unique]
-    readonly password: string;// varbinary[not null]
+
+    @IsNotEmpty()
+    @ApiProperty()
     readonly gender: string;
+
+    @IsNotEmpty()
+    @ApiProperty()
     readonly phone: number;
+
+    @IsNotEmpty()
+    @ApiProperty()
     readonly discapacity: boolean;
+
+    @IsNotEmpty()
+    @ApiProperty()
     readonly opt_in: boolean;
-    readonly showName: boolean;
+
+    @IsNotEmpty()
+    @ApiProperty()
+    readonly show_name: boolean;
+
+    @IsNotEmpty()
+    @ApiProperty()
     readonly dob: Date;
-    readonly preferences: string; // json
+
+    @IsNotEmpty()
+    @ApiProperty()
+    readonly preferences: string;
+
+    @IsNotEmpty()
+    @ApiProperty()
     readonly address: string;
-    readonly city_id: number; // [ref: > cities.id]
-    readonly media_id: number; // int[ref: > media.id]
+
+    @IsNotEmpty()
+    @ApiProperty()
+    readonly city_id: number;
+
+    @IsNotEmpty()
+    @ApiProperty()
+    readonly media_id: number;
+
+    @IsNotEmpty()
+    @ApiProperty()
     readonly createdAt: Date;
+
+    @IsNotEmpty()
+    @ApiProperty()
     readonly updatedAt: Date;
 }

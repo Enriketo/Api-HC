@@ -1,59 +1,35 @@
-import { Injectable, HttpException } from '@nestjs/common';
+import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
-import { OrderEntity } from './order.entity';
-import { ORDERS } from '../../mocks/orders.mock';
+import { Orders } from './order.entity';
+import { UpdateResult, DeleteResult } from  'typeorm';
 
 @Injectable()
 export class OrdersService {
-    orders = ORDERS;
 
-    getOrders(): Promise<any> {
-        return new Promise(resolve => {
-            resolve(this.orders);
-        });
-    }
-    getOrder(orderID): Promise<any> {
-        let id = Number(orderID);
-        return new Promise(resolve => {
-            const order = this.orders.find(order => order.id === id);
-            if (!order) {
-                throw new HttpException('Order does not exist!', 404);
-            }
-            resolve(order);
-        });
-    }
-    addOrder(order): Promise<any> {
-        return new Promise(resolve => {
-            this.orders.push(order);
-            resolve(this.orders);
-        });
-    }
-    deleteOrder(orderID): Promise<any> {
-        let id = Number(orderID);
-        return new Promise(resolve => {
-            let index = this.orders.findIndex(order => order.id === id);
-            if (index === -1) {
-                throw new HttpException('Order does not exist!', 404);
-            }
-            this.orders.splice(1, index);
-            resolve(this.orders);
-        });
-    }
-    constructor(
-        @InjectRepository(OrderEntity)
-        private ordersRepository: Repository<OrderEntity>,
-    ) { }
+  constructor(
+    @InjectRepository(Orders)
+    private orderRepository: Repository<Orders>,
+  ) {}
 
-    findAll(): Promise<OrderEntity[]> {
-        return this.ordersRepository.find();
-    }
+  async create(order): Promise<Orders> {
+    console.log(order);
+    return await this.orderRepository.save(order);
+  }
 
-    findOne(id: string): Promise<OrderEntity> {
-        return this.ordersRepository.findOne(id);
-    }
+  async findAll(): Promise<Orders[]> {
+    return await this.orderRepository.find();
+  }
 
-    async remove(id: string): Promise<void> {
-        await this.ordersRepository.delete(id);
-    }
+  async findOneById(orderId): Promise<Orders> {
+    return await this.orderRepository.findOne(orderId);
+  }
+
+  async editOrder(orderId, order): Promise<UpdateResult> {
+    return await this.orderRepository.update(orderId, order);
+  }
+
+  async deleteOrder(orderId): Promise<DeleteResult> {
+    return await this.orderRepository.delete(orderId);
+  }
 }

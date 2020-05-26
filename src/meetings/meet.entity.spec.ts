@@ -1,7 +1,7 @@
-import { MeetingEntity } from './meet.entity';
+import { Meetings } from './meet.entity';
 
-describe('MeetingEntity', () => {
+describe('Meetings', () => {
   it('should be defined', () => {
-    expect(new MeetingEntity()).toBeDefined();
+    expect(new Meetings()).toBeDefined();
   });
 });

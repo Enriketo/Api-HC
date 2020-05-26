@@ -1,7 +1,7 @@
-import { OrderEntity } from './order.entity';
+import { Orders } from './order.entity';
 
-describe('OrderEntity', () => {
+describe('Orders', () => {
   it('should be defined', () => {
-    expect(new OrderEntity()).toBeDefined();
+    expect(new Orders()).toBeDefined();
   });
 });

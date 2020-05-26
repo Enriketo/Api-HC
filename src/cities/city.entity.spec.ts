@@ -1,7 +1,7 @@
-import { CityEntity } from './city.entity';
+import { Cities } from './city.entity';
 
-describe('CityEntity', () => {
+describe('Cities', () => {
   it('should be defined', () => {
-    expect(new CityEntity()).toBeDefined();
+    expect(new Cities()).toBeDefined();
   });
 });

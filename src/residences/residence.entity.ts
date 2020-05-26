@@ -1,43 +1,43 @@
 import { Column, CreateDateColumn, Entity, ManyToOne, OneToOne, OneToMany, PrimaryGeneratedColumn, UpdateDateColumn, Unique } from 'typeorm';
-import { CityEntity } from '../cities/city.entity';
-import { MediaEntity } from '../media/media.entity';
-import { ScheduleEntity } from '../schedule/schedule.entity';
+import { Cities } from '../cities/city.entity';
+import { Media } from '../media/media.entity';
+import { Schedule } from '../schedule/schedule.entity';
 
 @Entity()
 @Unique(["email"])
-export class ResidenceEntity {
+export class Residences {
     @PrimaryGeneratedColumn()
     id: number;
 
-    @Column({ length: 9 })
-    city_id : number; // [ref: > cities.id]
+    @Column()
+    city_id : number; 
 
-    @Column({ length: 25 })
-    email: string; // [not null]
+    @Column()
+    email: string; 
 
-    @Column({ length: 20 })
+    @Column()
     name: string;
 
-    @Column({ length: 20 })
-    location: number; // [increment]
+    @Column()
+    location: number; 
 
-    @Column({ length: 40 })
+    @Column()
     address: string;
 
-    @Column({ length: 1 })
+    @Column()
     place_avalaible: boolean;
 
-    @Column({ length: 9 })
-    media_id: number; // [ref: > media.id]
+    @Column()
+    media_id: number; 
 
-    @ManyToOne(type => CityEntity, city => city)
-    States: CityEntity[];
+    @ManyToOne(type => Cities, city => city)
+    states: Cities[];
 
-    @OneToOne(type => MediaEntity, media => media)
-    Media: MediaEntity[];
+    @OneToOne(type => Media, media => media)
+    media: Media[];
 
-    @OneToMany(type => ScheduleEntity, schedule => schedule)
-    Schedule: ScheduleEntity[];
+    @OneToMany(type => Schedule, schedule => schedule)
+    schedule: Schedule[];
 
     @CreateDateColumn({ type: 'timestamp' })
     createdAt: Date;

@@ -1,59 +1,35 @@
-import { Injectable, HttpException } from '@nestjs/common';
+import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
-import { StateEntity } from './state.entity';
-import { STATES } from '../../mocks/states.mock';
+import { States } from './state.entity';
+import { UpdateResult, DeleteResult } from  'typeorm';
 
 @Injectable()
 export class StatesService {
-    states = STATES;
 
-    getStates(): Promise<any> {
-        return new Promise(resolve => {
-            resolve(this.states);
-        });
-    }
-    getState(stateID): Promise<any> {
-        let id = Number(stateID);
-        return new Promise(resolve => {
-            const state = this.states.find(state => state.id === id);
-            if (!state) {
-                throw new HttpException('State does not exist!', 404);
-            }
-            resolve(state);
-        });
-    }
-    addState(state): Promise<any> {
-        return new Promise(resolve => {
-            this.states.push(state);
-            resolve(this.states);
-        });
-    }
-    deleteState(stateID): Promise<any> {
-        let id = Number(stateID);
-        return new Promise(resolve => {
-            let index = this.states.findIndex(state => state.id === id);
-            if (index === -1) {
-                throw new HttpException('State does not exist!', 404);
-            }
-            this.states.splice(1, index);
-            resolve(this.states);
-        });
-    }
-    constructor(
-        @InjectRepository(StateEntity)
-        private statesRepository: Repository<StateEntity>,
-    ) { }
+  constructor(
+    @InjectRepository(States)
+    private stateRepository: Repository<States>,
+  ) {}
 
-    findAll(): Promise<StateEntity[]> {
-        return this.statesRepository.find();
-    }
+  async create(state): Promise<States> {
+    console.log(state);
+    return await this.stateRepository.save(state);
+  }
 
-    findOne(id: string): Promise<StateEntity> {
-        return this.statesRepository.findOne(id);
-    }
+  async findAll(): Promise<States[]> {
+    return await this.stateRepository.find();
+  }
 
-    async remove(id: string): Promise<void> {
-        await this.statesRepository.delete(id);
-    }
+  async findOneById(stateId): Promise<States> {
+    return await this.stateRepository.findOne(stateId);
+  }
+
+  async editState(stateId, state): Promise<UpdateResult> {
+    return await this.stateRepository.update(stateId, state);
+  }
+
+  async deleteState(stateId): Promise<DeleteResult> {
+    return await this.stateRepository.delete(stateId);
+  }
 }

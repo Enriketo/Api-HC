@@ -1,7 +1,7 @@
 import { Column, CreateDateColumn, Entity, ManyToOne, OneToOne, PrimaryGeneratedColumn, UpdateDateColumn, Unique } from 'typeorm';
-import { UserEntity } from '../users/user.entity';
-import { EmployeeEntity } from '../employees/employee.entity';
-import { ScheduleEntity } from '../schedule/schedule.entity';
+import { Users } from '../users/user.entity';
+import { Employees } from '../employees/employee.entity';
+import { Schedule } from '../schedule/schedule.entity';
 
 export enum match_status {
     accepted = 'accepted',
@@ -12,15 +12,16 @@ export enum match_status {
 }
 
 @Entity()
-export class MatchEntity {
+export class Matches {
+    
     @PrimaryGeneratedColumn()
     id: number;
 
-    @Column({ length: 20 })
-    user_id: number; // [ref: > users.id]
+    @Column()
+    user_id: number; 
 
-    @Column({ length: 20 })
-    employee_id: number; // [ref: > employees.id]
+    @Column()
+    employee_id: number;
 
     @Column({
         type: 'enum',
@@ -29,20 +30,20 @@ export class MatchEntity {
     })
     type: match_status;
 
-    @Column({ length: 20 })
-    username: string; // [not null, unique]
+    @Column()
+    username: string; 
 
-    @Column({ length: 25 })
+    @Column()
     order_approved: boolean;
 
-    @ManyToOne(type => UserEntity, user => user.id)
-    User: UserEntity[];
+    @ManyToOne(type => Users, user => user.id)
+    user: Users[];
 
-    @ManyToOne(type => EmployeeEntity, employee => employee.id)
-    Employee: EmployeeEntity[];
+    @ManyToOne(type => Employees, employee => employee.id)
+    employee: Employees[];
 
-    @OneToOne(type => ScheduleEntity, schedule => schedule.id)
-    Schedule: ScheduleEntity[];
+    @OneToOne(type => Schedule, schedule => schedule.id)
+    schedule: Schedule[];
 
     @CreateDateColumn({ type: 'timestamp' })
     createdAt: Date;
