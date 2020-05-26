@@ -7,7 +7,7 @@ async function bootstrap() {
 
   const options = new DocumentBuilder()
   .setTitle('HC API')
-  .setDescription('Hot Ccompany')
+  .setDescription('Hot Company')
   .setVersion('1.0')
   .addBearerAuth()
   .build();

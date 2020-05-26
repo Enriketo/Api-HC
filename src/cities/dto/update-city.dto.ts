@@ -5,14 +5,6 @@ export class UpdateCityDto {
 
     @IsNotEmpty()
     @ApiProperty()
-    readonly id: number;
-
-    @IsNotEmpty()
-    @ApiProperty()
-    readonly state_id: number;
-
-    @IsNotEmpty()
-    @ApiProperty()
     readonly city: string;
 
     @IsNotEmpty()
@@ -30,10 +22,6 @@ export class UpdateCityDto {
     @IsNotEmpty()
     @ApiProperty()
     readonly location: string;
-
-    @IsNotEmpty()
-    @ApiProperty()
-    readonly createdAt: Date;
 
     @IsNotEmpty()
     @ApiProperty()

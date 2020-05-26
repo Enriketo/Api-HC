@@ -9,7 +9,7 @@ export class CreateStateDto {
     
     @IsNotEmpty()
     @ApiProperty()
-    readonly country_id: number; // [ref: > countries.id]
+    readonly country_id: number; 
     
     @IsNotEmpty()
     @ApiProperty()

@@ -5,10 +5,6 @@ export class UpdateMediaDto {
     
     @IsNotEmpty()
     @ApiProperty()
-    readonly id: number;
-
-    @IsNotEmpty()
-    @ApiProperty()
     readonly type: string;
 
     @IsNotEmpty()
@@ -18,10 +14,6 @@ export class UpdateMediaDto {
     @IsNotEmpty()
     @ApiProperty()
     readonly url: string;
-    
-    @IsNotEmpty()
-    @ApiProperty()
-    readonly createdAt: Date;
     
     @IsNotEmpty()
     @ApiProperty()

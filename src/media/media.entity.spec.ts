@@ -1,7 +1,7 @@
-import { MediaEntity } from './media.entity';
+import { Media } from './media.entity';
 
-describe('MediaEntity', () => {
+describe('Media', () => {
   it('should be defined', () => {
-    expect(new MediaEntity()).toBeDefined();
+    expect(new Media()).toBeDefined();
   });
 });

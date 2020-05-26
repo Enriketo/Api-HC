@@ -8,7 +8,7 @@ export class CreateScheduleDto {
 
     @IsNotEmpty()
     @ApiProperty()
-    readonly match_id: number; // [ref: > matches.id]
+    readonly match_id: number; 
 
     @IsNotEmpty()
     @ApiProperty()
@@ -20,11 +20,11 @@ export class CreateScheduleDto {
 
     @IsNotEmpty()
     @ApiProperty()
-    readonly residences_id: number; //  [ref: > residences.id]
-
+    readonly residences_id: number; 
+    
     @IsNotEmpty()
     @ApiProperty()
-    readonly location: string; //json
+    readonly location: string; 
 
     @IsNotEmpty()
     @ApiProperty()

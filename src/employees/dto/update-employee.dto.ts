@@ -5,10 +5,6 @@ export class UpdateEmployeeDto {
 
     @IsNotEmpty()
     @ApiProperty()
-    readonly id: number;
-
-    @IsNotEmpty()
-    @ApiProperty()
     readonly first_name: string;
 
     @IsNotEmpty()
@@ -17,23 +13,7 @@ export class UpdateEmployeeDto {
 
     @IsNotEmpty()
     @ApiProperty()
-    readonly username: string; // [not null, unique]
-
-    @IsNotEmpty()
-    @ApiProperty()
-    readonly email: string; // [not null, unique]
-
-    @IsNotEmpty()
-    @ApiProperty()
-    readonly password: string;// varbinary[not null]
-
-    @IsNotEmpty()
-    @ApiProperty()
-    readonly doc_type: string;
-    
-    @IsNotEmpty()
-    @ApiProperty()
-    readonly doc_number: number;
+    readonly password: string;
 
     @IsNotEmpty()
     @ApiProperty()
@@ -49,7 +29,7 @@ export class UpdateEmployeeDto {
 
     @IsNotEmpty()
     @ApiProperty()
-    readonly preferences: string; // json
+    readonly preferences: string; 
 
     @IsNotEmpty()
     @ApiProperty()
@@ -61,11 +41,11 @@ export class UpdateEmployeeDto {
     
     @IsNotEmpty()
     @ApiProperty()
-    readonly time_item_id: number; // [ref: > time_items.id]
+    readonly time_item_id: number;
 
     @IsNotEmpty()
     @ApiProperty()
-    readonly city_id: number; // [ref: > cities.id]
+    readonly city_id: number; 
 
     @IsNotEmpty()
     @ApiProperty()
@@ -91,22 +71,6 @@ export class UpdateEmployeeDto {
     @ApiProperty()
     readonly opt_in: boolean;
 
-    @IsNotEmpty()
-    @ApiProperty()
-    readonly average_calification: number; // float
-
-    @IsNotEmpty()
-    @ApiProperty()
-    readonly penality: string;
-
-    @IsNotEmpty()
-    @ApiProperty()
-    readonly total_penalities: number;
-    
-    @IsNotEmpty()
-    @ApiProperty()
-    readonly createdAt: Date;
-    
     @IsNotEmpty()
     @ApiProperty()
     readonly updatedAt: Date;

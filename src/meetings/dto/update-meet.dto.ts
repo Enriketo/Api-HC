@@ -5,14 +5,6 @@ export class UpdateMeetDto {
 
     @IsNotEmpty()
     @ApiProperty()
-    readonly id: number;
-
-    @IsNotEmpty()
-    @ApiProperty()
-    readonly schedule_id: number; // [ref: > schedule.id]
-
-    @IsNotEmpty()
-    @ApiProperty()
     readonly user_arrived: boolean;
 
     @IsNotEmpty()
@@ -31,10 +23,6 @@ export class UpdateMeetDto {
     @ApiProperty()
     readonly coment: string;
 
-    @IsNotEmpty()
-    @ApiProperty()
-    readonly createdAt: Date;
-    
     @IsNotEmpty()
     @ApiProperty()
     readonly updatedAt: Date;

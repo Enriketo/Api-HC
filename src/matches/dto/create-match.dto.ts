@@ -9,11 +9,11 @@ export class CreateMatchDto {
 
     @IsNotEmpty()
     @ApiProperty()
-    readonly user_id: number; // [ref: > users.id]
+    readonly user_id: number; 
 
     @IsNotEmpty()
     @ApiProperty()
-    readonly employee_id: number; // [ref: > employees.id]
+    readonly employee_id: number; 
 
     @IsNotEmpty()
     @ApiProperty()
@@ -21,7 +21,7 @@ export class CreateMatchDto {
     
     @IsNotEmpty()
     @ApiProperty()
-    readonly username: string; // [not null, unique]
+    readonly username: string; 
 
     @IsNotEmpty()
     @ApiProperty()

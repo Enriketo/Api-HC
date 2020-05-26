@@ -5,14 +5,6 @@ export class UpdateOrderDto {
 
     @IsNotEmpty()
     @ApiProperty()
-    readonly id: number;
-    
-    @IsNotEmpty()
-    @ApiProperty()
-    readonly match_id: number; // [ref: > matches.id]
-
-    @IsNotEmpty()
-    @ApiProperty()
     readonly price: number;
 
     @IsNotEmpty()
@@ -23,10 +15,6 @@ export class UpdateOrderDto {
     @ApiProperty()
     readonly order_status: string;
 
-    @IsNotEmpty()
-    @ApiProperty()
-    readonly  createdAt: Date;
-    
     @IsNotEmpty()
     @ApiProperty()
     readonly updatedAt: Date;

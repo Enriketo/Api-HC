@@ -8,7 +8,7 @@ export enum type {
     avatar = 'avatar',
     profile = 'profile',
     gif = 'gif',
-    loop = 'loop'// 5 Seconds
+    loop = 'loop'
 }
 
 @Entity()

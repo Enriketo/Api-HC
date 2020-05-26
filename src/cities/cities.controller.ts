@@ -4,7 +4,7 @@ import { CitiesService } from './cities.service';
 import { CreateCityDto, UpdateCityDto } from './dto/';
 import { ApiTags, ApiParam, ApiOperation, ApiResponse } from '@nestjs/swagger';
 
-@ApiTags('Citites')
+@ApiTags('Cities')
 @Controller('api/cities')
 export class CitiesController {
   constructor(

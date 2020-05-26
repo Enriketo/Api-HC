@@ -1,7 +1,7 @@
-import { StateEntity } from './state.entity';
+import { States } from './state.entity';
 
-describe('StateEntity', () => {
+describe('States', () => {
   it('should be defined', () => {
-    expect(new StateEntity()).toBeDefined();
+    expect(new States()).toBeDefined();
   });
 });

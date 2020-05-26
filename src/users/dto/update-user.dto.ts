@@ -5,10 +5,6 @@ export class UpdateUserDto {
 
     @IsNotEmpty()
     @ApiProperty()
-    readonly id: number;
-
-    @IsNotEmpty()
-    @ApiProperty()
     readonly first_name: string;
 
     @IsNotEmpty()
@@ -17,23 +13,7 @@ export class UpdateUserDto {
 
     @IsNotEmpty()
     @ApiProperty()
-    readonly username: string;
-
-    @IsNotEmpty()
-    @ApiProperty()
-    readonly email: string; 
-
-    @IsNotEmpty()
-    @ApiProperty()
     readonly password: string;
-
-    @IsNotEmpty()
-    @ApiProperty()
-    readonly doc_type: string;
-
-    @IsNotEmpty()
-    @ApiProperty()
-    readonly doc_number: number;
 
     @IsNotEmpty()
     @ApiProperty()
@@ -57,10 +37,6 @@ export class UpdateUserDto {
 
     @IsNotEmpty()
     @ApiProperty()
-    readonly dob: Date;
-
-    @IsNotEmpty()
-    @ApiProperty()
     readonly preferences: string;
 
     @IsNotEmpty()
@@ -73,13 +49,6 @@ export class UpdateUserDto {
 
     @IsNotEmpty()
     @ApiProperty()
-    readonly media_id: number;
-
-    @IsNotEmpty()
-    @ApiProperty()
-    readonly createdAt: Date;
-
-    @IsNotEmpty()
-    @ApiProperty()
     readonly updatedAt: Date;
+    
 }

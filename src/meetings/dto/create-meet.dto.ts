@@ -9,7 +9,7 @@ export class CreateMeetDto {
 
     @IsNotEmpty()
     @ApiProperty()
-    readonly schedule_id: number; // [ref: > schedule.id]
+    readonly schedule_id: number;
 
     @IsNotEmpty()
     @ApiProperty()

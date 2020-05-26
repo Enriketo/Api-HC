@@ -9,11 +9,11 @@ export class CreateResidenceDto {
 
     @IsNotEmpty()
     @ApiProperty()
-    readonly city_id : number; // [ref: > cities.id]
+    readonly city_id : number; 
     
     @IsNotEmpty()
     @ApiProperty()
-    readonly email: string; // [not null]
+    readonly email: string; 
 
     @IsNotEmpty()
     @ApiProperty()
@@ -21,7 +21,7 @@ export class CreateResidenceDto {
 
     @IsNotEmpty()
     @ApiProperty()
-    readonly location: number; // [increment]
+    readonly location: number; 
 
     @IsNotEmpty()
     @ApiProperty()
@@ -33,7 +33,7 @@ export class CreateResidenceDto {
     
     @IsNotEmpty()
     @ApiProperty()
-    readonly media_id: number; // [ref: > media.id]
+    readonly media_id: number; 
 
     @IsNotEmpty()
     @ApiProperty()

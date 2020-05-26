@@ -17,15 +17,15 @@ export class CreateEmployeeDto {
 
     @IsNotEmpty()
     @ApiProperty()
-    readonly username: string; // [not null, unique]
+    readonly username: string; 
 
     @IsNotEmpty()
     @ApiProperty()
-    readonly email: string; // [not null, unique]
+    readonly email: string; 
 
     @IsNotEmpty()
     @ApiProperty()
-    readonly password: string;// varbinary[not null]
+    readonly password: string;
 
     @IsNotEmpty()
     @ApiProperty()
@@ -49,7 +49,7 @@ export class CreateEmployeeDto {
 
     @IsNotEmpty()
     @ApiProperty()
-    readonly preferences: string; // json
+    readonly preferences: string; 
 
     @IsNotEmpty()
     @ApiProperty()
@@ -61,11 +61,11 @@ export class CreateEmployeeDto {
     
     @IsNotEmpty()
     @ApiProperty()
-    readonly time_item_id: number; // [ref: > time_items.id]
+    readonly time_item_id: number; 
 
     @IsNotEmpty()
     @ApiProperty()
-    readonly city_id: number; // [ref: > cities.id]
+    readonly city_id: number; 
 
     @IsNotEmpty()
     @ApiProperty()
@@ -93,7 +93,7 @@ export class CreateEmployeeDto {
 
     @IsNotEmpty()
     @ApiProperty()
-    readonly average_calification: number; // float
+    readonly average_calification: number; 
 
     @IsNotEmpty()
     @ApiProperty()

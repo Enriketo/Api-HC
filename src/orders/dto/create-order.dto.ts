@@ -9,7 +9,7 @@ export class CreateOrderDto {
     
     @IsNotEmpty()
     @ApiProperty()
-    readonly match_id: number; // [ref: > matches.id]
+    readonly match_id: number; 
 
     @IsNotEmpty()
     @ApiProperty()

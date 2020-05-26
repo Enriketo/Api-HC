@@ -5,10 +5,6 @@ export class UpdateCountryDto {
 
   @IsNotEmpty()
   @ApiProperty()
-  readonly id: number;
-
-  @IsNotEmpty()
-  @ApiProperty()
   readonly country: string;
 
   @IsNotEmpty()
@@ -25,15 +21,11 @@ export class UpdateCountryDto {
 
   @IsNotEmpty()
   @ApiProperty()
-  readonly location: string; // json
-
+  readonly location: string;
+  
   @IsNotEmpty()
   @ApiProperty()
   readonly phonePrefix: number;
-
-  @IsNotEmpty()
-  @ApiProperty()
-  readonly createdAt: Date;
 
   @IsNotEmpty()
   @ApiProperty()

@@ -5,15 +5,7 @@ export class UpdateResidenceDto {
 
     @IsNotEmpty()
     @ApiProperty()
-    readonly id: number;
-
-    @IsNotEmpty()
-    @ApiProperty()
-    readonly city_id : number; // [ref: > cities.id]
-    
-    @IsNotEmpty()
-    @ApiProperty()
-    readonly email: string; // [not null]
+    readonly email: string; 
 
     @IsNotEmpty()
     @ApiProperty()
@@ -21,7 +13,7 @@ export class UpdateResidenceDto {
 
     @IsNotEmpty()
     @ApiProperty()
-    readonly location: number; // [increment]
+    readonly location: number; 
 
     @IsNotEmpty()
     @ApiProperty()
@@ -30,14 +22,6 @@ export class UpdateResidenceDto {
     @IsNotEmpty()
     @ApiProperty()
     readonly place_avalaible: boolean;
-    
-    @IsNotEmpty()
-    @ApiProperty()
-    readonly media_id: number; // [ref: > media.id]
-
-    @IsNotEmpty()
-    @ApiProperty()
-    readonly createdAt: Date;
     
     @IsNotEmpty()
     @ApiProperty()
