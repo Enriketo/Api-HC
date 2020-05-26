@@ -1,90 +1,35 @@
-import { Injectable, HttpException } from '@nestjs/common';
+import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { Repository, Connection } from 'typeorm';
-import { ResidenceEntity } from './residence.entity';
-import { CreateResidenceDTO } from './dto/create-residence.dto';
-import { ResidenceClass } from './classes/residence.class';
+import { Repository } from 'typeorm';
+import { Residences } from './residence.entity';
+import { UpdateResult, DeleteResult } from  'typeorm';
 
-export type Residence = any;
 @Injectable()
 export class ResidencesService {
-    ResidenceEntity: any;
 
-    private readonly users: Residence[];
-    create(user: CreateResidenceDTO): ResidenceClass {
-        this.users.push(user);
-        return user;
-      }
+  constructor(
+    @InjectRepository(Residences)
+    private residenceRepository: Repository<Residences>,
+  ) {}
 
-    constructor(
-        @InjectRepository(ResidenceEntity)
-        private residencesRepository: Repository<ResidenceEntity>,
-        private connection: Connection,
-    ) {}
+  async create(residence): Promise<Residences> {
+    console.log(residence);
+    return await this.residenceRepository.save(residence);
+  }
 
-    getResidences(): Promise<any> {
-        return new Promise(resolve => {
-            resolve(this.ResidenceEntity);
-        });
-    }
-    getResidence(residenceID): Promise<any> {
-        let id = Number(residenceID);
-        return new Promise(resolve => {
-            const residence = this.ResidenceEntity.find(residence => residence.id === id);
-            if (!residence) {
-                throw new HttpException('Residence does not exist!', 404);
-            }
-            resolve(residence);
-        });
-    }
-    addResidence(residence): Promise<any> {
-        return new Promise(resolve => {
-            this.ResidenceEntity.push(residence);
-            resolve(this.ResidenceEntity);
-        });
-    }
-    deleteResidence(residenceID): Promise<any> {
-        let id = Number(residenceID);
-        return new Promise(resolve => {
-            let index = this.ResidenceEntity.findIndex(residence => residence.id === id);
-            if (index === -1) {
-                throw new HttpException('Residence does not exist!', 404);
-            }
-            this.ResidenceEntity.splice(1, index);
-            resolve(this.ResidenceEntity);
-        });
-    }
-    findAll(): Promise<ResidenceEntity[]> {
-        return this.residencesRepository.find();
-    }
+  async findAll(): Promise<Residences[]> {
+    return await this.residenceRepository.find();
+  }
 
-    findOne(id: string): Promise<ResidenceEntity> {
-        return this.residencesRepository.findOne(id);
-    }
+  async findOneById(residenceId): Promise<Residences> {
+    return await this.residenceRepository.findOne(residenceId);
+  }
 
-    async remove(id: string): Promise<void> {
-        await this.residencesRepository.delete(id);
-    }
-    async createMany(residences: ResidenceEntity[]) {
-        const queryRunner = this.connection.createQueryRunner();
-             
-        await queryRunner.connect();
-        await queryRunner.startTransaction();
-        try {
-          await queryRunner.manager.save(residences[0]);
-          await queryRunner.manager.save(residences[1]);
-      
-          await queryRunner.commitTransaction();
-        } catch (err) {
-          // since we have errors lets rollback the changes we made
-          await queryRunner.rollbackTransaction();
-        } finally {
-          // you need to release a queryRunner which was manually instantiated
-          await queryRunner.release();
-        }
-        await this.connection.transaction(async manager => {
-            await manager.save(residences[0]);
-            await manager.save(residences[1]);
-          });
-      }
+  async editResidence(residenceId, residence): Promise<UpdateResult> {
+    return await this.residenceRepository.update(residenceId, residence);
+  }
+
+  async deleteResidence(residenceId): Promise<DeleteResult> {
+    return await this.residenceRepository.delete(residenceId);
+  }
 }

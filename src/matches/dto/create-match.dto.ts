@@ -1,51 +1,38 @@
+import { IsNotEmpty } from 'class-validator';
 import { ApiProperty } from '@nestjs/swagger';
 
-export class CreateMatchDTO {
-    @ApiProperty({
-        description: 'Key field',
-        type: Number,
-    })
-    id: number;
+export class CreateMatchDto {
 
-    @ApiProperty({
-        description: 'Relation match-user',
-        type: Number,
-    })
-    user_id: number; // [ref: > users.id]
+    @IsNotEmpty()
+    @ApiProperty()
+    readonly id: number;
 
-    @ApiProperty({
-        description: 'Relation match-employee',
-        type: Number,
-    })
-    employee_id: number; // [ref: > employees.id]
+    @IsNotEmpty()
+    @ApiProperty()
+    readonly user_id: number; // [ref: > users.id]
 
-    @ApiProperty({
-        description: 'Match type',
-        type: String,
-    })
-    type: string;
+    @IsNotEmpty()
+    @ApiProperty()
+    readonly employee_id: number; // [ref: > employees.id]
+
+    @IsNotEmpty()
+    @ApiProperty()
+    readonly type: string;
     
-    @ApiProperty({
-        description: 'Username',
-        type: String,
-    })
-    username: string; // [not null, unique]
+    @IsNotEmpty()
+    @ApiProperty()
+    readonly username: string; // [not null, unique]
 
-    @ApiProperty({
-        description: 'Order aproved yes or not',
-        type: Boolean,
-    })
-    order_approved: boolean;
+    @IsNotEmpty()
+    @ApiProperty()
+    readonly order_approved: boolean;
 
-    @ApiProperty({
-        description: 'Created date',
-        type: Date,
-    })
-    createdAt: Date;
+    @IsNotEmpty()
+    @ApiProperty()
+    readonly createdAt: Date;
     
-    @ApiProperty({
-        description: 'Updated date',
-        type: Date,
-    })
-    updatedAt: Date;
+    @IsNotEmpty()
+    @ApiProperty()
+    readonly updatedAt: Date;
+    
 }

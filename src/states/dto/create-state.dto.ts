@@ -1,57 +1,41 @@
+import { IsNotEmpty } from 'class-validator';
 import { ApiProperty } from '@nestjs/swagger';
 
-export class CreateStateDTO {
-    @ApiProperty({
-        description: 'Key field',
-        type: Number,
-    })
-    id: number;
+export class CreateStateDto {
     
-    @ApiProperty({
-        description: 'Relation state country ',
-        type: Number,
-    })
-    country_id: number; // [ref: > countries.id]
+    @IsNotEmpty()
+    @ApiProperty()
+    readonly id: number;
     
-    @ApiProperty({
-        description: 'State name',
-        type: String,
-    })
-    state: string;
+    @IsNotEmpty()
+    @ApiProperty()
+    readonly country_id: number; // [ref: > countries.id]
+    
+    @IsNotEmpty()
+    @ApiProperty()
+    readonly state: string;
 
-    @ApiProperty({
-        description: 'Geo referencer A',
-        type: String,
-    })
-    code: string;
+    @IsNotEmpty()
+    @ApiProperty()
+    readonly code: string;
     
-    @ApiProperty({
-        description: 'Geo referencer B',
-        type: String,
-    })
-    iso_code2: string;
+    @IsNotEmpty()
+    @ApiProperty()
+    readonly iso_code2: string;
     
-    @ApiProperty({
-        description: 'Geo referencer C',
-        type: String,
-    })
-    iso_code3: string;
+    @IsNotEmpty()
+    @ApiProperty()
+    readonly iso_code3: string;
     
-    @ApiProperty({
-        description: 'State location',
-        type: String,
-    })
-    location: string;
+    @IsNotEmpty()
+    @ApiProperty()
+    readonly location: string;
 
-    @ApiProperty({
-        description: 'Created date',
-        type: Date,
-    })
-    createdAt: Date;
+    @IsNotEmpty()
+    @ApiProperty()
+    readonly createdAt: Date;
     
-    @ApiProperty({
-        description: 'Updated date',
-        type: Date,
-    })
-    updatedAt: Date;
+    @IsNotEmpty()
+    @ApiProperty()
+    readonly updatedAt: Date;
 }

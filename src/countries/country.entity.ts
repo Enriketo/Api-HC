@@ -1,36 +1,30 @@
 import { Column, CreateDateColumn, Entity, OneToMany, PrimaryGeneratedColumn, UpdateDateColumn } from 'typeorm';
-import { StateEntity } from "../states/state.entity";
-
+import { States } from "../states/state.entity";
 
 @Entity()
 export class Countries {
+
     @PrimaryGeneratedColumn()
     id: number;
-
-    @Column()
+  
+    @Column({ length: 25 })
     country: string;
-
-    @Column()
-    code: string;
-
-    @Column()
+  
+    @OneToMany(type => States, state => state.country)
+    states: States[]
+  
+    @Column({ length: 4 })
     iso_code2: string;
-
-    @Column()
+  
+    @Column({ length: 4 })
     iso_code3: string;
-
-    @Column()
-    location: string; // json
-
-    @Column()
-    prefix: number;
-
-    @OneToMany(type => StateEntity, state => state.country)
-    State: StateEntity[];
-
-    @CreateDateColumn({ type: 'timestamp' })
+  
+    @Column({ length: 3 })
+    phonePrefix: string;
+  
+    @CreateDateColumn({type: 'timestamp'})
     createdAt: Date;
-
-    @UpdateDateColumn({ type: 'timestamp' })
+  
+    @UpdateDateColumn({type: 'timestamp'})
     updatedAt: Date;
 }

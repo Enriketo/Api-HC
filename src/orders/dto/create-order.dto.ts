@@ -1,45 +1,33 @@
+import { IsNotEmpty } from 'class-validator';
 import { ApiProperty } from '@nestjs/swagger';
 
-export class CreateOrderDTO {
-    @ApiProperty({
-        description: 'Key field',
-        type: Number,
-    })
-    id: number;
+export class CreateOrderDto {
     
-    @ApiProperty({
-        description: 'Relation order-match',
-        type: Number,
-    })
-    match_id: number; // [ref: > matches.id]
-
-    @ApiProperty({
-        description: 'Order price',
-        type: Number,
-    })
-    price: number;
-
-    @ApiProperty({
-        description: 'Status',
-        type: String,
-    })
-    status: string;
-
-    @ApiProperty({
-        description: 'Order status',
-        type: String,
-    })
-    order_status: string;
-
-    @ApiProperty({
-        description: 'Created date',
-        type: Date,
-    })
-    createdAt: Date;
+    @IsNotEmpty()
+    @ApiProperty()
+    readonly id: number;
     
-    @ApiProperty({
-        description: 'Updated date',
-        type: Date,
-    })
-    updatedAt: Date;
+    @IsNotEmpty()
+    @ApiProperty()
+    readonly match_id: number; // [ref: > matches.id]
+
+    @IsNotEmpty()
+    @ApiProperty()
+    readonly price: number;
+
+    @IsNotEmpty()
+    @ApiProperty()
+    readonly status: string;
+
+    @IsNotEmpty()
+    @ApiProperty()
+    readonly order_status: string;
+
+    @IsNotEmpty()
+    @ApiProperty()
+    readonly  createdAt: Date;
+    
+    @IsNotEmpty()
+    @ApiProperty()
+    readonly updatedAt: Date;
 }

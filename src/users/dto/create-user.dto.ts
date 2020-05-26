@@ -1,123 +1,85 @@
+import { IsNotEmpty } from 'class-validator';
 import { ApiProperty } from '@nestjs/swagger';
 
-export class CreateUserDTO {
-    @ApiProperty({
-        description: 'Key field',
-        type: Number,
-    })
-    id: number;
+export class CreateUserDto {
 
-    @ApiProperty({
-        description: 'User first name',
-        type: String,
-    })
-    first_name: string;
+    @IsNotEmpty()
+    @ApiProperty()
+    readonly id: number;
 
-    @ApiProperty({
-        description: 'User last name',
-        type: String,
-    })
-    last_name: string;
+    @IsNotEmpty()
+    @ApiProperty()
+    readonly first_name: string;
 
-    @ApiProperty({
-        description: 'User name',
-        type: String,
-    })
-    username: string;
+    @IsNotEmpty()
+    @ApiProperty()
+    readonly last_name: string;
 
-    @ApiProperty({
-        description: 'User email',
-        type: String,
-    })
-    email: string; 
+    @IsNotEmpty()
+    @ApiProperty()
+    readonly username: string;
 
-    @ApiProperty({
-        description: 'User password',
-        type: String,
-    })
-    password: string;
+    @IsNotEmpty()
+    @ApiProperty()
+    readonly email: string; 
 
-    @ApiProperty({
-        description: 'User document type',
-        type: String,
-    })
-    doc_type: string;
+    @IsNotEmpty()
+    @ApiProperty()
+    readonly password: string;
 
-    @ApiProperty({
-        description: 'User document number',
-        type: Number,
-    })
-    doc_number: number;
+    @IsNotEmpty()
+    @ApiProperty()
+    readonly doc_type: string;
 
-    @ApiProperty({
-        description: 'User gender',
-        type: String,
-    })
-    gender: string;
+    @IsNotEmpty()
+    @ApiProperty()
+    readonly doc_number: number;
 
-    @ApiProperty({
-        description: 'User phone number',
-        type: Number,
-    })
-    phone: number;
+    @IsNotEmpty()
+    @ApiProperty()
+    readonly gender: string;
 
-    @ApiProperty({
-        description: 'User have discapacity yes or not',
-        type: Boolean,
-    })
-    discapacity: boolean;
+    @IsNotEmpty()
+    @ApiProperty()
+    readonly phone: number;
 
-    @ApiProperty({
-        description: 'User acept discapacity yes or not',
-        type: Boolean,
-    })
-    opt_in: boolean;
+    @IsNotEmpty()
+    @ApiProperty()
+    readonly discapacity: boolean;
 
-    @ApiProperty({
-        description: 'Show user names yes or not',
-        type: Boolean,
-    })
-    show_name: boolean;
+    @IsNotEmpty()
+    @ApiProperty()
+    readonly opt_in: boolean;
 
-    @ApiProperty({
-        description: 'Date of birthday',
-        type: Date,
-    })
-    dob: Date;
+    @IsNotEmpty()
+    @ApiProperty()
+    readonly show_name: boolean;
 
-    @ApiProperty({
-        description: 'User preferences',
-        type: String,
-    })
-    preferences: string;
+    @IsNotEmpty()
+    @ApiProperty()
+    readonly dob: Date;
 
-    @ApiProperty({
-        description: 'User address',
-        type: String,
-    })
-    address: string;
+    @IsNotEmpty()
+    @ApiProperty()
+    readonly preferences: string;
 
-    @ApiProperty({
-        description: 'Relation user-city',
-        type: Number,
-    })
-    city_id: number;
+    @IsNotEmpty()
+    @ApiProperty()
+    readonly address: string;
 
-    @ApiProperty({
-        description: 'User media number',
-        type: Number,
-    })
-    media_id: number;
+    @IsNotEmpty()
+    @ApiProperty()
+    readonly city_id: number;
 
-    @ApiProperty({
-        description: 'Created date',
-        type: Date,
-    })
-    createdAt: Date;
+    @IsNotEmpty()
+    @ApiProperty()
+    readonly media_id: number;
 
-    @ApiProperty({
-        description: 'Updated date',
-        type: Date,
-    })
-    updatedAt: Date;
+    @IsNotEmpty()
+    @ApiProperty()
+    readonly createdAt: Date;
+
+    @IsNotEmpty()
+    @ApiProperty()
+    readonly updatedAt: Date;
 }

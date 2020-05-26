@@ -1,8 +1,8 @@
-import { Column, CreateDateColumn, Entity, ManyToOne, OneToMany, OneToOne, PrimaryGeneratedColumn, UpdateDateColumn, Unique } from 'typeorm';
-import { TimeItemEntity } from '../time_items/time_item.entity';
-import { CityEntity } from '../cities/city.entity';
-import { MediaEntity } from '../media/media.entity';
-import { MatchEntity } from '../matches/match.entity';
+import { Column, CreateDateColumn, Entity, ManyToOne, OneToMany, PrimaryGeneratedColumn, UpdateDateColumn, Unique } from 'typeorm';
+import { TimeItems } from '../time_items/time_item.entity';
+import { Cities } from '../cities/city.entity';
+import { Media } from '../media/media.entity';
+import { Matches } from '../matches/match.entity';
 
 export enum doc_type {
     cc = 'Cédula de ciudadanía',
@@ -47,18 +47,18 @@ export enum penality {
 @Entity()
 @Unique(["username", "email"])
 
-export class EmployeeEntity {
+export class Employees {
     @PrimaryGeneratedColumn()
     id: number;
 
-    @Column()
+    @Column({ length: 20 })
     first_name: string;
 
-    @Column()
+    @Column({ length: 20 })
     last_name: string;
 
-    @Column()
-    username: string; // [not null, unique]
+    @Column({ length: 12 })
+    username: string; 
 
     @Column({
         type: 'enum',
@@ -70,11 +70,11 @@ export class EmployeeEntity {
     @Column()
     doc_number: number;
 
-    @Column()
-    email: string; // [not null, unique]
+    @Column({ length: 30 })
+    email: string; 
 
-    @Column()
-    password: string;// varbinary[not null]
+    @Column({ length: 15 })
+    password: string;
 
     @Column()
     isAdmin: boolean;
@@ -89,8 +89,8 @@ export class EmployeeEntity {
     @Column()
     showName: boolean;
 
-    @Column()
-    preferences: string; // json
+    @Column({ length: 20 })
+    preferences: string; 
 
     @Column()
     discapacity: boolean;
@@ -99,15 +99,15 @@ export class EmployeeEntity {
     discapacity_acpt: boolean;
 
     @Column()
-    time_item_id: number; // [ref: > time_items.id]
+    time_item_id: number; 
 
     @Column()
-    city_id: number; // [ref: > cities.id]
+    city_id: number; 
 
     @Column()
     address: string;
 
-    @Column()
+    @Column({ length: 30 })
     payment_code: string;
 
     @Column({
@@ -135,7 +135,7 @@ export class EmployeeEntity {
     opt_in: boolean;
 
     @Column()
-    average_calification: number; // float
+    average_calification: number; 
 
     @Column({
         type: 'enum',
@@ -148,19 +148,19 @@ export class EmployeeEntity {
     total_penalities: number;
 
     @Column()
-    media_id: number; // int[ref: > media.id]
+    media_id: number; 
 
-    @ManyToOne(type => CityEntity, city => city)
-    city: CityEntity[];
+    @ManyToOne(type => Cities, city => city)
+    city: Cities[];
 
-    @ManyToOne(type => MediaEntity, media => media)
-    media: MediaEntity[];
+    @ManyToOne(type => Media, media => media)
+    media: Media[];
 
-    @ManyToOne(type => TimeItemEntity, id => id)
-    timeItem: TimeItemEntity[];
+    @ManyToOne(type => TimeItems, id => id)
+    timeItem: TimeItems[];
 
-    @OneToMany(type => MatchEntity, match => match)
-    Match: MatchEntity[];
+    @OneToMany(type => Matches, match => match)
+    Match: Matches[];
 
     @CreateDateColumn({type: 'timestamp'})
     createdAt: Date;

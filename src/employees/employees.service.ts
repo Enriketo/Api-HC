@@ -1,36 +1,29 @@
-import { Injectable, HttpException, HttpStatus } from '@nestjs/common';
-import { SECRET } from '../config';
-import { CreateEmployeeDTO } from './dto/create-employee.dto';
+import { Injectable, HttpStatus, HttpException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
+import { Repository, getRepository } from 'typeorm';
+import { Employees } from './employee.entity';
+import { UpdateResult, DeleteResult } from  'typeorm';
+import { SECRET } from '../config';
 import { validate } from 'class-validator';
-import { Repository, Connection, getRepository} from 'typeorm';
-import { EmployeeEntity } from './employee.entity';
-import { EmployeeClass } from './classes/employee.class';
+import { CreateEmployeeDto } from './dto/create-employee.dto';
 
 export type Employee = any;
 const jwt = require('jsonwebtoken');
 
 @Injectable()
 export class EmployeesService {
-    EmployeeEntity: any;
-    
-    private readonly employees: Employee[];
-    create(employee: CreateEmployeeDTO): EmployeeClass {
-        this.employees.push(employee);
-        return employee;
-    }
+    employees: Employee;
 
     constructor(
-        @InjectRepository(EmployeeEntity)
-        private employeesRepository: Repository<EmployeeEntity>,
-        private connection: Connection,
-    ) { }
+        @InjectRepository(Employees)
+        private employeeRepository: Repository<Employees>,
+    ) {}
 
-    async addEmployee(dto: CreateEmployeeDTO): Promise<{ user: { email: string; username: string; token: any } }> {
+    async addEmployee(dto: CreateEmployeeDto): Promise<{ user: { email: string; username: string; token: any } }> {
 
         // check uniqueness of username/email
         const {username, email, password} = dto;
-        const qb = await getRepository(EmployeeEntity)
+        const qb = await getRepository(Employees)
             .createQueryBuilder('employee')
             .where('user.username = :username', { username })
             .orWhere('user.email = :email', { email });
@@ -40,11 +33,10 @@ export class EmployeesService {
         if (employee) {
             const errs = {username: 'Username and email must be unique.'};
             throw new HttpException({message: 'Input data validation failed', errs}, HttpStatus.BAD_REQUEST);
-
         }
 
         // create new user
-        const newEmployee = new EmployeeEntity();
+        const newEmployee = new Employees();
         newEmployee.username = username;
         newEmployee.email = email;
         newEmployee.password = password;
@@ -55,71 +47,45 @@ export class EmployeesService {
             throw new HttpException({message: 'Input data validation failed', err}, HttpStatus.BAD_REQUEST);
 
         } else {
-            const savedEmployee = await this.employeesRepository.save(newEmployee);
+            const savedEmployee = await this.employeeRepository.save(newEmployee);
             return this.buildEmployeeRO(savedEmployee);
         }
     }
 
-    async findOne(username: string): Promise<Employee | undefined> {
-        return this.employees.find(employee => employee.username === username);
+    async findOne(username: string): Promise<Employees | undefined> {
+        return this.employees.find(user => user.username === username);
     }
 
-    getEmployees(): Promise<any> {
+    getUser(userID): Promise<any> {
+        let id = Number(userID);
         return new Promise(resolve => {
-            resolve(this.EmployeeEntity);
-        });
-    }
-    getEmployee(employeeID): Promise<any> {
-        let id = Number(employeeID);
-        return new Promise(resolve => {
-            const employee = this.EmployeeEntity.find(employee => employee.id === id);
-            if (!employee) {
+            const user = this.employees.find(user => user.id === id);
+            if (!user) {
                 throw new HttpException('Employee does not exist!', 404);
             }
-            resolve(employee);
+            resolve(user);
         });
     }
-
-    deleteEmployee(employeeID): Promise<any> {
-        let id = Number(employeeID);
-        return new Promise(resolve => {
-            let index = this.EmployeeEntity.findIndex(employee => employee.id === id);
-            if (index === -1) {
-                throw new HttpException('Employee does not exist!', 404);
-            }
-            this.EmployeeEntity.splice(1, index);
-            resolve(this.EmployeeEntity);
-        });
-    }
-
-    findAll(): Promise<EmployeeEntity[]> {
-        return this.employeesRepository.find();
-    }
-
-    async remove(id: string): Promise<void> {
-        await this.employeesRepository.delete(id);
-    }
-    async createMany(employees: EmployeeEntity[]) {
-        const queryRunner = this.connection.createQueryRunner();
-             
-        await queryRunner.connect();
-        await queryRunner.startTransaction();
-        try {
-          await queryRunner.manager.save(employees[0]);
-          await queryRunner.manager.save(employees[1]);
-      
-          await queryRunner.commitTransaction();
-        } catch (err) {
-          // since we have errors lets rollback the changes we made
-          await queryRunner.rollbackTransaction();
-        } finally {
-          // you need to release a queryRunner which was manually instantiated
-          await queryRunner.release();
-        }
-        await this.connection.transaction(async manager => {
-            await manager.save(employees[0]);
-            await manager.save(employees[1]);
-          });
+    
+    async create(employee): Promise<Employees> {
+        console.log(employee);
+        return await this.employeeRepository.save(employee);
+      }
+    
+      async findAll(): Promise<Employees[]> {
+        return await this.employeeRepository.find();
+      }
+    
+      async findOneById(employeeId): Promise<Employees> {
+        return await this.employeeRepository.findOne(employeeId);
+      }
+    
+      async editEmployee(employeeId, employee): Promise<UpdateResult> {
+        return await this.employeeRepository.update(employeeId, employee);
+      }
+    
+      async deleteEmployee(employeeId): Promise<DeleteResult> {
+        return await this.employeeRepository.delete(employeeId);
       }
 
       public generateJWT(employee) {
@@ -135,7 +101,7 @@ export class EmployeesService {
         }, SECRET);
     }
 
-    private buildEmployeeRO(employee: EmployeeEntity) {
+    private buildEmployeeRO(employee: Employees) {
         const employeeRO = {
             username: employee.username,
             email: employee.email,

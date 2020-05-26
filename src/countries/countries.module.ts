@@ -1,14 +1,12 @@
 import { Module } from '@nestjs/common';
-import { TypeOrmModule } from '@nestjs/typeorm';
-import { CountriesController } from './countries.controller';
 import { CountriesService } from './countries.service';
+import { CountriesController } from './countries.controller';
+import { TypeOrmModule } from '@nestjs/typeorm';
 import { Countries } from './country.entity';
-import { CountrySubscriber } from './country.subscriber';
 
 @Module({
-    imports: [TypeOrmModule.forFeature([Countries])],
-    exports: [TypeOrmModule],
-    controllers: [Countries],
-    providers: [CountriesService, CountrySubscriber]
+  imports: [TypeOrmModule.forFeature([Countries])],
+  providers: [CountriesService],
+  controllers: [CountriesController],
 })
 export class CountriesModule {}

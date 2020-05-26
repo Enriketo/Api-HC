@@ -1,57 +1,40 @@
+import { IsNotEmpty } from 'class-validator';
 import { ApiProperty } from '@nestjs/swagger';
 
-export class CreateScheduleDTO {
-    @ApiProperty({
-        description: 'Key field',
-        type: Number,
-    })
-    id: number;
+export class CreateScheduleDto {
+    @IsNotEmpty()
+    @ApiProperty()
+    readonly id: number;
 
-    @ApiProperty({
-        description: 'Reference schedule-match',
-        type: Number,
-    })
-    match_id: number; // [ref: > matches.id]
+    @IsNotEmpty()
+    @ApiProperty()
+    readonly match_id: number; // [ref: > matches.id]
 
-    @ApiProperty({
-        description: 'Date start at',
-        type: Date,
-    })
-    start_date: Date;
+    @IsNotEmpty()
+    @ApiProperty()
+    readonly start_date: Date;
 
-    @ApiProperty({
-        description: 'Date ended at',
-        type: Date,
-    })
-    end_date: Date;
+    @IsNotEmpty()
+    @ApiProperty()
+    readonly end_date: Date;
 
-    @ApiProperty({
-        description: 'Reference shcedule-residence',
-        type: Number,
-    })
-    residences_id: number; //  [ref: > residences.id]
+    @IsNotEmpty()
+    @ApiProperty()
+    readonly residences_id: number; //  [ref: > residences.id]
 
-    @ApiProperty({
-        description: 'Schedule location',
-        type: String,
-    })
-    location: string; //json
+    @IsNotEmpty()
+    @ApiProperty()
+    readonly location: string; //json
 
-    @ApiProperty({
-        description: 'Schedule address',
-        type: String,
-    })
-    address: string;
+    @IsNotEmpty()
+    @ApiProperty()
+    readonly address: string;
 
-    @ApiProperty({
-        description: 'Created date',
-        type: Date,
-    })
-    createdAt: Date;
+    @IsNotEmpty()
+    @ApiProperty()
+    readonly createdAt: Date;
     
-    @ApiProperty({
-        description: 'Updated date',
-        type: Date,
-    })
-    updatedAt: Date;
+    @IsNotEmpty()
+    @ApiProperty()
+    readonly updatedAt: Date;
 }

@@ -1,7 +1,7 @@
 import { Column, CreateDateColumn, Entity, ManyToOne, OneToMany, PrimaryGeneratedColumn, UpdateDateColumn, Unique, OneToOne } from 'typeorm';
-import { ResidenceEntity } from 'src/residences/residence.entity';
-import { UserEntity } from "../users/user.entity";
-import { EmployeeEntity } from "../employees/employee.entity";
+import { Residences } from 'src/residences/residence.entity';
+import { Users } from "../users/user.entity";
+import { Employees } from "../employees/employee.entity";
 
 
 export enum type {
@@ -12,7 +12,7 @@ export enum type {
 }
 
 @Entity()
-export class MediaEntity {
+export class Media {
     @PrimaryGeneratedColumn()
     id: number;
 
@@ -29,14 +29,14 @@ export class MediaEntity {
     @Column({ length: 200 })
     url: string;
 
-    @OneToOne(type => ResidenceEntity, residence => residence)
-    Residence: ResidenceEntity[];
+    @OneToOne(type => Residences, residence => residence)
+    residence: Residences[];
 
-    @OneToOne(type => UserEntity, user => user.id)
-    User: UserEntity[];
+    @OneToOne(type => Users, user => user.id)
+    user: Users[];
 
-    @OneToOne(type => EmployeeEntity, employee => employee.id)
-    Employee: UserEntity[];
+    @OneToOne(type => Employees, employee => employee.id)
+    employee: Users[];
 
     @CreateDateColumn({ type: 'timestamp' })
     createdAt: Date;

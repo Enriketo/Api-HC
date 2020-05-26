@@ -1,92 +1,35 @@
-import { Injectable, HttpException } from '@nestjs/common';
+import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { Repository, Connection} from 'typeorm';
-import { OrderEntity } from './order.entity';
-import { CreateOrderDTO } from './dto/create-order.dto';
-import { OrderClass } from './classes/order.class';
-
-export type Order = any;
+import { Repository } from 'typeorm';
+import { Orders } from './order.entity';
+import { UpdateResult, DeleteResult } from  'typeorm';
 
 @Injectable()
 export class OrdersService {
-    OrderEntity: any;
-    
-    private readonly users: Order[];
-    create(user: CreateOrderDTO): OrderClass {
-        this.users.push(user);
-        return user;
-    }
-    
-    constructor(
-        @InjectRepository(OrderEntity)
-        private ordersRepository: Repository<OrderEntity>,
-        private connection: Connection,
-    ) { }
 
-    getOrders(): Promise<any> {
-        return new Promise(resolve => {
-            resolve(this.OrderEntity);
-        });
-    }
-    getOrder(orderID): Promise<any> {
-        let id = Number(orderID);
-        return new Promise(resolve => {
-            const order = this.OrderEntity.find(order => order.id === id);
-            if (!order) {
-                throw new HttpException('Order does not exist!', 404);
-            }
-            resolve(order);
-        });
-    }
-    addOrder(order): Promise<any> {
-        return new Promise(resolve => {
-            this.OrderEntity.push(order);
-            resolve(this.OrderEntity);
-        });
-    }
-    deleteOrder(orderID): Promise<any> {
-        let id = Number(orderID);
-        return new Promise(resolve => {
-            let index = this.OrderEntity.findIndex(order => order.id === id);
-            if (index === -1) {
-                throw new HttpException('Order does not exist!', 404);
-            }
-            this.OrderEntity.splice(1, index);
-            resolve(this.OrderEntity);
-        });
-    }
+  constructor(
+    @InjectRepository(Orders)
+    private orderRepository: Repository<Orders>,
+  ) {}
 
-    findAll(): Promise<OrderEntity[]> {
-        return this.ordersRepository.find();
-    }
+  async create(order): Promise<Orders> {
+    console.log(order);
+    return await this.orderRepository.save(order);
+  }
 
-    findOne(id: string): Promise<OrderEntity> {
-        return this.ordersRepository.findOne(id);
-    }
+  async findAll(): Promise<Orders[]> {
+    return await this.orderRepository.find();
+  }
 
-    async remove(id: string): Promise<void> {
-        await this.ordersRepository.delete(id);
-    }
-    async createMany(orders: OrderEntity[]) {
-        const queryRunner = this.connection.createQueryRunner();
-             
-        await queryRunner.connect();
-        await queryRunner.startTransaction();
-        try {
-          await queryRunner.manager.save(orders[0]);
-          await queryRunner.manager.save(orders[1]);
-      
-          await queryRunner.commitTransaction();
-        } catch (err) {
-          // since we have errors lets rollback the changes we made
-          await queryRunner.rollbackTransaction();
-        } finally {
-          // you need to release a queryRunner which was manually instantiated
-          await queryRunner.release();
-        }
-        await this.connection.transaction(async manager => {
-            await manager.save(orders[0]);
-            await manager.save(orders[1]);
-          });
-      }
+  async findOneById(orderId): Promise<Orders> {
+    return await this.orderRepository.findOne(orderId);
+  }
+
+  async editOrder(orderId, order): Promise<UpdateResult> {
+    return await this.orderRepository.update(orderId, order);
+  }
+
+  async deleteOrder(orderId): Promise<DeleteResult> {
+    return await this.orderRepository.delete(orderId);
+  }
 }

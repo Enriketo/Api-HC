@@ -1,169 +1,113 @@
+import { IsNotEmpty } from 'class-validator';
 import { ApiProperty } from '@nestjs/swagger';
 
-export class CreateEmployeeDTO {
-    @ApiProperty({
-        description: 'Key field',
-        type: Number,
-    })
-    id: number;
-
-    @ApiProperty({
-        description: 'Employee first name',
-        type: String,
-    })
-    first_name: string;
-
-    @ApiProperty({
-        description: 'Employee last name',
-        type: String,
-    })
-    last_name: string;
-
-    @ApiProperty({
-        description: 'Employee username',
-        type: String,
-    })
-    username: string; // [not null, unique]
-
-    @ApiProperty({
-        description: 'Employee email',
-        type: String,
-    })
-    email: string; // [not null, unique]
-
-    @ApiProperty({
-        description: 'Employee password',
-        type: String,
-    })
-    password: string;// varbinary[not null]
-
-    @ApiProperty({
-        description: 'Employee document type',
-        type: String,
-    })
-    doc_type: string;
+export class CreateEmployeeDto {
     
-    @ApiProperty({
-        description: 'Employee document number',
-        type: Number,
-    })
-    doc_number: number;
+    @IsNotEmpty()
+    @ApiProperty()
+    readonly id: number;
 
-    @ApiProperty({
-        description: 'Employee is admin or not',
-        type: Boolean,
-    })
-    isAdmin: boolean;
+    @IsNotEmpty()
+    @ApiProperty()
+    readonly first_name: string;
 
-    @ApiProperty({
-        description: 'Employee gender',
-        type: String,
-    })
-    gender: string;
+    @IsNotEmpty()
+    @ApiProperty()
+    readonly last_name: string;
 
-    @ApiProperty({
-        description: 'Show names yes or not',
-        type: Boolean,
-    })
-    showName: boolean;
+    @IsNotEmpty()
+    @ApiProperty()
+    readonly username: string; // [not null, unique]
 
-    @ApiProperty({
-        description: 'Employee preferences',
-        type: String,
-    })
-    preferences: string; // json
+    @IsNotEmpty()
+    @ApiProperty()
+    readonly email: string; // [not null, unique]
 
-    @ApiProperty({
-        description: 'Employee have discapacity yes or not',
-        type: Boolean,
-    })
-    discapacity: boolean;
+    @IsNotEmpty()
+    @ApiProperty()
+    readonly password: string;// varbinary[not null]
 
-    @ApiProperty({
-        description: 'Employee acept discapacity yes or not',
-        type: Boolean,
-    })
-    discapacity_acpt: boolean;
+    @IsNotEmpty()
+    @ApiProperty()
+    readonly doc_type: string;
     
-    @ApiProperty({
-        description: 'Employee time item id selected',
-        type: Number,
-    })
-    time_item_id: number; // [ref: > time_items.id]
+    @IsNotEmpty()
+    @ApiProperty()
+    readonly doc_number: number;
 
-    @ApiProperty({
-        description: 'Relation employee - city',
-        type: Number,
-    })
-    city_id: number; // [ref: > cities.id]
+    @IsNotEmpty()
+    @ApiProperty()
+    readonly isAdmin: boolean;
 
-    @ApiProperty({
-        description: 'Employee address',
-        type: String,
-    })
-    address: string;
+    @IsNotEmpty()
+    @ApiProperty()
+    readonly gender: string;
 
-    @ApiProperty({
-        description: 'Employee payment code',
-        type: String,
-    })
-    payment_code: string;
+    @IsNotEmpty()
+    @ApiProperty()
+    readonly showName: boolean;
 
-    @ApiProperty({
-        description: 'Employee bank',
-        type: String,
-    })
-    bank: string;
+    @IsNotEmpty()
+    @ApiProperty()
+    readonly preferences: string; // json
 
-    @ApiProperty({
-        description: 'Employee status',
-        type: String,
-    })
-    status: string;
+    @IsNotEmpty()
+    @ApiProperty()
+    readonly discapacity: boolean;
 
-    @ApiProperty({
-        description: 'Employee role',
-        type: String,
-    })
-    role: string;
-
-    @ApiProperty({
-        description: 'OPT IN',
-        type: String,
-    })
-    opt_in: boolean;
-
-    @ApiProperty({
-        description: 'Average calification',
-        type: Number,
-    })
-    average_calification: number; // float
-
-    @ApiProperty({
-        description: 'Last penalty',
-        type: String,
-    })
-    penality: string;
-
-    @ApiProperty({
-        description: 'Employee total penalities',
-        type: Number,
-    })
-    total_penalities: number;
+    @IsNotEmpty()
+    @ApiProperty()
+    readonly discapacity_acpt: boolean;
     
-    @ApiProperty({
-        description: 'Refence employee - media',
-        type: String,
-    })
-    @ApiProperty({
-        description: 'Created date',
-        type: Date,
-    })
-    createdAt: Date;
+    @IsNotEmpty()
+    @ApiProperty()
+    readonly time_item_id: number; // [ref: > time_items.id]
+
+    @IsNotEmpty()
+    @ApiProperty()
+    readonly city_id: number; // [ref: > cities.id]
+
+    @IsNotEmpty()
+    @ApiProperty()
+    readonly address: string;
+
+    @IsNotEmpty()
+    @ApiProperty()
+    readonly payment_code: string;
+
+    @IsNotEmpty()
+    @ApiProperty()
+    readonly bank: string;
+
+    @IsNotEmpty()
+    @ApiProperty()
+    readonly status: string;
+
+    @IsNotEmpty()
+    @ApiProperty()
+    readonly role: string;
+
+    @IsNotEmpty()
+    @ApiProperty()
+    readonly opt_in: boolean;
+
+    @IsNotEmpty()
+    @ApiProperty()
+    readonly average_calification: number; // float
+
+    @IsNotEmpty()
+    @ApiProperty()
+    readonly penality: string;
+
+    @IsNotEmpty()
+    @ApiProperty()
+    readonly total_penalities: number;
     
-    @ApiProperty({
-        description: 'Updated date',
-        type: Date,
-    })
-    updatedAt: Date;
+    @IsNotEmpty()
+    @ApiProperty()
+    readonly createdAt: Date;
+    
+    @IsNotEmpty()
+    @ApiProperty()
+    readonly updatedAt: Date;
 }

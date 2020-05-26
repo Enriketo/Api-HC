@@ -1,57 +1,41 @@
+import { IsNotEmpty } from 'class-validator';
 import { ApiProperty } from '@nestjs/swagger';
 
-export class CreateMeetDTO {
-    @ApiProperty({
-        description: 'Key field',
-        type: Number,
-    })
-    id: number;
+export class CreateMeetDto {
 
-    @ApiProperty({
-        description: 'Refrece meet-schedule',
-        type: Number,
-    })
-    schedule_id: number; // [ref: > schedule.id]
+    @IsNotEmpty()
+    @ApiProperty()
+    readonly id: number;
 
-    @ApiProperty({
-        description: 'User arrived to meet yes or not',
-        type: Boolean,
-    })
-    user_arrived: boolean;
+    @IsNotEmpty()
+    @ApiProperty()
+    readonly schedule_id: number; // [ref: > schedule.id]
 
-    @ApiProperty({
-        description: 'Employee arrived to meet yes or not',
-        type: Boolean,
-    })
-    employee_arrived: boolean;
+    @IsNotEmpty()
+    @ApiProperty()
+    readonly user_arrived: boolean;
 
-    @ApiProperty({
-        description: 'Meet status',
-        type: String,
-    })
-    status: string;
+    @IsNotEmpty()
+    @ApiProperty()
+    readonly employee_arrived: boolean;
 
-    @ApiProperty({
-        description: 'Meet calification',
-        type: Number,
-    })
-    califications: number;
+    @IsNotEmpty()
+    @ApiProperty()
+    readonly status: string;
 
-    @ApiProperty({
-        description: 'Meet coments',
-        type: String,
-    })
-    coment: string;
+    @IsNotEmpty()
+    @ApiProperty()
+    readonly califications: number;
 
-    @ApiProperty({
-        description: 'Created date',
-        type: Date,
-    })
-    createdAt: Date;
+    @IsNotEmpty()
+    @ApiProperty()
+    readonly coment: string;
+
+    @IsNotEmpty()
+    @ApiProperty()
+    readonly createdAt: Date;
     
-    @ApiProperty({
-        description: 'Updated date',
-        type: Date,
-    })
-    updatedAt: Date;
+    @IsNotEmpty()
+    @ApiProperty()
+    readonly updatedAt: Date;
 }

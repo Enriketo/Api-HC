@@ -1,92 +1,35 @@
-import { Injectable, HttpException } from '@nestjs/common';
+import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { Repository, Connection} from 'typeorm';
-import { MeetEntity } from './meet.entity';
-import { CreateMeetDTO } from './dto/create-meet.dto';
-import { MeetClass } from './classes/meet.class';
-
-export type Meet = any;
+import { Repository } from 'typeorm';
+import { Meetings } from './meet.entity';
+import { UpdateResult, DeleteResult } from  'typeorm';
 
 @Injectable()
 export class MeetingsService {
-    MeetEntity: any;
 
-    private readonly meetings: Meet[];
+  constructor(
+    @InjectRepository(Meetings)
+    private meetRepository: Repository<Meetings>,
+  ) {}
 
-    create(meet: CreateMeetDTO): MeetClass {
-        this.meetings.push(meet);
-        return meet;
-    }
+  async create(meet): Promise<Meetings> {
+    console.log(meet);
+    return await this.meetRepository.save(meet);
+  }
 
-    constructor(
-        @InjectRepository(MeetEntity)
-        private meetingsRepository: Repository<MeetEntity>,
-        private connection: Connection,
-    ) { }
+  async findAll(): Promise<Meetings[]> {
+    return await this.meetRepository.find();
+  }
 
-    getMeetings(): Promise<any> {
-        return new Promise(resolve => {
-            resolve(this.MeetEntity);
-        });
-    }
-    getMeet(meetID): Promise<any> {
-        let id = Number(meetID);
-        return new Promise(resolve => {
-            const meet = this.MeetEntity.find(meet => meet.id === id);
-            if (!meet) {
-                throw new HttpException('Meet does not exist!', 404);
-            }
-            resolve(meet);
-        });
-    }
-    addMeet(meet): Promise<any> {
-        return new Promise(resolve => {
-            this.MeetEntity.push(meet);
-            resolve(this.MeetEntity);
-        });
-    }
-    deleteMeet(meetID): Promise<any> {
-        let id = Number(meetID);
-        return new Promise(resolve => {
-            let index = this.MeetEntity.findIndex(meet => meet.id === id);
-            if (index === -1) {
-                throw new HttpException('Meet does not exist!', 404);
-            }
-            this.MeetEntity.splice(1, index);
-            resolve(this.MeetEntity);
-        });
-    }
+  async findOneById(meetId): Promise<Meetings> {
+    return await this.meetRepository.findOne(meetId);
+  }
 
-    findAll(): Promise<MeetEntity[]> {
-        return this.meetingsRepository.find();
-    }
+  async editMeet(meetId, meet): Promise<UpdateResult> {
+    return await this.meetRepository.update(meetId, meet);
+  }
 
-    findOne(id: string): Promise<MeetEntity> {
-        return this.meetingsRepository.findOne(id);
-    }
-
-    async remove(id: string): Promise<void> {
-        await this.meetingsRepository.delete(id);
-    }    async createMany(meetings: MeetEntity[]) {
-        const queryRunner = this.connection.createQueryRunner();
-             
-        await queryRunner.connect();
-        await queryRunner.startTransaction();
-        try {
-          await queryRunner.manager.save(meetings[0]);
-          await queryRunner.manager.save(meetings[1]);
-      
-          await queryRunner.commitTransaction();
-        } catch (err) {
-          // since we have errors lets rollback the changes we made
-          await queryRunner.rollbackTransaction();
-        } finally {
-          // you need to release a queryRunner which was manually instantiated
-          await queryRunner.release();
-        }
-        await this.connection.transaction(async manager => {
-            await manager.save(meetings[0]);
-            await manager.save(meetings[1]);
-          });
-      }
+  async deleteMeet(meetId): Promise<DeleteResult> {
+    return await this.meetRepository.delete(meetId);
+  }
 }

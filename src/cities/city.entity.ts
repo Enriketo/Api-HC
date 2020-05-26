@@ -1,43 +1,37 @@
 import { Entity, PrimaryGeneratedColumn, Column, ManyToOne, OneToMany, CreateDateColumn, UpdateDateColumn } from 'typeorm';
-import { StateEntity } from '../states/state.entity';
-import { ResidenceEntity } from '../residences/residence.entity';
-import { UserEntity } from "../users/user.entity";
-import { EmployeeEntity }from "../employees/employee.entity";
+import { States } from '../states/state.entity';
+import { Residences } from '../residences/residence.entity';
+import { Users } from "../users/user.entity";
+import { Employees }from "../employees/employee.entity";
 
 @Entity()
-export class CityEntity {
+export class Cities {
     @PrimaryGeneratedColumn()
     id: number;
 
-    @Column()
-    state_id: number; // [ref: > states.id] //
-
-    @Column()
+    @Column({ length: 20 })
     city: string;
 
-    @Column()
-    code: string;
+    @ManyToOne(type => States, state => state.id)
+    State: States[];
 
-    @Column()
+    @Column({ length: 4 })
     iso_code2: string;
 
-    @Column()
+    @Column({ length: 4 })
     iso_code3: string;
 
-    @Column()
-    location: string;
+    @Column({ length: 10 })
+    location: string; //Address 
 
-    @ManyToOne(type => StateEntity, state => state.city)
-    State: StateEntity[];
+    @OneToMany(type => Residences, residence => residence.id)
+    residence: Residences[];
 
-    @OneToMany(type => ResidenceEntity, residence => residence.id)
-    Residence: ResidenceEntity[];
+    @OneToMany(type => Users, user => user.id)
+    user: Users[];
 
-    @OneToMany(type => UserEntity, user => user.id)
-    User: UserEntity[];
-
-    @OneToMany(type => EmployeeEntity, employee => employee.id)
-    Employee: EmployeeEntity[];
+    @OneToMany(type => Employees, employee => employee.id)
+    employee: Employees[];
 
     @CreateDateColumn({ type: 'timestamp' })
     createdAt: Date;

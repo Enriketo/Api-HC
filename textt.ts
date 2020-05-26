@@ -1,7 +1,7 @@
 import { Column, CreateDateColumn, Entity, ManyToOne, OneToMany, PrimaryGeneratedColumn, UpdateDateColumn } from 'typeorm';
-import { CityEntity } from './src/cities/city.entity';
-import { UserEntity } from './src/users/user.entity';
-import { OrderEntity } from './src/orders/order.entity';
+import { Cities } from './src/cities/city.entity';
+import { Users } from './src/users/user.entity';
+import { Orders } from './src/orders/order.entity';
 
 export enum addressType {
   BILLING = 'billing',
@@ -29,14 +29,14 @@ export class Addresses {
   @Column({ length: 25 })
   cellphone: string;
 
-  @ManyToOne(type => CityEntity, city => city)
-  City: CityEntity;
+  @ManyToOne(type => Cities, city => city)
+  city: Cities;
 
-  @ManyToOne(type => UserEntity, user => user)
-  User: UserEntity;
+  @ManyToOne(type => Users, user => user)
+  user: Users;
 
-  @OneToMany(type => OrderEntity, order => order)
-  Order: OrderEntity;
+  @OneToMany(type => Orders, order => order)
+  order: Orders;
 
   @CreateDateColumn({type: 'timestamp'})
   createdAt: Date;

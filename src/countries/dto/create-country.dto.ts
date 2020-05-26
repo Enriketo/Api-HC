@@ -1,56 +1,41 @@
+import { IsNotEmpty } from 'class-validator';
 import { ApiProperty } from '@nestjs/swagger';
 
-export class CreateCountryDTO {
-    @ApiProperty({
-        description: 'Key field',
-        type: Number,
-    })
-    id: number;
+export class CreateCountryDto {
 
-    @ApiProperty({
-        description: 'Country name',
-        type: String,
-    })
-    country: string;
+    @IsNotEmpty()
+    @ApiProperty()
+    readonly id: number;
 
-    @ApiProperty({
-        description: 'Country geo-code 1',
-        type: String,
-    })
-    code: string;
+    @IsNotEmpty()
+    @ApiProperty()
+    readonly country: string;
 
-    @ApiProperty({
-        description: 'Country geo-code 2',
-        type: String,
-    })
-    iso_code2: string;
+    @IsNotEmpty()
+    @ApiProperty()
+    readonly code: string;
 
-    @ApiProperty({
-        description: 'Country geo-code 3',
-        type: String,
-    })
-    iso_code3: string;
+    @IsNotEmpty()
+    @ApiProperty()
+    readonly iso_code2: string;
 
-    @ApiProperty({
-        description: 'Country location',
-        type: String,
-    })
-    location: string; // json
+    @IsNotEmpty()
+    @ApiProperty()
+    readonly iso_code3: string;
 
-    @ApiProperty({
-        description: 'Country geo-code 2',
-        type: String,
-    }) prefix: number;
+    @IsNotEmpty()
+    @ApiProperty()
+    readonly location: string; // json
 
-    @ApiProperty({
-        description: 'Created date',
-        type: Date,
-    })
-    createdAt: Date;
-    
-    @ApiProperty({
-        description: 'Updated date',
-        type: Date,
-    })
-    updatedAt: Date;
+    @IsNotEmpty()
+    @ApiProperty()
+    readonly phonePrefix: number;
+
+    @IsNotEmpty()
+    @ApiProperty()
+    readonly createdAt: Date;
+
+    @IsNotEmpty()
+    @ApiProperty()
+    readonly updatedAt: Date;
 }

@@ -1,33 +1,25 @@
+import { IsNotEmpty } from 'class-validator';
 import { ApiProperty } from '@nestjs/swagger';
 
-export class CreateTimeItemDTO {
-    @ApiProperty({
-        description: 'Key field',
-        type: Number,
-    })
-    id: number;
+export class CreateTimeItemDto {
 
-    @ApiProperty({
-        description: 'Time item name',
-        type: String,
-    })
-    name: string;
+    @IsNotEmpty()
+    @ApiProperty()
+    readonly id: number;
 
-    @ApiProperty({
-        description: 'Time cost',
-        type: String,
-    })
-    cost: number;
+    @IsNotEmpty()
+    @ApiProperty()
+    readonly name: string;
 
-    @ApiProperty({
-        description: 'Created date',
-        type: Date,
-    })
-    createdAt: Date;
+    @IsNotEmpty()
+    @ApiProperty()
+    readonly cost: number;
+
+    @IsNotEmpty()
+    @ApiProperty()
+    readonly createdAt: Date;
     
-    @ApiProperty({
-        description: 'Updated date',
-        type: Date,
-    })
-    updatedAt: Date;
+    @IsNotEmpty()
+    @ApiProperty()
+    readonly updatedAt: Date;
 }

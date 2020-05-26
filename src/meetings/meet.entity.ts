@@ -1,6 +1,6 @@
 import { Column, CreateDateColumn, Entity, ManyToOne, OneToOne, PrimaryGeneratedColumn, UpdateDateColumn, Unique } from 'typeorm';
-import { ScheduleEntity } from '../schedule/schedule.entity';
-import { OrderEntity } from '../orders/order.entity';
+import { Schedule } from '../schedule/schedule.entity';
+import { Orders } from '../orders/order.entity';
 
 export enum meeting_status {
     pending = 'pending',
@@ -11,12 +11,12 @@ export enum meeting_status {
 }
 
 @Entity()
-export class MeetEntity {
+export class Meetings {
     @PrimaryGeneratedColumn()
     id: number;
 
     @Column()
-    schedule_id: number; // [ref: > schedule.id]
+    schedule_id: number; 
 
     @Column()
     user_arrived: boolean;
@@ -34,14 +34,14 @@ export class MeetEntity {
     @Column()
     califications: number;
 
-    @Column()
+    @Column({ length: 150 })
     coment: string;
 
-    @OneToOne(type => ScheduleEntity, schedule => schedule)
-    Schedule: ScheduleEntity[];
+    @OneToOne(type => Schedule, schedule => schedule)
+    schedule: Schedule[];
 
-    @OneToOne(type => OrderEntity, order => order)
-    Order: OrderEntity[];
+    @OneToOne(type => Orders, order => order)
+    order: Orders[];
 
     @CreateDateColumn({ type: 'timestamp' })
     createdAt: Date;

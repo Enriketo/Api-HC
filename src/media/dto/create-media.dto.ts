@@ -1,39 +1,30 @@
+import { IsNotEmpty } from 'class-validator';
 import { ApiProperty } from '@nestjs/swagger';
 
-export class CreateMediaDTO {
-    @ApiProperty({
-        description: 'Key field',
-        type: Number,
-    })
-    id: number;
-
-    @ApiProperty({
-        description: 'Media typr',
-        type: String,
-    })
-    type: string;
-
-    @ApiProperty({
-        description: 'Media format',
-        type: String,
-    })
-    format: string;
-
-    @ApiProperty({
-        description: 'Media URL',
-        type: String,
-    })
-    url: string;
+export class CreateMediaDto {
     
-    @ApiProperty({
-        description: 'Created date',
-        type: Date,
-    })
-    createdAt: Date;
+    @IsNotEmpty()
+    @ApiProperty()
+    readonly id: number;
+
+    @IsNotEmpty()
+    @ApiProperty()
+    readonly type: string;
+
+    @IsNotEmpty()
+    @ApiProperty()
+    readonly format: string;
+
+    @IsNotEmpty()
+    @ApiProperty()
+    readonly url: string;
     
-    @ApiProperty({
-        description: 'Updated date',
-        type: Date,
-    })
-    updatedAt: Date;
+    @IsNotEmpty()
+    @ApiProperty()
+    readonly createdAt: Date;
+    
+    @IsNotEmpty()
+    @ApiProperty()
+    readonly updatedAt: Date;
+
 }

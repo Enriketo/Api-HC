@@ -1,51 +1,106 @@
-import { Controller, Get, Param, Post, Body, Query, Delete } from '@nestjs/common';
+import { Controller, Get, Post, Body, Res, Param, NotFoundException, HttpStatus, Put, Delete } from '@nestjs/common';
+import { Media } from './media.entity';
 import { MediaService } from './media.service';
-import { CreateMediaDTO } from './dto/create-media.dto';
-import { ApiOperation, ApiResponse, ApiBearerAuth, ApiTags } from '@nestjs/swagger';
-import { MediaEntity } from './media.entity';
+import { CreateMediaDto, UpdateMediaDto } from './dto/';
+import { ApiTags, ApiParam, ApiOperation, ApiResponse } from '@nestjs/swagger';
 
-@ApiBearerAuth()
-@ApiTags('media')
-@Controller('media')
+@ApiTags('Media')
+@Controller('api/media')
 export class MediaController {
-    constructor(private mediaService: MediaService) { }
+  constructor(
+    private readonly mediaService: MediaService,
+    ) {
+  }
 
-    @Post()
-    @ApiOperation({ 
-        summary: 'Create user' 
-    })
-    @ApiResponse({ 
-        status: 201, 
-        description: 'User has been created.' 
-    })
-    @ApiResponse({ 
-        status: 404, 
-        description: 'Not found.' 
-    })
-    async create(@Body() createUserDto: CreateMediaDTO){
-      return this.mediaService.create(createUserDto);
-    }
-    
-    @Post()
-    async addMedia(@Body() createMediaDTO: CreateMediaDTO) {
-        const media = await this.mediaService.addMedia(createMediaDTO);
-        return media;
-    }
+  @Post()
+  @ApiOperation({
+    description: 'Create media',
+  })
+  @ApiResponse({
+    status: 201,
+    description: 'Media has been created',
+  })
+  @ApiResponse({ status: 404, description: 'Not Found' })
+  async create(@Body() createMedia: CreateMediaDto) {
+    return await this.mediaService.create(createMedia);
+  }
 
-    @Get(':mediaID')
-    @ApiResponse({
-        status: 200,
-        description: 'The found record',
-        type: MediaEntity,
-    })
-    async getMedia(@Param('mediaID') mediaID) {
-        const media = await this.mediaService.getMedia(mediaID);
-        return media;
-    }
+  @Get()
+  @ApiOperation({
+    description: 'Get all media',
+  })
+  @ApiResponse({
+    status: 200,
+    description: 'Get all media',
+  })
+  @ApiResponse({ status: 404, description: 'Not Found' })
+  async findAll(): Promise<Media[]> {
+    return this.mediaService.findAll();
+  }
 
-    @Delete()
-    async deleteMedia(@Query() query) {
-        const media = await this.mediaService.deleteMedia(query.mediaID);
-        return media;
+  @Get('id/:mediaId')
+  @ApiOperation({
+    description: 'Get media by id',
+  })
+  @ApiParam({ name: 'mediaId' })
+  @ApiResponse({
+    status: 200,
+    description: 'Get media information',
+  })
+  @ApiResponse({ status: 404, description: 'Not Found' })
+  async getMedia(@Res() res, @Param('mediaId') mediaId) {
+    const media = await this.mediaService.findOneById(mediaId);
+    if (!media) {
+      throw new NotFoundException('Media does not exist!');
     }
+    return res.status(HttpStatus.OK).json(media);
+  }
+
+  @Put('id/:mediaId')
+  @ApiOperation({
+    description: 'Update media using id',
+  })
+  @ApiParam({ name: 'mediaId' })
+  @ApiResponse({
+    status: 200,
+    description: 'Media has been updated',
+  })
+  @ApiResponse({ status: 404, description: 'Not Found' })
+  async updateMedia(
+    @Res() res,
+    @Param('mediaId') mediaId: number,
+    @Body() updateMediaDto: UpdateMediaDto) {
+    const editedMedia = await this.mediaService.editMedia(mediaId, updateMediaDto);
+    if (!editedMedia) {
+      throw new NotFoundException('Media does not exist!');
+    }
+    return res.status(HttpStatus.OK).json({
+      message: 'Media has been successfully updated',
+      post: editedMedia,
+    });
+  }
+
+  @Delete('id/:mediaId')
+  @ApiOperation({
+    description: 'Delete media using id',
+  })
+  @ApiParam({ name: 'mediaId' })
+  @ApiResponse({
+    status: 200,
+    description: 'Media has been deleted!',
+  })
+  @ApiResponse({ status: 404, description: 'Not Found' })
+  async deleteMedia(
+    @Res() res,
+    @Param('mediaId') mediaId,
+  ) {
+    const deletedMedia = await this.mediaService.deleteMedia(mediaId);
+    if (!deletedMedia) {
+      throw new NotFoundException('Media does not exist!');
+    }
+    return res.status(HttpStatus.OK).json({
+      message: 'Media has been deleted!',
+      media: deletedMedia,
+    });
+  }
 }

@@ -1,63 +1,45 @@
+import { IsNotEmpty } from 'class-validator';
 import { ApiProperty } from '@nestjs/swagger';
 
-export class CreateResidenceDTO {
-    @ApiProperty({
-        description: 'Key field',
-        type: Number,
-    })
-    id: number;
+export class CreateResidenceDto {
 
-    @ApiProperty({
-        description: 'Relation residence-city',
-        type: Number,
-    })
-    city_id : number; // [ref: > cities.id]
+    @IsNotEmpty()
+    @ApiProperty()
+    readonly id: number;
+
+    @IsNotEmpty()
+    @ApiProperty()
+    readonly city_id : number; // [ref: > cities.id]
     
-    @ApiProperty({
-        description: 'Residence email',
-        type: String,
-    })
-    email: string; // [not null]
+    @IsNotEmpty()
+    @ApiProperty()
+    readonly email: string; // [not null]
 
-    @ApiProperty({
-        description: 'Residence name',
-        type: String,
-    })
-    name: string;
+    @IsNotEmpty()
+    @ApiProperty()
+    readonly name: string;
 
-    @ApiProperty({
-        description: 'Residence location',
-        type: Number,
-    })
-    location: number; // [increment]
+    @IsNotEmpty()
+    @ApiProperty()
+    readonly location: number; // [increment]
 
-    @ApiProperty({
-        description: 'Residence address',
-        type: String,
-    })
-    address: string;
+    @IsNotEmpty()
+    @ApiProperty()
+    readonly address: string;
 
-    @ApiProperty({
-        description: 'Place avalaible yes or not',
-        type: Boolean,
-    })
-    place_avalaible: boolean;
+    @IsNotEmpty()
+    @ApiProperty()
+    readonly place_avalaible: boolean;
     
-    @ApiProperty({
-        description: 'Reference residence-media',
-        type: Number,
-    })
-    media_id: number; // [ref: > media.id]
+    @IsNotEmpty()
+    @ApiProperty()
+    readonly media_id: number; // [ref: > media.id]
 
-    @ApiProperty({
-        description: 'Created date',
-        type: Date,
-    })
-    createdAt: Date;
+    @IsNotEmpty()
+    @ApiProperty()
+    readonly createdAt: Date;
     
-    @ApiProperty({
-        description: 'Updated date',
-        type: Date,
-    })
-    updatedAt: Date;
+    @IsNotEmpty()
+    @ApiProperty()
+    readonly updatedAt: Date;
 }

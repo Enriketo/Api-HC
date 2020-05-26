@@ -1,19 +1,21 @@
-import { Controller, HttpException, Get, Param, Post, Body, Query, Delete } from '@nestjs/common';
-import { ApiOperation, ApiResponse, ApiBearerAuth, ApiTags } from '@nestjs/swagger';
+import { Controller, Get, Post, Body, Res, Param, NotFoundException, HttpStatus, Put, Delete, HttpException } from '@nestjs/common';
+import { Employees } from './employee.entity';
 import { EmployeesService } from './employees.service';
-import { CreateEmployeeDTO } from './dto/create-employee.dto';
-import { LoginEmployeeDto } from './dto/login-employee';
-import { EmployeeEntity } from './employee.entity';
+import { CreateEmployeeDto, UpdateEmployeeDto } from './dto/';
+import { ApiTags, ApiParam, ApiOperation, ApiResponse } from '@nestjs/swagger';
+import { LoginEmployeeDto } from './dto/login-employee.dto';
 
-@ApiBearerAuth()
-@ApiTags('employees')
-@Controller('employees')
+@ApiTags('Employees')
+@Controller('api/employees')
 export class EmployeesController {
-    constructor(private employeesService: EmployeesService) { }
+  constructor(
+    private readonly employeesService: EmployeesService,
+    ) {
+  }
 
     @Post('login')
     async login(@Body() loginEmployeeDto: LoginEmployeeDto): Promise<{ email: string; token: any; username: string }> {
-        const usr = await this.employeesService.getEmployee(loginEmployeeDto);
+        const usr = await this.employeesService.getUser(loginEmployeeDto);
         const errors = {User: ' not found'};
         if (!usr) {
             throw new HttpException({errors}, 401);
@@ -24,48 +26,95 @@ export class EmployeesController {
     }
 
     @Post()
-    @ApiOperation({ 
-        summary: 'Create user' 
+    @ApiOperation({
+      description: 'Create employee',
     })
-    @ApiResponse({ 
-        status: 201, 
-        description: 'User has been created.' 
-    })
-    @ApiResponse({ 
-        status: 404, 
-        description: 'Not found.' 
-    })
-    async create(@Body() createUserDto: CreateEmployeeDTO){
-      return this.employeesService.create(createUserDto);
-    }
-
-    
-    @Post()
-    async addEmployee(@Body() createEmployeeDTO: CreateEmployeeDTO) {
-        const employee = await this.employeesService.addEmployee(createEmployeeDTO);
-        return employee;
-    }
-
-    @Get()
-    async getEmployees() {
-        const employees = await this.employeesService.getEmployees();
-        return employees;
-    }
-
-    @Get(':employeeID')
     @ApiResponse({
-        status: 200,
-        description: 'The found record',
-        type: EmployeeEntity,
+      status: 201,
+      description: 'Employee has been created',
     })
-    async getEmployee(@Param('employeeID') employeeID) {
-        const employee = await this.employeesService.getEmployee(employeeID);
-        return employee;
+    @ApiResponse({ status: 404, description: 'Not Found' })
+    async create(@Body() createEmployee: CreateEmployeeDto) {
+      return await this.employeesService.create(createEmployee);
     }
-
-    @Delete()
-    async deleteEmployee(@Query() query) {
-        const employees = await this.employeesService.deleteEmployee(query.employeeID);
-        return employees;
+  
+    @Get()
+    @ApiOperation({
+      description: 'Get all employees',
+    })
+    @ApiResponse({
+      status: 200,
+      description: 'Get all employees',
+    })
+    @ApiResponse({ status: 404, description: 'Not Found' })
+    async findAll(): Promise<Employees[]> {
+      return this.employeesService.findAll();
     }
-}
+  
+    @Get('id/:employeeId')
+    @ApiOperation({
+      description: 'Get employee by id',
+    })
+    @ApiParam({ name: 'employeeId' })
+    @ApiResponse({
+      status: 200,
+      description: 'Get employee information',
+    })
+    @ApiResponse({ status: 404, description: 'Not Found' })
+    async getEmployee(@Res() res, @Param('employeeId') employeeId) {
+      const employee = await this.employeesService.findOneById(employeeId);
+      if (!employee) {
+        throw new NotFoundException('Employee does not exist!');
+      }
+      return res.status(HttpStatus.OK).json(employee);
+    }
+  
+    @Put('id/:employeeId')
+    @ApiOperation({
+      description: 'Update employee using id',
+    })
+    @ApiParam({ name: 'employeeId' })
+    @ApiResponse({
+      status: 200,
+      description: 'Employee has been updated',
+    })
+    @ApiResponse({ status: 404, description: 'Not Found' })
+    async updateEmployee(
+      @Res() res,
+      @Param('employeeId') employeeId: number,
+      @Body() updateEmployeeDto: UpdateEmployeeDto) {
+      const editedEmployee = await this.employeesService.editEmployee(employeeId, updateEmployeeDto);
+      if (!editedEmployee) {
+        throw new NotFoundException('Employee does not exist!');
+      }
+      return res.status(HttpStatus.OK).json({
+        message: 'Employee has been successfully updated',
+        post: editedEmployee,
+      });
+    }
+  
+    @Delete('id/:employeeId')
+    @ApiOperation({
+      description: 'Delete employee using id',
+    })
+    @ApiParam({ name: 'employeeId' })
+    @ApiResponse({
+      status: 200,
+      description: 'Employee has been deleted!',
+    })
+    @ApiResponse({ status: 404, description: 'Not Found' })
+    async deleteEmployee(
+      @Res() res,
+      @Param('employeeId') employeeId,
+    ) {
+      const deletedEmployee = await this.employeesService.deleteEmployee(employeeId);
+      if (!deletedEmployee) {
+        throw new NotFoundException('Employee does not exist!');
+      }
+      return res.status(HttpStatus.OK).json({
+        message: 'Employee has been deleted!',
+        employee: deletedEmployee,
+      });
+    }
+  }
+  

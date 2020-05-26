@@ -1,57 +1,106 @@
-import { Controller, Get, Param, Post, Body, Query, Delete } from '@nestjs/common';
-import { ApiOperation, ApiResponse, ApiBearerAuth, ApiTags } from '@nestjs/swagger';
+import { Controller, Get, Post, Body, Res, Param, NotFoundException, HttpStatus, Put, Delete } from '@nestjs/common';
+import { Cities } from './city.entity';
 import { CitiesService } from './cities.service';
-import { CreateCityDTO } from './dto/create-city.dto';
-import { CityEntity } from './city.entity';
+import { CreateCityDto, UpdateCityDto } from './dto/';
+import { ApiTags, ApiParam, ApiOperation, ApiResponse } from '@nestjs/swagger';
 
-@ApiBearerAuth()
-@ApiTags('cities')
-@Controller('cities')
+@ApiTags('Citites')
+@Controller('api/cities')
 export class CitiesController {
-    constructor(private citiesService: CitiesService) { }
+  constructor(
+    private readonly citiesService: CitiesService,
+    ) {
+  }
 
-    @Post()
-    @ApiOperation({ 
-        summary: 'Create city' 
-    })
-    @ApiResponse({ 
-        status: 201, 
-        description: 'City has been created.' 
-    })
-    @ApiResponse({ 
-        status: 404, 
-        description: 'Not found.' 
-    })
-    async create(@Body() createCityDto: CreateCityDTO){
-      return this.citiesService.create(createCityDto);
-    }
-    
-    @Post()
-    async addCity(@Body() createCityDTO: CreateCityDTO) {
-        const city = await this.citiesService.addCity(createCityDTO);
-        return city;
-    }
+  @Post()
+  @ApiOperation({
+    description: 'Create city',
+  })
+  @ApiResponse({
+    status: 201,
+    description: 'City has been created',
+  })
+  @ApiResponse({ status: 404, description: 'Not Found' })
+  async create(@Body() createCity: CreateCityDto) {
+    return await this.citiesService.create(createCity);
+  }
 
-    @Get()
-    async getCities() {
-        const cities = await this.citiesService.getCities();
-        return cities;
-    }
+  @Get()
+  @ApiOperation({
+    description: 'Get all cities',
+  })
+  @ApiResponse({
+    status: 200,
+    description: 'Get all cities',
+  })
+  @ApiResponse({ status: 404, description: 'Not Found' })
+  async findAll(): Promise<Cities[]> {
+    return this.citiesService.findAll();
+  }
 
-    @Get(':cityID')
-    @ApiResponse({
-        status: 200,
-        description: 'The found record',
-        type: CityEntity,
-    })
-    async getCity(@Param('cityID') cityID) {
-        const city = await this.citiesService.getCity(cityID);
-        return city;
+  @Get('id/:cityId')
+  @ApiOperation({
+    description: 'Get city by id',
+  })
+  @ApiParam({ name: 'cityId' })
+  @ApiResponse({
+    status: 200,
+    description: 'Get city information',
+  })
+  @ApiResponse({ status: 404, description: 'Not Found' })
+  async getCity(@Res() res, @Param('cityId') cityId) {
+    const city = await this.citiesService.findOneById(cityId);
+    if (!city) {
+      throw new NotFoundException('City does not exist!');
     }
+    return res.status(HttpStatus.OK).json(city);
+  }
 
-    @Delete()
-    async deleteCity(@Query() query) {
-        const cities = await this.citiesService.deleteCity(query.cityID);
-        return cities;
+  @Put('id/:cityId')
+  @ApiOperation({
+    description: 'Update city using id',
+  })
+  @ApiParam({ name: 'cityId' })
+  @ApiResponse({
+    status: 200,
+    description: 'City has been updated',
+  })
+  @ApiResponse({ status: 404, description: 'Not Found' })
+  async updateCity(
+    @Res() res,
+    @Param('cityId') cityId: number,
+    @Body() updateCityDto: UpdateCityDto) {
+    const editedCity = await this.citiesService.editCity(cityId, updateCityDto);
+    if (!editedCity) {
+      throw new NotFoundException('City does not exist!');
     }
+    return res.status(HttpStatus.OK).json({
+      message: 'City has been successfully updated',
+      post: editedCity,
+    });
+  }
+
+  @Delete('id/:cityId')
+  @ApiOperation({
+    description: 'Delete city using id',
+  })
+  @ApiParam({ name: 'cityId' })
+  @ApiResponse({
+    status: 200,
+    description: 'City has been deleted!',
+  })
+  @ApiResponse({ status: 404, description: 'Not Found' })
+  async deleteCity(
+    @Res() res,
+    @Param('cityId') cityId,
+  ) {
+    const deletedCity = await this.citiesService.deleteCity(cityId);
+    if (!deletedCity) {
+      throw new NotFoundException('City does not exist!');
+    }
+    return res.status(HttpStatus.OK).json({
+      message: 'City has been deleted!',
+      city: deletedCity,
+    });
+  }
 }
