@@ -32,10 +32,22 @@ export class Meetings {
     status: meeting_status;
 
     @Column()
-    califications: number;
+    employeeCalificationTime: number;
+
+    @Column()
+    employeeCalificationService: number;
 
     @Column({ length: 150 })
-    coment: string;
+    employeeComent: string;
+
+    @Column()
+    destinyCalificationTime: number;
+
+    @Column()
+    destinyCalificationService: number;
+
+    @Column({ length: 150 })
+    destinyComent: string;
 
     @OneToOne(type => Schedule, schedule => schedule)
     schedule: Schedule[];

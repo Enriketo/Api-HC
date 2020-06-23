@@ -17,11 +17,27 @@ export class UpdateMeetDto {
 
     @IsNotEmpty()
     @ApiProperty()
-    readonly califications: number;
+    readonly employeeCalificationTime: number;
 
     @IsNotEmpty()
     @ApiProperty()
-    readonly coment: string;
+    readonly employeeCalificationService: number;
+
+    @IsNotEmpty()
+    @ApiProperty()
+    readonly employeeComent: string;
+
+    @IsNotEmpty()
+    @ApiProperty()
+    readonly destinyCalificationTime: number;
+
+    @IsNotEmpty()
+    @ApiProperty()
+    readonly destinyCalificationService: number;
+
+    @IsNotEmpty()
+    @ApiProperty()
+    readonly destinyComent: string;
 
     @IsNotEmpty()
     @ApiProperty()
