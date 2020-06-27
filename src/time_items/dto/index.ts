@@ -1,2 +1,2 @@
-export { CreateTimeItemDto } from './create-time_Item.dto';
-export { UpdateTimeItemDto } from './update-time_Item.dto';
+export { CreateTimeItemDto } from './create-timeItem.dto';
+export { UpdateTimeItemDto } from './update-timeItem.dto';
