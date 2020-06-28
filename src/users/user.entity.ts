@@ -23,6 +23,7 @@ export enum gender {
 @Unique(["username", "email"])
 export class Users {
     @PrimaryGeneratedColumn()
+    generationStrategy: "increment"
     id: number;
 
     @Column({ length: 20 })
