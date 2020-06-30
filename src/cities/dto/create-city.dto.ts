@@ -13,10 +13,6 @@ export class CreateCityDto {
     
     @IsNotEmpty()
     @ApiProperty()
-    readonly code: string;
-    
-    @IsNotEmpty()
-    @ApiProperty()
     readonly isoCode2: string;
     
     @IsNotEmpty()

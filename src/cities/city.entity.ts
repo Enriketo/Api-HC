@@ -13,7 +13,7 @@ export class Cities {
     city: string;
 
     @ManyToOne(type => States, state => state.id)
-    stateId: States[];
+    state: States[];
 
     @Column({ length: 10 })
     isoCode2: string;
