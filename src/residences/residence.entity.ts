@@ -7,10 +7,10 @@ import { Schedule } from '../schedule/schedule.entity';
 @Unique(["email"])
 export class Residences {
     @PrimaryGeneratedColumn()
-    id: number;
+    id: 'increment';
 
     @Column()
-    city_id : number; 
+    cityId : number; 
 
     @Column()
     email: string; 
@@ -25,10 +25,10 @@ export class Residences {
     address: string;
 
     @Column()
-    place_avalaible: boolean;
+    placeAvalaible: boolean;
 
     @Column()
-    media_id: number; 
+    mediaId: number; 
 
     @ManyToOne(type => Cities, city => city)
     states: Cities[];

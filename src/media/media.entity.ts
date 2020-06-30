@@ -14,7 +14,7 @@ export enum type {
 @Entity()
 export class Media {
     @PrimaryGeneratedColumn()
-    id: number;
+    id: 'increment';
 
     @Column({
         type: 'enum',

@@ -5,23 +5,15 @@ export class CreateCountryDto {
 
     @IsNotEmpty()
     @ApiProperty()
-    readonly id: number;
-
-    @IsNotEmpty()
-    @ApiProperty()
     readonly country: string;
 
     @IsNotEmpty()
     @ApiProperty()
-    readonly code: string;
+    readonly isoCode2: string;
 
     @IsNotEmpty()
     @ApiProperty()
-    readonly iso_code2: string;
-
-    @IsNotEmpty()
-    @ApiProperty()
-    readonly iso_code3: string;
+    readonly isoCode3: string;
 
     @IsNotEmpty()
     @ApiProperty()

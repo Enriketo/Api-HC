@@ -5,16 +5,16 @@ import { Media } from '../media/media.entity';
 import { Matches } from '../matches/match.entity';
 
 export enum doc_type {
-    cc = 'Cédula de ciudadanía',
-    nit = 'Número de indentificación tributaria',
-    ce = 'Cédula de extranjería'
+    cc = 'C.C.',
+    nit = 'NIT',
+    ce = 'C.E.'
 }
 
 export enum gender {
     male = 'male',
     female = 'female',
-    tx_male = 'transexual_male',
-    tx_female = 'tramsexual_female',
+    tx_male = 'transexual male',
+    tx_female = 'tramsexual female',
     gay = 'gay',
     lesbian = 'lesbian',
     undefined = 'undefined'
@@ -49,13 +49,13 @@ export enum penality {
 
 export class Employees {
     @PrimaryGeneratedColumn()
-    id: number;
+    id: 'increment';
 
     @Column({ length: 20 })
-    first_name: string;
+    firstName: string;
 
     @Column({ length: 20 })
-    last_name: string;
+    lastName: string;
 
     @Column({ length: 12 })
     username: string; 
@@ -65,10 +65,10 @@ export class Employees {
         enum: doc_type,
         default: doc_type.cc,
     })
-    doc_type: doc_type;
+    docType: doc_type;
 
     @Column()
-    doc_number: number;
+    docNumber: number;
 
     @Column({ length: 30 })
     email: string; 
@@ -96,19 +96,19 @@ export class Employees {
     discapacity: boolean;
 
     @Column()
-    discapacity_acpt: boolean;
+    discapacityAcpt: boolean;
 
     @Column()
-    time_item_id: number; 
+    timeItemId: number; 
 
     @Column()
-    city_id: number; 
+    cityId: number; 
 
     @Column()
     address: string;
 
     @Column({ length: 30 })
-    payment_code: string;
+    paymentCode: string;
 
     @Column({
         type: 'enum',
@@ -132,10 +132,10 @@ export class Employees {
     role: role;
 
     @Column()
-    opt_in: boolean;
+    optIn: boolean;
 
     @Column()
-    average_calification: number; 
+    averageCalification: number; 
 
     @Column({
         type: 'enum',
@@ -145,10 +145,10 @@ export class Employees {
     penality: penality;
 
     @Column()
-    total_penalities: number;
+    totalPenalities: number;
 
     @Column()
-    media_id: number; 
+    mediaId: number; 
 
     @ManyToOne(type => Cities, city => city)
     city: Cities[];

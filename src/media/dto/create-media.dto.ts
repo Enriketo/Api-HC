@@ -2,10 +2,6 @@ import { IsNotEmpty } from 'class-validator';
 import { ApiProperty } from '@nestjs/swagger';
 
 export class CreateMediaDto {
-    
-    @IsNotEmpty()
-    @ApiProperty()
-    readonly id: number;
 
     @IsNotEmpty()
     @ApiProperty()

@@ -5,10 +5,6 @@ export class CreateStateDto {
     
     @IsNotEmpty()
     @ApiProperty()
-    readonly id: number;
-    
-    @IsNotEmpty()
-    @ApiProperty()
     readonly country_id: number; 
     
     @IsNotEmpty()

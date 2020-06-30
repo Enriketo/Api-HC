@@ -7,19 +7,19 @@ import { Employees }from "../employees/employee.entity";
 @Entity()
 export class Cities {
     @PrimaryGeneratedColumn()
-    id: number;
+    id: 'increment';
 
     @Column({ length: 20 })
     city: string;
 
     @ManyToOne(type => States, state => state.id)
-    State: States[];
+    stateId: States[];
 
-    @Column({ length: 4 })
-    iso_code2: string;
+    @Column({ length: 10 })
+    isoCode2: string;
 
-    @Column({ length: 4 })
-    iso_code3: string;
+    @Column({ length: 10 })
+    isoCode3: string;
 
     @Column({ length: 10 })
     location: string; //Address 

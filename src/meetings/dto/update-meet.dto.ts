@@ -5,11 +5,11 @@ export class UpdateMeetDto {
 
     @IsNotEmpty()
     @ApiProperty()
-    readonly user_arrived: boolean;
+    readonly userArrived: boolean;
 
     @IsNotEmpty()
     @ApiProperty()
-    readonly employee_arrived: boolean;
+    readonly employeeArrived: boolean;
 
     @IsNotEmpty()
     @ApiProperty()

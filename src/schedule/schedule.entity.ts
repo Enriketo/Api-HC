@@ -6,19 +6,19 @@ import { Matches } from '../matches/match.entity';
 @Entity()
 export class Schedule {
     @PrimaryGeneratedColumn()
-    id: number;
+    id: 'increment';
 
     @Column()
-    match_id: number; 
+    matchId: number; 
 
     @Column({ type: 'timestamp' })
-    start_date: Date;
+    startDate: Date;
 
     @Column({ type: 'timestamp' })
-    end_date: Date;
+    endDate: Date;
 
     @Column()
-    residences_id: number; 
+    residencesId: number; 
 
     @Column({ length: 25 }) //Address
     location: string; 

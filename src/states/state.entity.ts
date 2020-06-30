@@ -4,10 +4,9 @@ import { Cities } from '../cities/city.entity';
 
 @Entity()
 export class States {
-
     @PrimaryGeneratedColumn()
-    id: number;
-
+    id: 'increment';
+    
     @Column()
     country_id: number; 
 

@@ -1,9 +1,9 @@
 {
     "type": "mysql",
-    "host": "apihc.ccwsw5pi0yw8.us-east-2.rds.amazonaws.com",
+    "host": "localhost",
     "port": 3306,
     "username": "enrique",
-    "password": "12345678",
+    "password": "1234",
     "database": "apihc",
     "entities": ["src/**/*.entity{.js}"],
     "synchronize": true,

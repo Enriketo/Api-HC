@@ -9,23 +9,11 @@ export class UpdateCountryDto {
 
   @IsNotEmpty()
   @ApiProperty()
-  readonly code: string;
+  readonly isoCode2: string;
 
   @IsNotEmpty()
   @ApiProperty()
-  readonly iso_code2: string;
-
-  @IsNotEmpty()
-  @ApiProperty()
-  readonly iso_code3: string;
-
-  @IsNotEmpty()
-  @ApiProperty()
-  readonly location: string;
-  
-  @IsNotEmpty()
-  @ApiProperty()
-  readonly phonePrefix: number;
+  readonly isoCode3: string;
 
   @IsNotEmpty()
   @ApiProperty()

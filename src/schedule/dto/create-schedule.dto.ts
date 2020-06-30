@@ -2,25 +2,22 @@ import { IsNotEmpty } from 'class-validator';
 import { ApiProperty } from '@nestjs/swagger';
 
 export class CreateScheduleDto {
-    @IsNotEmpty()
-    @ApiProperty()
-    readonly id: number;
 
     @IsNotEmpty()
     @ApiProperty()
-    readonly match_id: number; 
+    readonly matchId: number; 
 
     @IsNotEmpty()
     @ApiProperty()
-    readonly start_date: Date;
+    readonly startDate: Date;
 
     @IsNotEmpty()
     @ApiProperty()
-    readonly end_date: Date;
+    readonly endDate: Date;
 
     @IsNotEmpty()
     @ApiProperty()
-    readonly residences_id: number; 
+    readonly residencesId: number; 
     
     @IsNotEmpty()
     @ApiProperty()

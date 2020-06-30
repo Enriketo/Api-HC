@@ -13,7 +13,7 @@ export class UpdateMatchDto {
 
     @IsNotEmpty()
     @ApiProperty()
-    readonly order_approved: boolean;
+    readonly orderApproved: boolean;
     
     @IsNotEmpty()
     @ApiProperty()

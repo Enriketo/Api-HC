@@ -17,10 +17,10 @@ export enum order_status {
 @Entity()
 export class Orders {
     @PrimaryGeneratedColumn()
-    id: number;
-
+    id: 'increment';
+    
     @Column()
-    match_id: number; 
+    matchId: number; 
 
     @Column()
     price: number;
@@ -37,7 +37,7 @@ export class Orders {
         enum: order_status,
         default: order_status.approved,
     })
-    order_status: order_status;
+    orderStatus: order_status;
 
     @OneToOne(type => Meetings, meet => meet.id)
     meet: Meetings[];

@@ -5,15 +5,11 @@ export class CreateMatchDto {
 
     @IsNotEmpty()
     @ApiProperty()
-    readonly id: number;
+    readonly userId: number; 
 
     @IsNotEmpty()
     @ApiProperty()
-    readonly user_id: number; 
-
-    @IsNotEmpty()
-    @ApiProperty()
-    readonly employee_id: number; 
+    readonly employeeId: number; 
 
     @IsNotEmpty()
     @ApiProperty()
@@ -25,7 +21,7 @@ export class CreateMatchDto {
 
     @IsNotEmpty()
     @ApiProperty()
-    readonly order_approved: boolean;
+    readonly orderApproved: boolean;
 
     @IsNotEmpty()
     @ApiProperty()

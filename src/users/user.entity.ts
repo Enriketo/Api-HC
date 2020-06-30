@@ -4,9 +4,9 @@ import { Media } from '../media/media.entity';
 import { Matches } from '../matches/match.entity';
 
 export enum doc_type {
-    cc = 'Cédula de ciudadanía',
-    nit = 'Número de indentificación tributaria',
-    ce = 'Cédula de extranjería'
+    cc = 'C.C.',
+    nit = 'NIT',
+    ce = 'C.E.'
 }
 
 export enum gender {
@@ -23,14 +23,13 @@ export enum gender {
 @Unique(["username", "email"])
 export class Users {
     @PrimaryGeneratedColumn()
-    generationStrategy: "increment"
-    id: number;
+    id: 'increment';
 
     @Column({ length: 20 })
-    first_name: string;
+    firstName: string;
 
     @Column({ length: 20 })
-    last_name: string;
+    lastName: string;
 
     @Column({ length: 15 })
     username: string; 
@@ -40,10 +39,10 @@ export class Users {
         enum: doc_type,
         default: doc_type.cc,
     })
-    doc_type: doc_type;
+    docType: doc_type;
 
     @Column()
-    doc_number: number;
+    docNumber: number;
 
     @Column({ length: 30 })
     email: string; 
@@ -65,7 +64,7 @@ export class Users {
     discapacity: boolean;
 
     @Column()
-    opt_in: boolean;
+    optIn: boolean;
 
     @Column()
     showName: boolean;
@@ -80,10 +79,10 @@ export class Users {
     address: string;
 
     @Column()
-    city_id: number; 
+    cityId: number; 
 
     @Column()
-    media_id: number; 
+    mediaId: number; 
 
     @ManyToOne(type => Cities, city => city)
     city: Cities[];

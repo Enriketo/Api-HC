@@ -5,11 +5,7 @@ export class CreateResidenceDto {
 
     @IsNotEmpty()
     @ApiProperty()
-    readonly id: number;
-
-    @IsNotEmpty()
-    @ApiProperty()
-    readonly city_id : number; 
+    readonly cityId : number; 
     
     @IsNotEmpty()
     @ApiProperty()
@@ -29,11 +25,11 @@ export class CreateResidenceDto {
 
     @IsNotEmpty()
     @ApiProperty()
-    readonly place_avalaible: boolean;
+    readonly placeAvalaible: boolean;
     
     @IsNotEmpty()
     @ApiProperty()
-    readonly media_id: number; 
+    readonly mediaId: number; 
 
     @IsNotEmpty()
     @ApiProperty()

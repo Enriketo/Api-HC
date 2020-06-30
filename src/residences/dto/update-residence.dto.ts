@@ -21,7 +21,7 @@ export class UpdateResidenceDto {
 
     @IsNotEmpty()
     @ApiProperty()
-    readonly place_avalaible: boolean;
+    readonly placeAvalaible: boolean;
     
     @IsNotEmpty()
     @ApiProperty()

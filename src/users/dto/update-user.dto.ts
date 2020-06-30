@@ -5,11 +5,11 @@ export class UpdateUserDto {
 
     @IsNotEmpty()
     @ApiProperty()
-    readonly first_name: string;
+    readonly firstName: string;
 
     @IsNotEmpty()
     @ApiProperty()
-    readonly last_name: string;
+    readonly lastName: string;
 
     @IsNotEmpty()
     @ApiProperty()
@@ -29,11 +29,11 @@ export class UpdateUserDto {
 
     @IsNotEmpty()
     @ApiProperty()
-    readonly opt_in: boolean;
+    readonly optIn: boolean;
 
     @IsNotEmpty()
     @ApiProperty()
-    readonly show_name: boolean;
+    readonly showName: boolean;
 
     @IsNotEmpty()
     @ApiProperty()
@@ -45,7 +45,7 @@ export class UpdateUserDto {
 
     @IsNotEmpty()
     @ApiProperty()
-    readonly city_id: number;
+    readonly cityId: number;
 
     @IsNotEmpty()
     @ApiProperty()

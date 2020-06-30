@@ -4,7 +4,7 @@ import { Employees } from "../employees/employee.entity";
 @Entity()
 export class TimeItems {
     @PrimaryGeneratedColumn()
-    id: number;
+    id: 'increment';
 
     @Column({ length: 25 })
     name: string;

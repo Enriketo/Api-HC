@@ -13,16 +13,16 @@ export enum meeting_status {
 @Entity()
 export class Meetings {
     @PrimaryGeneratedColumn()
-    id: number;
+    id: 'increment';
 
     @Column()
-    schedule_id: number; 
+    scheduleId: number; 
 
     @Column()
-    user_arrived: boolean;
+    userArrived: boolean;
 
     @Column()
-    employee_arrived: boolean;
+    employeeArrived: boolean;
 
     @Column({
         type: 'enum',

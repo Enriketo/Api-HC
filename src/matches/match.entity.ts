@@ -15,13 +15,13 @@ export enum match_status {
 export class Matches {
     
     @PrimaryGeneratedColumn()
-    id: number;
+    id: 'increment';
 
     @Column()
-    user_id: number; 
+    userId: number; 
 
     @Column()
-    employee_id: number;
+    employeeId: number;
 
     @Column({
         type: 'enum',
@@ -34,7 +34,7 @@ export class Matches {
     username: string; 
 
     @Column()
-    order_approved: boolean;
+    orderApproved: boolean;
 
     @ManyToOne(type => Users, user => user.id)
     user: Users[];

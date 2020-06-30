@@ -5,10 +5,6 @@ export class CreateTimeItemDto {
 
     @IsNotEmpty()
     @ApiProperty()
-    readonly id: number;
-
-    @IsNotEmpty()
-    @ApiProperty()
     readonly name: string;
 
     @IsNotEmpty()

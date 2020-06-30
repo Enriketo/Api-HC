@@ -5,15 +5,15 @@ export class UpdateScheduleDto {
 
     @IsNotEmpty()
     @ApiProperty()
-    readonly start_date: Date;
+    readonly startDate: Date;
 
     @IsNotEmpty()
     @ApiProperty()
-    readonly end_date: Date;
+    readonly endDate: Date;
 
     @IsNotEmpty()
     @ApiProperty()
-    readonly residences_id: number; 
+    readonly residencesId: number; 
 
     @IsNotEmpty()
     @ApiProperty()

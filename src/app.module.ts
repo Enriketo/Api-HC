@@ -14,6 +14,7 @@ import { StatesModule } from './states/states.module';
 import { CountriesModule } from './countries/countries.module';
 import { MediaModule } from './media/media.module';
 import { AuthModule } from './auth/auth.module'
+//import { ImageUploadModule } from './providers/images/imageupload.module'
 import fs = require('fs');
 
 //TODO Dont forget setup typeorm config
@@ -21,16 +22,18 @@ import fs = require('fs');
 @Module({
   imports: [TypeOrmModule.forRoot({
     type: 'mysql',
-    host: 'apihc.ccwsw5pi0yw8.us-east-2.rds.amazonaws.com',
+    host: 'localhost',
+    //host: 'apihc.ccwsw5pi0yw8.us-east-2.rds.amazonaws.com',
     port: 3306,
     username: 'enrique',
-    password: '12345678',
+    password: '1234',
+    //password: '12345678',
     database: 'apihc',
     entities: [__dirname + '/**/*.entity{.ts,.js}'],
     synchronize: true,
     autoLoadEntities: true,
   },
-  ), CitiesModule, UsersModule, EmployeesModule, ResidencesModule, TimeItemsModule, MediaModule, CountriesModule, StatesModule, MatchesModule, OrdersModule, ScheduleModule, MeetingsModule, AuthModule],
+  ), CitiesModule, UsersModule, EmployeesModule, ResidencesModule, TimeItemsModule, MediaModule, CountriesModule, StatesModule, MatchesModule, OrdersModule, ScheduleModule, MeetingsModule, AuthModule], //ImageUploadModule
   providers: [AppService],
 })
 

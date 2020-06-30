@@ -5,6 +5,10 @@ export class UpdateCityDto {
 
     @IsNotEmpty()
     @ApiProperty()
+    readonly stateId: number;
+    
+    @IsNotEmpty()
+    @ApiProperty()
     readonly city: string;
 
     @IsNotEmpty()
@@ -13,11 +17,11 @@ export class UpdateCityDto {
 
     @IsNotEmpty()
     @ApiProperty()
-    readonly iso_code2: string;
+    readonly isoCode2: string;
 
     @IsNotEmpty()
     @ApiProperty()
-    readonly iso_code3: string;
+    readonly isoCode3: string;
 
     @IsNotEmpty()
     @ApiProperty()

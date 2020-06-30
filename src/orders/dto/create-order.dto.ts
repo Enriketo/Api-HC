@@ -5,11 +5,7 @@ export class CreateOrderDto {
     
     @IsNotEmpty()
     @ApiProperty()
-    readonly id: number;
-    
-    @IsNotEmpty()
-    @ApiProperty()
-    readonly match_id: number; 
+    readonly matchId: number; 
 
     @IsNotEmpty()
     @ApiProperty()
@@ -21,7 +17,7 @@ export class CreateOrderDto {
 
     @IsNotEmpty()
     @ApiProperty()
-    readonly order_status: string;
+    readonly ordertatus: string;
 
     @IsNotEmpty()
     @ApiProperty()

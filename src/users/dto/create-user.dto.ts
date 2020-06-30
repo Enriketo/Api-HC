@@ -5,15 +5,11 @@ export class CreateUserDto {
 
     @IsNotEmpty()
     @ApiProperty()
-    readonly id: number;
+    readonly firstName: string;
 
     @IsNotEmpty()
     @ApiProperty()
-    readonly first_name: string;
-
-    @IsNotEmpty()
-    @ApiProperty()
-    readonly last_name: string;
+    readonly lastName: string;
 
     @IsNotEmpty()
     @ApiProperty()
@@ -29,11 +25,11 @@ export class CreateUserDto {
 
     @IsNotEmpty()
     @ApiProperty()
-    readonly doc_type: string;
+    readonly docType: string;
 
     @IsNotEmpty()
     @ApiProperty()
-    readonly doc_number: number;
+    readonly docNumber: number;
 
     @IsNotEmpty()
     @ApiProperty()
@@ -49,11 +45,11 @@ export class CreateUserDto {
 
     @IsNotEmpty()
     @ApiProperty()
-    readonly opt_in: boolean;
+    readonly optIn: boolean;
 
     @IsNotEmpty()
     @ApiProperty()
-    readonly show_name: boolean;
+    readonly showName: boolean;
 
     @IsNotEmpty()
     @ApiProperty()
@@ -69,11 +65,11 @@ export class CreateUserDto {
 
     @IsNotEmpty()
     @ApiProperty()
-    readonly city_id: number;
+    readonly cityId: number;
 
     @IsNotEmpty()
     @ApiProperty()
-    readonly media_id: number;
+    readonly mediaId: number;
 
     @IsNotEmpty()
     @ApiProperty()
