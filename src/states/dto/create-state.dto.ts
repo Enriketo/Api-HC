@@ -5,23 +5,19 @@ export class CreateStateDto {
     
     @IsNotEmpty()
     @ApiProperty()
-    readonly country_id: number; 
+    readonly countryId: number; 
     
     @IsNotEmpty()
     @ApiProperty()
     readonly state: string;
-
-    @IsNotEmpty()
-    @ApiProperty()
-    readonly code: string;
     
     @IsNotEmpty()
     @ApiProperty()
-    readonly iso_code2: string;
+    readonly isoCode2: string;
     
     @IsNotEmpty()
     @ApiProperty()
-    readonly iso_code3: string;
+    readonly isoCode3: string;
     
     @IsNotEmpty()
     @ApiProperty()

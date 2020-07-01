@@ -13,7 +13,7 @@ export class CreateMatchDto {
 
     @IsNotEmpty()
     @ApiProperty()
-    readonly type: string;
+    readonly status: string;
     
     @IsNotEmpty()
     @ApiProperty()
@@ -30,5 +30,4 @@ export class CreateMatchDto {
     @IsNotEmpty()
     @ApiProperty()
     readonly updatedAt: Date;
-    
 }

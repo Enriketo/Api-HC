@@ -17,5 +17,9 @@ export class UpdateCountryDto {
 
   @IsNotEmpty()
   @ApiProperty()
+  readonly phonePrefix: number;
+
+  @IsNotEmpty()
+  @ApiProperty()
   readonly updatedAt: Date;
 }

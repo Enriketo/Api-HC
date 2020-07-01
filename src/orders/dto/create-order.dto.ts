@@ -17,11 +17,11 @@ export class CreateOrderDto {
 
     @IsNotEmpty()
     @ApiProperty()
-    readonly ordertatus: string;
+    readonly orderStatus: string;
 
     @IsNotEmpty()
     @ApiProperty()
-    readonly  createdAt: Date;
+    readonly createdAt: Date;
     
     @IsNotEmpty()
     @ApiProperty()

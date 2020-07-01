@@ -5,7 +5,7 @@ export class UpdateMatchDto {
 
     @IsNotEmpty()
     @ApiProperty()
-    readonly type: string;
+    readonly status: string;
     
     @IsNotEmpty()
     @ApiProperty()

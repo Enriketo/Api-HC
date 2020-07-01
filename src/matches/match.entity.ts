@@ -28,7 +28,7 @@ export class Matches {
         enum: match_status,
         default: match_status.pending,
     })
-    type: match_status;
+    status: match_status;
 
     @Column()
     username: string; 

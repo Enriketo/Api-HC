@@ -22,5 +22,4 @@ export class CreateMediaDto {
     @IsNotEmpty()
     @ApiProperty()
     readonly updatedAt: Date;
-
 }

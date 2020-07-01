@@ -2,14 +2,14 @@ import { IsNotEmpty } from 'class-validator';
 import { ApiProperty } from '@nestjs/swagger';
 
 export class CreateCityDto {
-
-    @IsNotEmpty()
-    @ApiProperty()
-    readonly stateId: number;
     
     @IsNotEmpty()
     @ApiProperty()
     readonly city: string;
+
+    @IsNotEmpty()
+    @ApiProperty()
+    readonly stateName: string;
     
     @IsNotEmpty()
     @ApiProperty()

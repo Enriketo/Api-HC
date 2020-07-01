@@ -8,16 +8,16 @@ export class States {
     id: 'increment';
     
     @Column()
-    country_id: number; 
+    countryId: number; 
 
     @Column({ length: 25 })
     state: string;
 
     @Column({ length: 4 })
-    iso_code2: string;
+    isoCode2: string;
 
     @Column({ length: 4 })
-    iso_code3: string;
+    isoCode3: string;
 
     @Column({ length: 25 })
     location: string; 

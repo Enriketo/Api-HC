@@ -17,19 +17,19 @@ export class CreateEmployeeDto {
 
     @IsNotEmpty()
     @ApiProperty()
-    readonly email: string; 
-
-    @IsNotEmpty()
-    @ApiProperty()
-    readonly password: string;
-
-    @IsNotEmpty()
-    @ApiProperty()
     readonly docType: string;
     
     @IsNotEmpty()
     @ApiProperty()
     readonly docNumber: number;
+
+    @IsNotEmpty()
+    @ApiProperty()
+    readonly email: string; 
+
+    @IsNotEmpty()
+    @ApiProperty()
+    readonly password: string;
 
     @IsNotEmpty()
     @ApiProperty()
@@ -98,6 +98,10 @@ export class CreateEmployeeDto {
     @IsNotEmpty()
     @ApiProperty()
     readonly totalPenalities: number;
+
+    @IsNotEmpty()
+    @ApiProperty()
+    readonly mediaId: number; 
     
     @IsNotEmpty()
     @ApiProperty()

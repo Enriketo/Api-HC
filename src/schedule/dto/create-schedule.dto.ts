@@ -17,7 +17,7 @@ export class CreateScheduleDto {
 
     @IsNotEmpty()
     @ApiProperty()
-    readonly residencesId: number; 
+    readonly residencesId: number; // When no residence this is null
     
     @IsNotEmpty()
     @ApiProperty()

@@ -12,8 +12,8 @@ export class Cities {
     @Column({ length: 20 })
     city: string;
 
-    @ManyToOne(type => States, state => state.id)
-    state: States[];
+    @Column({ length: 20 })
+    stateName: string;   
 
     @Column({ length: 10 })
     isoCode2: string;
@@ -23,6 +23,9 @@ export class Cities {
 
     @Column({ length: 10 })
     location: string; //Address 
+    
+    @ManyToOne(type => States, state => state.id)
+    state: States[];
 
     @OneToMany(type => Residences, residence => residence.id)
     residence: Residences[];

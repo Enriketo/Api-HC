@@ -9,7 +9,6 @@ export enum continent {
     E = 'Oceanía'
 }
 
-
 @Entity()
 export class Countries {
     @PrimaryGeneratedColumn()
@@ -17,10 +16,7 @@ export class Countries {
   
     @Column({ length: 25 })
     country: string;
-  
-    @OneToMany(type => States, state => state.country)
-    states: States[]
-  
+
     @Column({ length: 4 })
     isoCode2: string;
   
@@ -33,6 +29,9 @@ export class Countries {
         default: continent.A,
     })
     location: continent; // json
+      
+    @OneToMany(type => States, state => state.country)
+    states: States[]
 
     @Column({ length: 3 })
     phonePrefix: string;
