@@ -5,10 +5,6 @@ export class UpdateResidenceDto {
 
     @IsNotEmpty()
     @ApiProperty()
-    readonly email: string; 
-
-    @IsNotEmpty()
-    @ApiProperty()
     readonly name: string;
 
     @IsNotEmpty()

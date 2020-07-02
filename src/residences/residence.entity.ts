@@ -10,9 +10,6 @@ export class Residences {
     id: 'increment';
 
     @Column()
-    cityId : number; 
-
-    @Column()
     email: string; 
 
     @Column()
@@ -27,16 +24,13 @@ export class Residences {
     @Column()
     placeAvalaible: boolean;
 
-    @Column()
-    mediaId: number; 
+    @ManyToOne(type => Cities, city => city.id)
+    city: Cities[];
 
-    @ManyToOne(type => Cities, city => city)
-    states: Cities[];
-
-    @OneToOne(type => Media, media => media)
+    @OneToOne(type => Media, media => media.id)
     media: Media[];
 
-    @OneToMany(type => Schedule, schedule => schedule)
+    @OneToMany(type => Schedule, schedule => schedule.id)
     schedule: Schedule[];
 
     @CreateDateColumn({ type: 'timestamp' })

@@ -4,9 +4,9 @@ import { Orders } from '../orders/order.entity';
 
 export enum meeting_status {
     pending = 'pending',
-    user_arrived = 'user_arrived',
-    employee_arrived = 'employee_arrived',
-    on_process = 'on_process',
+    user_arrived = 'userArrived',
+    employee_arrived = 'employeeArrived',
+    on_process = 'onProcess',
     finished = 'finished'
 }
 
@@ -14,9 +14,6 @@ export enum meeting_status {
 export class Meetings {
     @PrimaryGeneratedColumn()
     id: 'increment';
-
-    @Column()
-    scheduleId: number; 
 
     @Column()
     userArrived: boolean;
@@ -49,10 +46,10 @@ export class Meetings {
     @Column({ length: 150 })
     destinyComent: string;
 
-    @OneToOne(type => Schedule, schedule => schedule)
+    @OneToOne(type => Schedule, schedule => schedule.id)
     schedule: Schedule[];
 
-    @OneToOne(type => Orders, order => order)
+    @OneToOne(type => Orders, order => order.id)
     order: Orders[];
 
     @CreateDateColumn({ type: 'timestamp' })

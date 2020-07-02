@@ -2,10 +2,6 @@ import { IsNotEmpty } from 'class-validator';
 import { ApiProperty } from '@nestjs/swagger';
 
 export class CreateOrderDto {
-    
-    @IsNotEmpty()
-    @ApiProperty()
-    readonly matchId: number; 
 
     @IsNotEmpty()
     @ApiProperty()
@@ -13,7 +9,7 @@ export class CreateOrderDto {
 
     @IsNotEmpty()
     @ApiProperty()
-    readonly status: string;
+    readonly pay: string;
 
     @IsNotEmpty()
     @ApiProperty()

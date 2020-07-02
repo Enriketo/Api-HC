@@ -1,4 +1,4 @@
-import { Column, CreateDateColumn, Entity, ManyToOne, OneToMany, PrimaryGeneratedColumn, UpdateDateColumn, Unique } from 'typeorm';
+import { Column, CreateDateColumn, OneToOne, Entity, ManyToOne, OneToMany, PrimaryGeneratedColumn, UpdateDateColumn, Unique } from 'typeorm';
 import { TimeItems } from '../time_items/time_item.entity';
 import { Cities } from '../cities/city.entity';
 import { Media } from '../media/media.entity';
@@ -41,7 +41,8 @@ export enum role {
 export enum penality {
     low = 'low',
     middle = 'middle',
-    high = 'high'
+    high = 'high',
+    none = 'none'
 }
 
 @Entity()
@@ -99,12 +100,6 @@ export class Employees {
     discapacityAcpt: boolean;
 
     @Column()
-    timeItemId: number; 
-
-    @Column()
-    cityId: number; 
-
-    @Column()
     address: string;
 
     @Column({ length: 30 })
@@ -147,20 +142,17 @@ export class Employees {
     @Column()
     totalPenalities: number;
 
-    @Column()
-    mediaId: number; 
-
-    @ManyToOne(type => Cities, city => city)
+    @ManyToOne(type => Cities, city => city.id)
     city: Cities[];
 
-    @ManyToOne(type => Media, media => media)
+    @OneToOne(type => Media, media => media.id)
     media: Media[];
 
     @ManyToOne(type => TimeItems, id => id)
     timeItem: TimeItems[];
 
-    @OneToMany(type => Matches, match => match)
-    Match: Matches[];
+    @OneToMany(type => Matches, match => match.id)
+    match: Matches[];
 
     @CreateDateColumn({type: 'timestamp'})
     createdAt: Date;

@@ -5,19 +5,11 @@ export class CreateScheduleDto {
 
     @IsNotEmpty()
     @ApiProperty()
-    readonly matchId: number; 
-
-    @IsNotEmpty()
-    @ApiProperty()
     readonly startDate: Date;
 
     @IsNotEmpty()
     @ApiProperty()
     readonly endDate: Date;
-
-    @IsNotEmpty()
-    @ApiProperty()
-    readonly residencesId: number; // When no residence this is null
     
     @IsNotEmpty()
     @ApiProperty()

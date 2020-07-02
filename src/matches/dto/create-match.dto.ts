@@ -5,14 +5,6 @@ export class CreateMatchDto {
 
     @IsNotEmpty()
     @ApiProperty()
-    readonly userId: number; 
-
-    @IsNotEmpty()
-    @ApiProperty()
-    readonly employeeId: number; 
-
-    @IsNotEmpty()
-    @ApiProperty()
     readonly status: string;
     
     @IsNotEmpty()

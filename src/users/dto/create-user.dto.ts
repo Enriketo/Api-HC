@@ -65,14 +65,6 @@ export class CreateUserDto {
 
     @IsNotEmpty()
     @ApiProperty()
-    readonly cityId: number;
-
-    @IsNotEmpty()
-    @ApiProperty()
-    readonly mediaId: number;
-
-    @IsNotEmpty()
-    @ApiProperty()
     readonly createdAt: Date;
 
     @IsNotEmpty()

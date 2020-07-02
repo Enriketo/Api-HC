@@ -6,26 +6,24 @@ import { Cities } from '../cities/city.entity';
 export class States {
     @PrimaryGeneratedColumn()
     id: 'increment';
-    
-    @Column()
-    countryId: number; 
+
 
     @Column({ length: 25 })
     state: string;
 
-    @Column({ length: 4 })
+    @Column({ length: 8 })
     isoCode2: string;
 
-    @Column({ length: 4 })
+    @Column({ length: 8 })
     isoCode3: string;
 
     @Column({ length: 25 })
     location: string; 
 
-    @ManyToOne(type => Countries, country => country)
+    @ManyToOne(type => Countries, country => country.id)
     country: Countries[];
 
-    @OneToMany(type => Cities, city => city)
+    @OneToMany(type => Cities, city => city.id)
     city: Cities[];
 
     @CreateDateColumn({ type: 'timestamp' })

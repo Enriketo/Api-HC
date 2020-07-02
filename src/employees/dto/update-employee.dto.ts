@@ -38,14 +38,6 @@ export class UpdateEmployeeDto {
     @IsNotEmpty()
     @ApiProperty()
     readonly discapacityAcpt: boolean;
-    
-    @IsNotEmpty()
-    @ApiProperty()
-    readonly timeItemId: number;
-
-    @IsNotEmpty()
-    @ApiProperty()
-    readonly cityId: number; 
 
     @IsNotEmpty()
     @ApiProperty()

@@ -9,7 +9,7 @@ export class UpdateOrderDto {
 
     @IsNotEmpty()
     @ApiProperty()
-    readonly status: string;
+    readonly pay: string;
 
     @IsNotEmpty()
     @ApiProperty()

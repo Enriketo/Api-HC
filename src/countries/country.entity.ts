@@ -17,10 +17,10 @@ export class Countries {
     @Column({ length: 25 })
     country: string;
 
-    @Column({ length: 4 })
+    @Column({ length: 8 })
     isoCode2: string;
   
-    @Column({ length: 4 })
+    @Column({ length: 8 })
     isoCode3: string;
     
     @Column({
@@ -30,11 +30,11 @@ export class Countries {
     })
     location: continent; // json
       
-    @OneToMany(type => States, state => state.country)
-    states: States[]
-
     @Column({ length: 3 })
     phonePrefix: string;
+
+    @OneToMany(type => States, state => state.id)
+    states: States[]
   
     @CreateDateColumn({type: 'timestamp'})
     createdAt: Date;

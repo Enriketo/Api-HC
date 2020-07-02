@@ -5,10 +5,6 @@ export class CreateMeetDto {
 
     @IsNotEmpty()
     @ApiProperty()
-    readonly scheduleId: number;
-
-    @IsNotEmpty()
-    @ApiProperty()
     readonly userArrived: boolean;
 
     @IsNotEmpty()

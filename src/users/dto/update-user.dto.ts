@@ -45,10 +45,6 @@ export class UpdateUserDto {
 
     @IsNotEmpty()
     @ApiProperty()
-    readonly cityId: number;
-
-    @IsNotEmpty()
-    @ApiProperty()
     readonly updatedAt: Date;
     
 }

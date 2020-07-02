@@ -29,7 +29,7 @@ export class Media {
     @Column({ length: 200 })
     url: string;
 
-    @OneToOne(type => Residences, residence => residence)
+    @OneToOne(type => Residences, residence => residence.id)
     residence: Residences[];
 
     @OneToOne(type => Users, user => user.id)

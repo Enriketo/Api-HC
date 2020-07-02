@@ -13,10 +13,6 @@ export class UpdateScheduleDto {
 
     @IsNotEmpty()
     @ApiProperty()
-    readonly residencesId: number; 
-
-    @IsNotEmpty()
-    @ApiProperty()
     readonly location: string; 
 
     @IsNotEmpty()

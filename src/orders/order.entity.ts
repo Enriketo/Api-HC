@@ -1,10 +1,11 @@
 import { Column, CreateDateColumn, Entity, OneToOne, PrimaryGeneratedColumn, UpdateDateColumn} from 'typeorm';
 import { Meetings } from '../meetings/meet.entity';
+import { Matches } from '../matches/match.entity';
 
 export enum payment_type {
     cash = 'cash',
-    credit_card = 'credit card',
-    debit_card = 'debit card'
+    credit_card = 'creditCard',
+    debit_card = 'debitCard'
 }
 
 export enum order_status {
@@ -18,9 +19,6 @@ export enum order_status {
 export class Orders {
     @PrimaryGeneratedColumn()
     id: 'increment';
-    
-    @Column()
-    matchId: number; 
 
     @Column()
     price: number;
@@ -30,7 +28,7 @@ export class Orders {
         enum: payment_type,
         default: payment_type.cash,
     })
-    status: payment_type;
+    pay: payment_type;
 
     @Column({
         type: 'enum',
@@ -41,6 +39,9 @@ export class Orders {
 
     @OneToOne(type => Meetings, meet => meet.id)
     meet: Meetings[];
+
+    @OneToOne(type => Matches, match => match.id)
+    match: Matches[];
 
     @CreateDateColumn({ type: 'timestamp' })
     createdAt: Date;

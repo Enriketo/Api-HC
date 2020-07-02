@@ -17,12 +17,6 @@ export class Matches {
     @PrimaryGeneratedColumn()
     id: 'increment';
 
-    @Column()
-    userId: number; 
-
-    @Column()
-    employeeId: number;
-
     @Column({
         type: 'enum',
         enum: match_status,

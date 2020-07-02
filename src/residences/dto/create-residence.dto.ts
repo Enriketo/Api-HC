@@ -5,10 +5,6 @@ export class CreateResidenceDto {
 
     @IsNotEmpty()
     @ApiProperty()
-    readonly cityId : number; 
-    
-    @IsNotEmpty()
-    @ApiProperty()
     readonly email: string; 
 
     @IsNotEmpty()
@@ -26,10 +22,6 @@ export class CreateResidenceDto {
     @IsNotEmpty()
     @ApiProperty()
     readonly placeAvalaible: boolean;
-    
-    @IsNotEmpty()
-    @ApiProperty()
-    readonly mediaId: number; 
 
     @IsNotEmpty()
     @ApiProperty()

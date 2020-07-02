@@ -78,19 +78,13 @@ export class Users {
     @Column({ length: 20 })
     address: string;
 
-    @Column()
-    cityId: number; 
-
-    @Column()
-    mediaId: number; 
-
-    @ManyToOne(type => Cities, city => city)
+    @ManyToOne(type => Cities, city => city.id)
     city: Cities[];
 
-    @OneToOne(type => Media, media => media)
+    @OneToOne(type => Media, media => media.id)
     media: Media[];
 
-    @OneToMany(type => Matches, match => match)
+    @OneToMany(type => Matches, match => match.id)
     match: Matches[];
 
     @CreateDateColumn({ type: 'timestamp' })
