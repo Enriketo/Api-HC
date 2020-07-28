@@ -35,7 +35,7 @@ export enum status {
 export enum role {
     admin = 'admin',
     worker = 'worker',
-    place = 'place'
+    place = 'room'
 }
 
 export enum penality {
@@ -130,7 +130,7 @@ export class Employees {
     optIn: boolean;
 
     @Column()
-    averageCalification: number; 
+    averageCalification: number;
 
     @Column({
         type: 'enum',
@@ -141,6 +141,12 @@ export class Employees {
 
     @Column()
     totalPenalities: number;
+
+    @Column({ length: 20 })
+    timeItemArray: string;
+
+    @Column()
+    recidence: number;
 
     @ManyToOne(type => Cities, city => city.id)
     city: Cities[];

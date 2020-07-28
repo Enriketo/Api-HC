@@ -65,5 +65,9 @@ export class UpdateEmployeeDto {
 
     @IsNotEmpty()
     @ApiProperty()
+    readonly timeItemArray: string;
+
+    @IsNotEmpty()
+    @ApiProperty()
     readonly updatedAt: Date;
 }

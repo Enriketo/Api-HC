@@ -93,6 +93,14 @@ export class CreateEmployeeDto {
 
     @IsNotEmpty()
     @ApiProperty()
+    readonly timeItemArray: string;
+
+    @IsNotEmpty()
+    @ApiProperty()
+    readonly recidence: number;
+
+    @IsNotEmpty()
+    @ApiProperty()
     readonly mediaId: number; 
     
     @IsNotEmpty()
