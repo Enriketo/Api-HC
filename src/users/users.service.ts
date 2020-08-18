@@ -56,7 +56,7 @@ export class UsersService {
         return this.users.find(user => user.username === username);
     }
 
-    getUser(usr): Promise<any> {
+    async getUser(usr): Promise<any> {
         //let id = Number(userID);
         //console.log(id);
         return new Promise(resolve => {
