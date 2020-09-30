@@ -22,12 +22,12 @@ import fs = require('fs');
 @Module({
   imports: [TypeOrmModule.forRoot({
     type: 'mysql',
-    //host: 'localhost',
-    host: 'apihc.ccwsw5pi0yw8.us-east-2.rds.amazonaws.com',
+    host: 'apihc.csvyhe8o5c5o.us-east-2.rds.amazonaws.com',
+    //host: 'apihc.ccwsw5pi0yw8.us-east-2.rds.amazonaws.com',
     port: 3306,
     username: 'enrique',
-    //password: '1234',
-    password: '12345678',
+    password: 'mTcOpCP8gFBJSyUmhCYG',
+    //password: '12345678',
     database: 'apihc',
     entities: [__dirname + '/**/*.entity{.ts,.js}'],
     synchronize: true,
