@@ -13,7 +13,7 @@ const jwt = require('jsonwebtoken');
 @Injectable()
 export class UsersService {
     users: User;
-    
+
     constructor(
         @InjectRepository(Users)
         private userRepository: Repository<Users>,
@@ -56,34 +56,36 @@ export class UsersService {
         return this.users.find(user => user.username === username);
     }
 
-    getUser(userID): Promise<any> {
-        let id = Number(userID);
+    async getUser(usr): Promise<any> {
+        //let id = Number(userID);
+        //console.log(id);
         return new Promise(resolve => {
-            const user = this.users.find(user => user.id === id);
+            const user = this.userRepository.find(usr);
+            console.log(user);
             if (!user) {
                 throw new HttpException('User does not exist!', 404);
             }
             resolve(user);
         });
     }
-    
+
      async create(user): Promise<Users> {
         console.log(user);
         return await this.userRepository.save(user);
       }
-    
+
       async findAll(): Promise<Users[]> {
         return await this.userRepository.find();
       }
-    
+
       async findOneById(userId): Promise<Users> {
         return await this.userRepository.findOne(userId);
       }
-    
+
       async editUser(userId, user): Promise<UpdateResult> {
         return await this.userRepository.update(userId, user);
       }
-    
+
       async deleteUser(userId): Promise<DeleteResult> {
         return await this.userRepository.delete(userId);
       }
