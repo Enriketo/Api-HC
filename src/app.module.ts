@@ -15,6 +15,8 @@ import { CountriesModule } from './countries/countries.module';
 import { MediaModule } from './media/media.module';
 import { AuthModule } from './auth/auth.module'
 //import { ImageUploadModule } from './providers/images/imageupload.module'
+import { JwtDecryptController } from './jwt-decrypt/jwt-decrypt.controller';
+import { JwtDecryptModule } from './jwt-decrypt/jwt-decrypt.module';
 import fs = require('fs');
 
 //TODO Dont forget setup typeorm config
@@ -33,8 +35,8 @@ import fs = require('fs');
     synchronize: true,
     autoLoadEntities: true,
   },
-  ), CitiesModule, UsersModule, EmployeesModule, ResidencesModule, TimeItemsModule, MediaModule, CountriesModule, StatesModule, MatchesModule, OrdersModule, ScheduleModule, MeetingsModule, AuthModule], //ImageUploadModule
-  providers: [AppService],
+  ), CitiesModule, UsersModule, EmployeesModule, ResidencesModule, TimeItemsModule, MediaModule, CountriesModule, StatesModule, MatchesModule, OrdersModule, ScheduleModule, MeetingsModule, AuthModule, JwtDecryptModule], //ImageUploadModule
+  providers: [AppService], controllers: [JwtDecryptController],
 })
 
 export class AppModule { }
