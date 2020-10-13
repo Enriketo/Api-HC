@@ -2,8 +2,8 @@ import {Body, Controller, Post} from '@nestjs/common';
 import {ApiOperation, ApiResponse, ApiTags} from "@nestjs/swagger";
 import { JwtDecryptService } from "../jwt-decrypt/jwt-decrypt.service";
 
-@ApiTags('JwtSchedule')
-@Controller('api/schedule')
+@ApiTags('JwtUsers')
+@Controller('api/userJWT')
 export class JwtDecryptController {
     constructor(
         private readonly jwtDecryptService: JwtDecryptService,
@@ -16,7 +16,7 @@ export class JwtDecryptController {
     })
     @ApiResponse({
         status: 201,
-        description: 'Schedule has been created',
+        description: 'UserJWT has been created',
     })
     @ApiResponse({ status: 404, description: 'Not Found' })
     async create(@Body() createSchedule) {

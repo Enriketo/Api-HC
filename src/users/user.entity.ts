@@ -34,16 +34,6 @@ export class Users {
     @Column({ length: 15 })
     username: string; 
 
-    @Column({
-        type: 'enum',
-        enum: doc_type,
-        default: doc_type.cc,
-    })
-    docType: doc_type;
-
-    @Column()
-    docNumber: number;
-
     @Column({ length: 30 })
     email: string; 
 

@@ -1,11 +1,11 @@
 import { Injectable } from '@nestjs/common';
-import {Schedule} from "../schedule/schedule.entity";
+import { Users } from "../users/user.entity";
 import { SECRET } from "../config";
 import * as jwt from 'jsonwebtoken';
 
 @Injectable()
 export class JwtDecryptService {
-    async create(token): Promise<Schedule> {
+    async create(token): Promise<Users> {
         return await this.getUserIdFromToken(token);
     }
 

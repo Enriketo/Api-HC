@@ -25,14 +25,6 @@ export class CreateUserDto {
 
     @IsNotEmpty()
     @ApiProperty()
-    readonly docType: string;
-
-    @IsNotEmpty()
-    @ApiProperty()
-    readonly docNumber: number;
-
-    @IsNotEmpty()
-    @ApiProperty()
     readonly gender: string;
 
     @IsNotEmpty()
