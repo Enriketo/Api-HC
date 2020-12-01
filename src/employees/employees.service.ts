@@ -52,8 +52,8 @@ export class EmployeesService {
         }
     }
 
-    async findOne(username: string): Promise<Employees | undefined> {
-        return this.employees.find(user => user.username === username);
+    async findOne(username: string): Promise<Employee | undefined> {
+        return this.employeeRepository.find({username});
     }
 
     getUser(userID): Promise<any> {

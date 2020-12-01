@@ -6,18 +6,21 @@ import { UpdateResult, DeleteResult } from  'typeorm';
 import { SECRET } from '../config';
 import { validate } from 'class-validator';
 import { CreateUserDto } from './dto/create-user.dto';
+const jwt = require('jsonwebtoken');
 
 export type User = any;
-const jwt = require('jsonwebtoken');
 
 @Injectable()
 export class UsersService {
-    users: User;
 
     constructor(
         @InjectRepository(Users)
         private userRepository: Repository<Users>,
-    ) {}
+    ) {} 
+
+    async findOne(username: string): Promise<User | undefined> {
+        return this.userRepository.find({username});
+    }
 
     async addUser(dto: CreateUserDto): Promise<{ user: { email: string; username: string; token: any } }> {
 
@@ -52,13 +55,7 @@ export class UsersService {
         }
     }
 
-    async findOne(username: string): Promise<User | undefined> {
-        return this.users.find(user => user.username === username);
-    }
-
     async getUser(usr): Promise<any> {
-        //let id = Number(userID);
-        //console.log(id);
         return new Promise(resolve => {
             const user = this.userRepository.find(usr);
             console.log(user);

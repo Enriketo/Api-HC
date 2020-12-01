@@ -3,11 +3,11 @@ import * as multer from 'multer';
 import * as AWS from 'aws-sdk';
 import * as multerS3 from 'multer-s3';
 
-const hcmediabucket = 'hcmediabucket';
+const hcbucket = 'hc.images';
 const s3 = new AWS.S3();
 AWS.config.update({
-  accessKeyId: 'AKIAIA5COQKT43L2VGJQ',
-  secretAccessKey: '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',
+  accessKeyId: 'AKIAJTS5WKAJX53VTGKA',
+  secretAccessKey: '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',
 });
 
 @Injectable()
@@ -32,7 +32,7 @@ export class ImageUploadService {
   upload = multer({
     storage: multerS3({
       s3: s3,
-      bucket: hcmediabucket,
+      bucket: hcbucket,
       acl: 'public-read',
       key: function(request, file, cb) {
         cb(null, `${Date.now().toString()} - ${file.originalname}`);
