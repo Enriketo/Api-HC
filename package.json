@@ -32,6 +32,7 @@
     "@types/jwt-decode": "^2.2.1",
     "aws-sdk": "^2.771.0",
     "class-validator": "^0.12.2",
+    "execa": "^4.1.0",
     "fastify-swagger": "^2.5.1",
     "jsonwebtoken": "^8.5.1",
     "jwt-decode": "^3.0.0",
