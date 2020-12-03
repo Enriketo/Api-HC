@@ -15,14 +15,13 @@ export class AuthService {
     const usr = user.shift()
     if (usr && usr.password === pass) {
       const { password, ...result } = usr;
-      const reslt = { username: result.username, userId: result.id };
-      return reslt;
+      return result;
     }
     return console.error('error', 404);
   }
 
   async login(usr: any) {
-    const payload = { username: usr.username, sub: usr.userId };
+    const payload = usr;
     return {
       access_token: this.jwtService.sign(payload),
     };
