@@ -9,10 +9,6 @@ export class UpdateMatchDto {
     
     @IsNotEmpty()
     @ApiProperty()
-    readonly username: string; 
-
-    @IsNotEmpty()
-    @ApiProperty()
     readonly orderApproved: boolean;
     
     @IsNotEmpty()

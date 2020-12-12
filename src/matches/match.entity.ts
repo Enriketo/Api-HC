@@ -25,7 +25,10 @@ export class Matches {
     status: match_status;
 
     @Column()
-    username: string; 
+    username: string;
+
+    @Column()
+    workername: string; 
 
     @Column()
     orderApproved: boolean;

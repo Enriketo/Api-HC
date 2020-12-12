@@ -3,7 +3,6 @@ import { Residences } from "../residences/residence.entity";
 import { Meetings } from '../meetings/meet.entity';
 import { Matches } from '../matches/match.entity';
 
-
 @Entity()
 export class Schedule {
     @PrimaryGeneratedColumn()
@@ -20,6 +19,12 @@ export class Schedule {
 
     @Column()
     address: string;
+
+    @Column()
+    workerId: string; 
+
+    @Column()
+    userId: string;
 
     @ManyToOne(type => Residences, residence => residence.id)
     residence: Residences[];

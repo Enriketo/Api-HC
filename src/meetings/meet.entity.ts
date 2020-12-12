@@ -38,6 +38,9 @@ export class Meetings {
     employeeComent: string;
 
     @Column()
+    workerName: string;
+
+    @Column()
     destinyCalificationTime: number;
 
     @Column()

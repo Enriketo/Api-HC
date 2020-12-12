@@ -13,6 +13,10 @@ export class CreateMatchDto {
 
     @IsNotEmpty()
     @ApiProperty()
+    readonly workername: string; 
+
+    @IsNotEmpty()
+    @ApiProperty()
     readonly orderApproved: boolean;
 
     @IsNotEmpty()

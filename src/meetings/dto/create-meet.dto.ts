@@ -29,6 +29,10 @@ export class CreateMeetDto {
 
     @IsNotEmpty()
     @ApiProperty()
+    readonly workerName: string;
+
+    @IsNotEmpty()
+    @ApiProperty()
     readonly destinyCalificationTime: number;
 
     @IsNotEmpty()

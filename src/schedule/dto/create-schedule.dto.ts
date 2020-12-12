@@ -21,6 +21,14 @@ export class CreateScheduleDto {
 
     @IsNotEmpty()
     @ApiProperty()
+    readonly workerId: string;
+
+    @IsNotEmpty()
+    @ApiProperty()
+    readonly userId: string;
+
+    @IsNotEmpty()
+    @ApiProperty()
     readonly createdAt: Date;
     
     @IsNotEmpty()
