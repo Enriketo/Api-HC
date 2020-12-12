@@ -92,8 +92,8 @@ export class CreateEmployeeDto {
     readonly totalPenalities: number;
 
     @IsNotEmpty()
-    @ApiProperty()
-    readonly timeItemArray: string;
+    @ApiProperty({ type: [String] })
+    readonly timeItemArray: string[];
 
     @IsNotEmpty()
     @ApiProperty()
