@@ -147,18 +147,24 @@ export class Employees {
 
     @Column()
     recidence: number;
+    
+    @Column()
+    mediaId: number;
 
-    @ManyToOne(type => Cities, city => city.id)
-    city: Cities[];
+    @Column()
+    timeItemId: number;
 
-    @OneToOne(type => Media, media => media.id)
-    media: Media[];
+    //    @ManyToOne(type => Cities, city => city.id)
+//    city: Cities[];
 
-    @OneToOne(type => TimeItems, id => id)
-    timeItem: TimeItems[];
+//    @OneToOne(type => Media, media => media.id)
+//    media: Media[];
+//
+//    @OneToOne(type => TimeItems, id => id)
+//    timeItem: TimeItems[];
 
-    @OneToMany(type => Matches, match => match.id)
-    match: Matches[];
+//    @OneToMany(type => Matches, match => match.id)
+//    match: Matches[];
 
     @CreateDateColumn({type: 'timestamp'})
     createdAt: Date;
