@@ -154,7 +154,7 @@ export class Employees {
     @OneToOne(type => Media, media => media.id)
     media: Media[];
 
-    @ManyToOne(type => TimeItems, id => id)
+    @OneToOne(type => TimeItems, id => id)
     timeItem: TimeItems[];
 
     @OneToMany(type => Matches, match => match.id)
