@@ -13,6 +13,18 @@ export class CreateTimeItemDto {
 
     @IsNotEmpty()
     @ApiProperty()
+    readonly cost2: number;
+
+    @IsNotEmpty()
+    @ApiProperty()
+    readonly cost3: number;
+
+    @IsNotEmpty()
+    @ApiProperty()
+    readonly cost4: number;
+
+    @IsNotEmpty()
+    @ApiProperty()
     readonly createdAt: Date;
     
     @IsNotEmpty()

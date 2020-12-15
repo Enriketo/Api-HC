@@ -63,9 +63,9 @@ export class UpdateEmployeeDto {
     @ApiProperty()
     readonly optIn: boolean;
 
-    @IsNotEmpty()
-    @ApiProperty({ type: [String] })
-    readonly timeItemArray: string[];
+    //@IsNotEmpty()
+    //@ApiProperty()
+    //readonly timeItemId: string;
 
     @IsNotEmpty()
     @ApiProperty()

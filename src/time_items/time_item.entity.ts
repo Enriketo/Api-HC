@@ -6,11 +6,20 @@ export class TimeItems {
     @PrimaryGeneratedColumn()
     id: 'increment';
 
-    @Column({ length: 25 })
-    name: string;
+//    @Column({ length: 25 })
+//    name: string;
 
     @Column()
     cost: number;
+
+    @Column()
+    cost2: number;
+
+    @Column()
+    cost3: number;
+
+    @Column()
+    cost4: number;
 
     @OneToMany(type => Employees, employee => employee.id)
     employee: Employees[];

@@ -142,8 +142,8 @@ export class Employees {
     @Column()
     totalPenalities: number;
 
-    @Column({ length: 20 })
-    timeItemArray: string;
+//    @Column({ length: 20 })
+//    timeItemId: string;
 
     @Column()
     recidence: number;
