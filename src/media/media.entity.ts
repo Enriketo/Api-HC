@@ -29,6 +29,24 @@ export class Media {
     @Column({ length: 200 })
     url: string;
 
+    @Column({ length: 200 })
+    documentA: string;
+
+    @Column({ length: 200 })
+    documentB: string;
+
+    @Column({ length: 200 })
+    urlB: string;
+
+    @Column({ length: 200 })
+    urlC: string;
+
+    @Column({ length: 200 })
+    urlD: string;
+
+    @Column({ length: 200 })
+    urlV: string;
+
     @OneToOne(type => Residences, residence => residence.id)
     residence: Residences[];
 

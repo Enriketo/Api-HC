@@ -14,6 +14,30 @@ export class UpdateMediaDto {
     @IsNotEmpty()
     @ApiProperty()
     readonly url: string;
+
+    @IsNotEmpty()
+    @ApiProperty()
+    readonly documentA: string;
+
+    @IsNotEmpty()
+    @ApiProperty()
+    readonly documentB: string;
+
+    @IsNotEmpty()
+    @ApiProperty()
+    readonly urlB: string;
+
+    @IsNotEmpty()
+    @ApiProperty()
+    readonly urlC: string;
+
+    @IsNotEmpty()
+    @ApiProperty()
+    readonly urlD: string;
+
+    @IsNotEmpty()
+    @ApiProperty()
+    readonly urlV: string;
     
     @IsNotEmpty()
     @ApiProperty()
