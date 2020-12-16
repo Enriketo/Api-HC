@@ -20,6 +20,10 @@ export class EmployeesController {
     const user = usr.shift();
     if (user && user.password === loginEmployeeDto.password) {
       const { password, ...result } = user;
+      if(result.optIn === false){
+        const message = {message: 'User is not active yet'};
+        return message;
+      };
       const employee = { id: result.id };
       return employee;
     }
