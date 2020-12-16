@@ -4,21 +4,17 @@ import { EmployeesService } from './employees.service';
 import { CreateEmployeeDto, UpdateEmployeeDto } from './dto/';
 import { ApiTags, ApiParam, ApiOperation, ApiResponse } from '@nestjs/swagger';
 import { LoginEmployeeDto } from './dto/login-employee.dto';
-import { LocalAuthGuard } from '../auth/guards/local-auth.guard';
-import { JwtService } from '@nestjs/jwt';
 
 @ApiTags('Employees')
 @Controller('api/employees')
 export class EmployeesController {
-  jwtService: JwtService;
   constructor(
     private readonly employeesService: EmployeesService,
   ) {
   }
 
-  @UseGuards(LocalAuthGuard)
   @Post('login')
-  async validateUser(@Body() loginEmployeeDto: LoginEmployeeDto): Promise<any> {
+  async login(@Body() loginEmployeeDto: LoginEmployeeDto): Promise<any> {
     const usr = await this.employeesService.findOne(loginEmployeeDto.username);
     const errors = { User: ' not found' };
     const user = usr.shift();
