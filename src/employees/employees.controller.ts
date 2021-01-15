@@ -13,23 +13,6 @@ export class EmployeesController {
   ) {
   }
 
-  @Post('login')
-  async login(@Body() loginEmployeeDto: LoginEmployeeDto): Promise<any> {
-    const usr = await this.employeesService.findOne(loginEmployeeDto.username);
-    const errors = { User: ' not found' };
-    const user = usr.shift();
-    if (user && user.password === loginEmployeeDto.password) {
-      const { password, ...result } = user;
-      if(result.optIn === false){
-        const message = {message: 'User is not active yet'};
-        return message;
-      };
-      const employee = { id: result.id };
-      return employee;
-    }
-    throw new HttpException(errors, 401);
-  }
-
   @Post()
   @ApiOperation({
     description: 'Create employee',
