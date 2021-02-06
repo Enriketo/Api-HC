@@ -1,63 +1,78 @@
-import { Column, CreateDateColumn, Entity, ManyToOne, OneToOne, PrimaryGeneratedColumn, UpdateDateColumn, Unique } from 'typeorm';
-import { Schedule } from '../schedule/schedule.entity';
-import { Orders } from '../orders/order.entity';
+import {
+  Column,
+  CreateDateColumn,
+  Entity,
+  ManyToOne,
+  OneToOne,
+  PrimaryGeneratedColumn,
+  UpdateDateColumn,
+  Unique
+} from "typeorm";
+import { Schedule } from "../schedule/schedule.entity";
+import { Orders } from "../orders/order.entity";
 
 export enum meeting_status {
-    pending = 'pending',
-    user_arrived = 'userArrived',
-    employee_arrived = 'employeeArrived',
-    on_process = 'onProcess',
-    finished = 'finished'
+  pending = "pending",
+  user_arrived = "userArrived",
+  employee_arrived = "employeeArrived",
+  on_process = "onProcess",
+  finished = "finished"
 }
 
 @Entity()
 export class Meetings {
-    @PrimaryGeneratedColumn()
-    id: 'increment';
+  @PrimaryGeneratedColumn()
+  id: "increment";
 
-    @Column()
-    userArrived: boolean;
+  @Column()
+  userArrived: boolean;
 
-    @Column()
-    employeeArrived: boolean;
+  @Column()
+  employeeArrived: boolean;
 
-    @Column({
-        type: 'enum',
-        enum: meeting_status,
-        default: meeting_status.pending,
-    })
-    status: meeting_status;
+  @Column({
+    type: "enum",
+    enum: meeting_status,
+    default: meeting_status.pending
+  })
+  status: meeting_status;
 
-    @Column()
-    employeeCalificationTime: number;
+  @Column()
+  employeeCalificationTime: number;
 
-    @Column()
-    employeeCalificationService: number;
+  @Column()
+  employeeCalificationService: number;
 
-    @Column({ length: 150 })
-    employeeComent: string;
+  @Column({ length: 150 })
+  employeeComent: string;
 
-    @Column()
-    workerName: string;
+  @Column()
+  workerName: string;
 
-    @Column()
-    destinyCalificationTime: number;
+  @Column()
+  destinyCalificationTime: number;
 
-    @Column()
-    destinyCalificationService: number;
+  @Column()
+  destinyCalificationService: number;
 
-    @Column({ length: 150 })
-    destinyComent: string;
+  @Column({ length: 150 })
+  destinyComent: string;
 
-    @OneToOne(type => Schedule, schedule => schedule.id)
-    schedule: Schedule[];
+  @OneToOne(
+    type => Schedule,
+    schedule => schedule.id
+  )
+  schedule: Schedule[];
 
-    @OneToOne(type => Orders, order => order.id)
-    order: Orders[];
+  @OneToOne(
+    type => Orders,
+    order => order.id
+  )
+  order: Orders[];
 
-    @CreateDateColumn({ type: 'timestamp' })
-    createdAt: Date;
+  @CreateDateColumn({ type: "timestamp" })
+  createdAt: Date;
 
-    @UpdateDateColumn({ type: 'timestamp' })
-    updatedAt: Date;
+  @UpdateDateColumn({ type: "timestamp" })
+  updatedAt: Date;
 }

@@ -1,15 +1,14 @@
-import { Injectable } from '@nestjs/common';
-import { InjectRepository } from '@nestjs/typeorm';
-import { Repository } from 'typeorm';
-import { Orders } from './order.entity';
-import { UpdateResult, DeleteResult } from  'typeorm';
+import { Injectable } from "@nestjs/common";
+import { InjectRepository } from "@nestjs/typeorm";
+import { Repository } from "typeorm";
+import { Orders } from "./order.entity";
+import { UpdateResult, DeleteResult } from "typeorm";
 
 @Injectable()
 export class OrdersService {
-
   constructor(
     @InjectRepository(Orders)
-    private orderRepository: Repository<Orders>,
+    private orderRepository: Repository<Orders>
   ) {}
 
   async create(order): Promise<Orders> {

@@ -1,44 +1,64 @@
-import { Entity, PrimaryGeneratedColumn, Column, ManyToOne, OneToMany, CreateDateColumn, UpdateDateColumn } from 'typeorm';
-import { States } from '../states/state.entity';
-import { Residences } from '../residences/residence.entity';
+import {
+  Entity,
+  PrimaryGeneratedColumn,
+  Column,
+  ManyToOne,
+  OneToMany,
+  CreateDateColumn,
+  UpdateDateColumn
+} from "typeorm";
+import { States } from "../states/state.entity";
+import { Residences } from "../residences/residence.entity";
 import { Users } from "../users/user.entity";
-import { Employees }from "../employees/employee.entity";
+import { Employees } from "../employees/employee.entity";
 
 @Entity()
 export class Cities {
-    @PrimaryGeneratedColumn()
-    id: 'increment';
+  @PrimaryGeneratedColumn()
+  id: "increment";
 
-    @Column({ length: 20 })
-    city: string;
+  @Column({ length: 20 })
+  city: string;
 
-    @Column({ length: 20 })
-    stateName: string;   
+  @Column({ length: 20 })
+  stateName: string;
 
-    @Column({ length: 10 })
-    isoCode2: string;
+  @Column({ length: 10 })
+  isoCode2: string;
 
-    @Column({ length: 10 })
-    isoCode3: string;
+  @Column({ length: 10 })
+  isoCode3: string;
 
-    @Column({ length: 10 })
-    location: string; //Address 
-    
-    @ManyToOne(type => States, state => state.id)
-    state: States[];
+  @Column({ length: 10 })
+  location: string; //Address
 
-    @OneToMany(type => Residences, residence => residence.id)
-    residence: Residences[];
+  @ManyToOne(
+    type => States,
+    state => state.id
+  )
+  state: States[];
 
-    @OneToMany(type => Users, user => user.id)
-    user: Users[];
+  @OneToMany(
+    type => Residences,
+    residence => residence.id
+  )
+  residence: Residences[];
 
-    @OneToMany(type => Employees, employee => employee.id)
-    employee: Employees[];
+  @OneToMany(
+    type => Users,
+    user => user.id
+  )
+  user: Users[];
 
-    @CreateDateColumn({ type: 'timestamp' })
-    createdAt: Date;
+  @OneToMany(
+    type => Employees,
+    employee => employee.id
+  )
+  employee: Employees[];
 
-    @UpdateDateColumn({ type: 'timestamp' })
-    updatedAt: Date;
+  @CreateDateColumn({ type: "timestamp" })
+  createdAt: Date;
+
+  @UpdateDateColumn({ type: "timestamp" })
+  updatedAt: Date;
 }

@@ -1,7 +1,7 @@
-import { Schedule } from './schedule.entity';
+import { Schedule } from "./schedule.entity";
 
-describe('Schedule', () => {
-  it('should be defined', () => {
+describe("Schedule", () => {
+  it("should be defined", () => {
     expect(new Schedule()).toBeDefined();
   });
 });

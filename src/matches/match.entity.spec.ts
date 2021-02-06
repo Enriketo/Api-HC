@@ -1,7 +1,7 @@
-import { Matches } from './match.entity';
+import { Matches } from "./match.entity";
 
-describe('Matches', () => {
-  it('should be defined', () => {
+describe("Matches", () => {
+  it("should be defined", () => {
     expect(new Matches()).toBeDefined();
   });
 });

@@ -1,113 +1,122 @@
-import { Injectable, HttpStatus, HttpException } from '@nestjs/common';
-import { InjectRepository } from '@nestjs/typeorm';
-import { Repository, getRepository } from 'typeorm';
-import { Employees } from './employee.entity';
-import { UpdateResult, DeleteResult } from  'typeorm';
-import { SECRET } from '../config';
-import { validate } from 'class-validator';
-import { CreateEmployeeDto } from './dto/create-employee.dto';
+import { Injectable, HttpStatus, HttpException } from "@nestjs/common";
+import { InjectRepository } from "@nestjs/typeorm";
+import { Repository, getRepository } from "typeorm";
+import { Employees } from "./employee.entity";
+import { UpdateResult, DeleteResult } from "typeorm";
+import { SECRET } from "../config";
+import { validate } from "class-validator";
+import { CreateEmployeeDto } from "./dto/create-employee.dto";
 
 export type Employee = any;
-const jwt = require('jsonwebtoken');
+const jwt = require("jsonwebtoken");
 
 @Injectable()
 export class EmployeesService {
-    employees: Employee;
+  employees: Employee;
 
-    constructor(
-        @InjectRepository(Employees)
-        private employeeRepository: Repository<Employees>,
-    ) {}
+  constructor(
+    @InjectRepository(Employees)
+    private employeeRepository: Repository<Employees>
+  ) {}
 
-    async addEmployee(dto: CreateEmployeeDto): Promise<{ user: { email: string; username: string; token: any } }> {
+  async addEmployee(
+    dto: CreateEmployeeDto
+  ): Promise<{ user: { email: string; username: string; token: any } }> {
+    // check uniqueness of username/email
+    const { username, email, password } = dto;
+    const qb = await getRepository(Employees)
+      .createQueryBuilder("employee")
+      .where("user.username = :username", { username })
+      .orWhere("user.email = :email", { email });
 
-        // check uniqueness of username/email
-        const {username, email, password} = dto;
-        const qb = await getRepository(Employees)
-            .createQueryBuilder('employee')
-            .where('user.username = :username', { username })
-            .orWhere('user.email = :email', { email });
+    const employee = await qb.getOne();
 
-        const employee = await qb.getOne();
-
-        if (employee) {
-            const errs = {username: 'Username and email must be unique.'};
-            throw new HttpException({message: 'Input data validation failed', errs}, HttpStatus.BAD_REQUEST);
-        }
-
-        // create new user
-        const newEmployee = new Employees();
-        newEmployee.username = username;
-        newEmployee.email = email;
-        newEmployee.password = password;
-
-        const errors = await validate(newEmployee);
-        if (errors.length > 0) {
-            const err = {username: 'Userinput is not valid.'};
-            throw new HttpException({message: 'Input data validation failed', err}, HttpStatus.BAD_REQUEST);
-
-        } else {
-            const savedEmployee = await this.employeeRepository.save(newEmployee);
-            return this.buildEmployeeRO(savedEmployee);
-        }
+    if (employee) {
+      const errs = { username: "Username and email must be unique." };
+      throw new HttpException(
+        { message: "Input data validation failed", errs },
+        HttpStatus.BAD_REQUEST
+      );
     }
 
-    async findOne(username: string): Promise<Employee | undefined> {
-        return this.employeeRepository.find({username});
+    // create new user
+    const newEmployee = new Employees();
+    newEmployee.username = username;
+    newEmployee.email = email;
+    newEmployee.password = password;
+
+    const errors = await validate(newEmployee);
+    if (errors.length > 0) {
+      const err = { username: "Userinput is not valid." };
+      throw new HttpException(
+        { message: "Input data validation failed", err },
+        HttpStatus.BAD_REQUEST
+      );
+    } else {
+      const savedEmployee = await this.employeeRepository.save(newEmployee);
+      return this.buildEmployeeRO(savedEmployee);
     }
+  }
 
-    getUser(userID): Promise<any> {
-        let id = Number(userID);
-        return new Promise(resolve => {
-            const user = this.employees.find(user => user.id === id);
-            if (!user) {
-                throw new HttpException('Employee does not exist!', 404);
-            }
-            resolve(user);
-        });
-    }
-    
-    async create(employee): Promise<Employees> {
-        console.log(employee);
-        return await this.employeeRepository.save(employee);
-      }
-    
-      async findAll(): Promise<Employees[]> {
-        return await this.employeeRepository.find();
-      }
-    
-      async findOneById(employeeId): Promise<Employees> {
-        return await this.employeeRepository.findOne(employeeId);
-      }
-    
-      async editEmployee(employeeId, employee): Promise<UpdateResult> {
-        return await this.employeeRepository.update(employeeId, employee);
-      }
-    
-      async deleteEmployee(employeeId): Promise<DeleteResult> {
-        return await this.employeeRepository.delete(employeeId);
-      }
+  async findOne(username: string): Promise<Employee | undefined> {
+    return this.employeeRepository.find({ username });
+  }
 
-      public generateJWT(employee) {
-        const today = new Date();
-        const exp = new Date(today);
-        exp.setDate(today.getDate() + 60);
+  getUser(userID): Promise<any> {
+    let id = Number(userID);
+    return new Promise(resolve => {
+      const user = this.employees.find(user => user.id === id);
+      if (!user) {
+        throw new HttpException("Employee does not exist!", 404);
+      }
+      resolve(user);
+    });
+  }
 
-        return jwt.sign({
-            id: employee.id,
-            username: employee.username,
-            email: employee.email,
-            exp: exp.getTime() / 1000,
-        }, SECRET);
-    }
+  async create(employee): Promise<Employees> {
+    console.log(employee);
+    return await this.employeeRepository.save(employee);
+  }
 
-    private buildEmployeeRO(employee: Employees) {
-        const employeeRO = {
-            username: employee.username,
-            email: employee.email,
-            token: this.generateJWT(employee),
-        };
+  async findAll(): Promise<Employees[]> {
+    return await this.employeeRepository.find();
+  }
 
-        return {user: employeeRO};
-    }
+  async findOneById(employeeId): Promise<Employees> {
+    return await this.employeeRepository.findOne(employeeId);
+  }
+
+  async editEmployee(employeeId, employee): Promise<UpdateResult> {
+    return await this.employeeRepository.update(employeeId, employee);
+  }
+
+  async deleteEmployee(employeeId): Promise<DeleteResult> {
+    return await this.employeeRepository.delete(employeeId);
+  }
+
+  public generateJWT(employee) {
+    const today = new Date();
+    const exp = new Date(today);
+    exp.setDate(today.getDate() + 60);
+
+    return jwt.sign(
+      {
+        id: employee.id,
+        username: employee.username,
+        email: employee.email,
+        exp: exp.getTime() / 1000
+      },
+      SECRET
+    );
+  }
+
+  private buildEmployeeRO(employee: Employees) {
+    const employeeRO = {
+      username: employee.username,
+      email: employee.email,
+      token: this.generateJWT(employee)
+    };
+
+    return { user: employeeRO };
+  }
 }

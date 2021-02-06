@@ -1,2 +1,2 @@
-export { CreateStateDto } from './create-state.dto';
-export { UpdateStateDto } from './update-state.dto';
+export { CreateStateDto } from "./create-state.dto";
+export { UpdateStateDto } from "./update-state.dto";

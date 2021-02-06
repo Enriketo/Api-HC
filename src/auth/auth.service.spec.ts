@@ -1,14 +1,14 @@
-import { JwtModule } from '@nestjs/jwt';
-import { PassportModule } from '@nestjs/passport';
-import { Test, TestingModule } from '@nestjs/testing';
-import { UsersModule } from '../users/users.module';
-import { EmployeesModule } from '../employees/employees.module';
-import { AuthService } from './auth.service';
-import { jwtConstants } from './constants';
-import { JwtStrategy } from './strategies/jwt.strategy';
-import { LocalStrategy } from './strategies/local.strategy';
+import { JwtModule } from "@nestjs/jwt";
+import { PassportModule } from "@nestjs/passport";
+import { Test, TestingModule } from "@nestjs/testing";
+import { UsersModule } from "../users/users.module";
+import { EmployeesModule } from "../employees/employees.module";
+import { AuthService } from "./auth.service";
+import { jwtConstants } from "./constants";
+import { JwtStrategy } from "./strategies/jwt.strategy";
+import { LocalStrategy } from "./strategies/local.strategy";
 
-describe('AuthService', () => {
+describe("AuthService", () => {
   let service: AuthService;
 
   beforeEach(async () => {
@@ -19,16 +19,16 @@ describe('AuthService', () => {
         PassportModule,
         JwtModule.register({
           secret: jwtConstants.secret,
-          signOptions: { expiresIn: '60s' },
-        }),
+          signOptions: { expiresIn: "60s" }
+        })
       ],
-      providers: [AuthService, LocalStrategy, JwtStrategy],
+      providers: [AuthService, LocalStrategy, JwtStrategy]
     }).compile();
 
     service = moduleRef.get<AuthService>(AuthService);
   });
 
-  it('should be defined', () => {
+  it("should be defined", () => {
     expect(service).toBeDefined();
   });
 });

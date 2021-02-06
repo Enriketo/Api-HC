@@ -1,15 +1,14 @@
-import { Injectable } from '@nestjs/common';
-import { InjectRepository } from '@nestjs/typeorm';
-import { Repository } from 'typeorm';
-import { Schedule } from './schedule.entity';
-import { UpdateResult, DeleteResult } from  'typeorm';
+import { Injectable } from "@nestjs/common";
+import { InjectRepository } from "@nestjs/typeorm";
+import { Repository } from "typeorm";
+import { Schedule } from "./schedule.entity";
+import { UpdateResult, DeleteResult } from "typeorm";
 
 @Injectable()
 export class ScheduleService {
-
   constructor(
     @InjectRepository(Schedule)
-    private scheduleRepository: Repository<Schedule>,
+    private scheduleRepository: Repository<Schedule>
   ) {}
 
   async create(schedule): Promise<Schedule> {

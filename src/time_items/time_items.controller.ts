@@ -1,106 +1,117 @@
-import { Controller, Get, Post, Body, Res, Param, NotFoundException, HttpStatus, Put, Delete } from '@nestjs/common';
-import { TimeItems } from './time_item.entity';
-import { TimeItemsService } from './time_items.service';
-import { CreateTimeItemDto, UpdateTimeItemDto } from './dto/';
-import { ApiTags, ApiParam, ApiOperation, ApiResponse } from '@nestjs/swagger';
+import {
+  Controller,
+  Get,
+  Post,
+  Body,
+  Res,
+  Param,
+  NotFoundException,
+  HttpStatus,
+  Put,
+  Delete
+} from "@nestjs/common";
+import { TimeItems } from "./time_item.entity";
+import { TimeItemsService } from "./time_items.service";
+import { CreateTimeItemDto, UpdateTimeItemDto } from "./dto/";
+import { ApiTags, ApiParam, ApiOperation, ApiResponse } from "@nestjs/swagger";
 
-@ApiTags('TimeItems')
-@Controller('api/TimeItems')
+@ApiTags("TimeItems")
+@Controller("api/TimeItems")
 export class TimeItemsController {
-  constructor(
-    private readonly timeItemsService: TimeItemsService,
-    ) {
-  }
+  constructor(private readonly timeItemsService: TimeItemsService) {}
 
   @Post()
   @ApiOperation({
-    description: 'Create time item',
+    description: "Create time item"
   })
   @ApiResponse({
     status: 201,
-    description: 'Time item has been created',
+    description: "Time item has been created"
   })
-  @ApiResponse({ status: 404, description: 'Not Found' })
+  @ApiResponse({ status: 404, description: "Not Found" })
   async create(@Body() createTimeItem: CreateTimeItemDto) {
     return await this.timeItemsService.create(createTimeItem);
   }
 
   @Get()
   @ApiOperation({
-    description: 'Get all time items',
+    description: "Get all time items"
   })
   @ApiResponse({
     status: 200,
-    description: 'Get all time items',
+    description: "Get all time items"
   })
-  @ApiResponse({ status: 404, description: 'Not Found' })
+  @ApiResponse({ status: 404, description: "Not Found" })
   async findAll(): Promise<TimeItems[]> {
     return this.timeItemsService.findAll();
   }
 
-  @Get('id/:timeItemId')
+  @Get("id/:timeItemId")
   @ApiOperation({
-    description: 'Get time item by id',
+    description: "Get time item by id"
   })
-  @ApiParam({ name: 'timeItemId' })
+  @ApiParam({ name: "timeItemId" })
   @ApiResponse({
     status: 200,
-    description: 'Get time item information',
+    description: "Get time item information"
   })
-  @ApiResponse({ status: 404, description: 'Not Found' })
-  async getTimeItem(@Res() res, @Param('timeItemId') timeItemId) {
+  @ApiResponse({ status: 404, description: "Not Found" })
+  async getTimeItem(@Res() res, @Param("timeItemId") timeItemId) {
     const timeItem = await this.timeItemsService.findOneById(timeItemId);
     if (!timeItem) {
-      throw new NotFoundException('Time item does not exist!');
+      throw new NotFoundException("Time item does not exist!");
     }
     return res.status(HttpStatus.OK).json(timeItem);
   }
 
-  @Put('id/:timeItemId')
+  @Put("id/:timeItemId")
   @ApiOperation({
-    description: 'Update time item using id',
+    description: "Update time item using id"
   })
-  @ApiParam({ name: 'timeItemId' })
+  @ApiParam({ name: "timeItemId" })
   @ApiResponse({
     status: 200,
-    description: 'Time item has been updated',
+    description: "Time item has been updated"
   })
-  @ApiResponse({ status: 404, description: 'Not Found' })
+  @ApiResponse({ status: 404, description: "Not Found" })
   async updateTimeItem(
     @Res() res,
-    @Param('timeItemId') timeItemId: number,
-    @Body() updateTimeItemDto: UpdateTimeItemDto) {
-    const editedTimeItem = await this.timeItemsService.editTimeItem(timeItemId, updateTimeItemDto);
+    @Param("timeItemId") timeItemId: number,
+    @Body() updateTimeItemDto: UpdateTimeItemDto
+  ) {
+    const editedTimeItem = await this.timeItemsService.editTimeItem(
+      timeItemId,
+      updateTimeItemDto
+    );
     if (!editedTimeItem) {
-      throw new NotFoundException('Time item does not exist!');
+      throw new NotFoundException("Time item does not exist!");
     }
     return res.status(HttpStatus.OK).json({
-      message: 'Time item has been successfully updated',
-      post: editedTimeItem,
+      message: "Time item has been successfully updated",
+      post: editedTimeItem
     });
   }
 
-  @Delete('id/:timeItemId')
+  @Delete("id/:timeItemId")
   @ApiOperation({
-    description: 'Delete time item using id',
+    description: "Delete time item using id"
   })
-  @ApiParam({ name: 'timeItemId' })
+  @ApiParam({ name: "timeItemId" })
   @ApiResponse({
     status: 200,
-    description: 'Time item has been deleted!',
+    description: "Time item has been deleted!"
   })
-  @ApiResponse({ status: 404, description: 'Not Found' })
-  async deleteTimeItem(
-    @Res() res,
-    @Param('timeItemId') timeItemId,
-  ) {
-    const deletedTimeItem = await this.timeItemsService.deleteTimeItem(timeItemId);
+  @ApiResponse({ status: 404, description: "Not Found" })
+  async deleteTimeItem(@Res() res, @Param("timeItemId") timeItemId) {
+    const deletedTimeItem = await this.timeItemsService.deleteTimeItem(
+      timeItemId
+    );
     if (!deletedTimeItem) {
-      throw new NotFoundException('Time item does not exist!');
+      throw new NotFoundException("Time item does not exist!");
     }
     return res.status(HttpStatus.OK).json({
-      message: 'Time item has been deleted!',
-      timeItem: deletedTimeItem,
+      message: "Time item has been deleted!",
+      timeItem: deletedTimeItem
     });
   }
 }

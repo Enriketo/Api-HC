@@ -1,7 +1,7 @@
-import { Controller, Post, Req, Res } from '@nestjs/common';
-import { ImageUploadService } from './imageupload.service';
+import { Controller, Post, Req, Res } from "@nestjs/common";
+import { ImageUploadService } from "./imageupload.service";
 
-@Controller('fileupload')
+@Controller("fileupload")
 export class ImageUploadController {
   constructor(private readonly imageUploadService: ImageUploadService) {}
   @Post()

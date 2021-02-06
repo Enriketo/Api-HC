@@ -1,7 +1,7 @@
-import { Residences } from './residence.entity';
+import { Residences } from "./residence.entity";
 
-describe('Residences', () => {
-  it('should be defined', () => {
+describe("Residences", () => {
+  it("should be defined", () => {
     expect(new Residences()).toBeDefined();
   });
 });

@@ -1,15 +1,14 @@
-import { Injectable } from '@nestjs/common';
-import { InjectRepository } from '@nestjs/typeorm';
-import { Repository } from 'typeorm';
-import { Cities } from './city.entity';
-import { UpdateResult, DeleteResult } from  'typeorm';
+import { Injectable } from "@nestjs/common";
+import { InjectRepository } from "@nestjs/typeorm";
+import { Repository } from "typeorm";
+import { Cities } from "./city.entity";
+import { UpdateResult, DeleteResult } from "typeorm";
 
 @Injectable()
 export class CitiesService {
-
   constructor(
     @InjectRepository(Cities)
-    private cityRepository: Repository<Cities>,
+    private cityRepository: Repository<Cities>
   ) {}
 
   async create(city): Promise<Cities> {

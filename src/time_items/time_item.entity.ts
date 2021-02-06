@@ -1,32 +1,47 @@
-import { Column, CreateDateColumn, Entity, ManyToOne, OneToMany, PrimaryGeneratedColumn, UpdateDateColumn, Unique } from 'typeorm';
+import {
+  Column,
+  CreateDateColumn,
+  Entity,
+  ManyToOne,
+  OneToMany,
+  PrimaryGeneratedColumn,
+  UpdateDateColumn,
+  Unique
+} from "typeorm";
 import { Employees } from "../employees/employee.entity";
 
 @Entity()
 export class TimeItems {
-    @PrimaryGeneratedColumn()
-    id: 'increment';
+  @PrimaryGeneratedColumn()
+  id: "increment";
 
-//    @Column({ length: 25 })
-//    name: string;
+  //    @Column({ length: 25 })
+  //    name: string;
 
-    @Column()
-    cost: number;
+  @Column()
+  cost: number;
 
-    @Column()
-    cost2: number;
+  @Column()
+  cost1: number;
 
-    @Column()
-    cost3: number;
+  @Column()
+  cost2: number;
 
-    @Column()
-    cost4: number;
+  @Column()
+  cost3: number;
 
-    @OneToMany(type => Employees, employee => employee.id)
-    employee: Employees[];
+  @Column()
+  cost4: number;
 
-    @CreateDateColumn({ type: 'timestamp' })
-    createdAt: Date;
+  @OneToMany(
+    type => Employees,
+    employee => employee.id
+  )
+  employee: Employees[];
 
-    @UpdateDateColumn({ type: 'timestamp' })
-    updatedAt: Date;
+  @CreateDateColumn({ type: "timestamp" })
+  createdAt: Date;
+
+  @UpdateDateColumn({ type: "timestamp" })
+  updatedAt: Date;
 }

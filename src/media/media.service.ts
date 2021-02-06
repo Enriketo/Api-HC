@@ -1,15 +1,14 @@
-import { Injectable } from '@nestjs/common';
-import { InjectRepository } from '@nestjs/typeorm';
-import { Repository } from 'typeorm';
-import { Media } from './media.entity';
-import { UpdateResult, DeleteResult } from  'typeorm';
+import { Injectable } from "@nestjs/common";
+import { InjectRepository } from "@nestjs/typeorm";
+import { Repository } from "typeorm";
+import { Media } from "./media.entity";
+import { UpdateResult, DeleteResult } from "typeorm";
 
 @Injectable()
 export class MediaService {
-
   constructor(
     @InjectRepository(Media)
-    private mediaRepository: Repository<Media>,
+    private mediaRepository: Repository<Media>
   ) {}
 
   async create(media): Promise<Media> {
