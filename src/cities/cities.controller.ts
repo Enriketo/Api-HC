@@ -8,12 +8,17 @@ import {
   NotFoundException,
   HttpStatus,
   Put,
-  Delete
+  Delete,
+  UseGuards,
+  Query
 } from "@nestjs/common";
 import { Cities } from "./city.entity";
 import { CitiesService } from "./cities.service";
 import { CreateCityDto, UpdateCityDto } from "./dto/";
 import { ApiTags, ApiParam, ApiOperation, ApiResponse } from "@nestjs/swagger";
+import { RolesGuard } from "../auth/guards/roles.guard";
+import { JwtAuthGuard } from "../auth/guards/jwt-auth.guard";
+import { Pagination } from 'nestjs-typeorm-paginate';
 
 @ApiTags("Cities")
 @Controller("api/cities")
@@ -21,6 +26,7 @@ export class CitiesController {
   constructor(private readonly citiesService: CitiesService) {}
 
   @Post()
+  @UseGuards(JwtAuthGuard, RolesGuard)
   @ApiOperation({
     description: "Create city"
   })
@@ -34,6 +40,18 @@ export class CitiesController {
   }
 
   @Get()
+  @UseGuards(JwtAuthGuard, RolesGuard)
+  async index(
+    @Query('page') page: number = 1,
+    @Query('limit') limit: number = 10,
+  ): Promise<Pagination<Cities>> {
+    limit = limit > 100 ? 100 : limit;
+    return this.citiesService.paginate({
+      page,
+      limit,
+      route: `/api/cities`,
+    });
+  }
   @ApiOperation({
     description: "Get all cities"
   })
@@ -47,6 +65,7 @@ export class CitiesController {
   }
 
   @Get("id/:cityId")
+  @UseGuards(JwtAuthGuard, RolesGuard)
   @ApiOperation({
     description: "Get city by id"
   })
@@ -65,6 +84,7 @@ export class CitiesController {
   }
 
   @Put("id/:cityId")
+  @UseGuards(JwtAuthGuard, RolesGuard)
   @ApiOperation({
     description: "Update city using id"
   })
@@ -90,6 +110,7 @@ export class CitiesController {
   }
 
   @Delete("id/:cityId")
+  @UseGuards(JwtAuthGuard, RolesGuard)
   @ApiOperation({
     description: "Delete city using id"
   })

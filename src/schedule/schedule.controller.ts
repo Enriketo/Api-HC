@@ -8,12 +8,17 @@ import {
   NotFoundException,
   HttpStatus,
   Put,
-  Delete
+  Delete,
+  UseGuards,
+  Query
 } from "@nestjs/common";
 import { Schedule } from "./schedule.entity";
 import { ScheduleService } from "./schedule.service";
 import { CreateScheduleDto, UpdateScheduleDto } from "./dto/";
 import { ApiTags, ApiParam, ApiOperation, ApiResponse } from "@nestjs/swagger";
+import { RolesGuard } from "../auth/guards/roles.guard";
+import { JwtAuthGuard } from "../auth/guards/jwt-auth.guard";
+import { Pagination } from 'nestjs-typeorm-paginate';
 
 @ApiTags("Schedule")
 @Controller("api/schedule")
@@ -21,6 +26,7 @@ export class ScheduleController {
   constructor(private readonly scheduleService: ScheduleService) {}
 
   @Post()
+  @UseGuards(JwtAuthGuard, RolesGuard)
   @ApiOperation({
     description: "Create schedule"
   })
@@ -34,6 +40,18 @@ export class ScheduleController {
   }
 
   @Get()
+  @UseGuards(JwtAuthGuard, RolesGuard)
+  async index(
+    @Query('page') page: number = 1,
+    @Query('limit') limit: number = 10,
+  ): Promise<Pagination<Schedule>> {
+    limit = limit > 100 ? 100 : limit;
+    return this.scheduleService.paginate({
+      page,
+      limit,
+      route: `/api/schedule`,
+    });
+  }
   @ApiOperation({
     description: "Get all schedule"
   })
@@ -47,6 +65,7 @@ export class ScheduleController {
   }
 
   @Get("id/:scheduleId")
+  @UseGuards(JwtAuthGuard, RolesGuard)
   @ApiOperation({
     description: "Get schedule by id"
   })
@@ -65,6 +84,7 @@ export class ScheduleController {
   }
 
   @Put("id/:scheduleId")
+  @UseGuards(JwtAuthGuard, RolesGuard)
   @ApiOperation({
     description: "Update schedule using id"
   })
@@ -93,6 +113,7 @@ export class ScheduleController {
   }
 
   @Delete("id/:scheduleId")
+  @UseGuards(JwtAuthGuard, RolesGuard)
   @ApiOperation({
     description: "Delete schedule using id"
   })

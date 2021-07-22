@@ -9,19 +9,18 @@ import {
   HttpStatus,
   Put,
   Delete,
-  HttpException,
   UseGuards,
-  Request
+  Query
 } from "@nestjs/common";
 import { Employees } from "./employee.entity";
 import { EmployeesService } from "./employees.service";
 import { CreateEmployeeDto, UpdateEmployeeDto } from "./dto/";
 import { ApiTags, ApiParam, ApiOperation, ApiResponse } from "@nestjs/swagger";
-import { LoginEmployeeDto } from "./dto/login-employee.dto";
 import { Roles } from "../auth/roles.decorator";
 import { role } from '../Employees/employee.entity';
 import { RolesGuard } from "../auth/guards/roles.guard";
 import { JwtAuthGuard } from "../auth/guards/jwt-auth.guard";
+import { Pagination } from 'nestjs-typeorm-paginate';
 
 @ApiTags("Employees")
 @Controller("api/employees")
@@ -42,6 +41,18 @@ export class EmployeesController {
   }
 
   @Get()
+  @UseGuards(JwtAuthGuard, RolesGuard)
+  async index(
+    @Query('page') page: number = 1,
+    @Query('limit') limit: number = 10,
+  ): Promise<Pagination<Employees>> {
+    limit = limit > 100 ? 100 : limit;
+    return this.employeesService.paginate({
+      page,
+      limit,
+      route: `/api/employees`,
+    });
+  }
   @ApiOperation({
     description: "Get all employees"
   })
@@ -55,6 +66,7 @@ export class EmployeesController {
   }
 
   @Get("id/:employeeId")
+  @UseGuards(JwtAuthGuard, RolesGuard)
   @ApiOperation({
     description: "Get employee by id"
   })
@@ -73,6 +85,7 @@ export class EmployeesController {
   }
 
   @Put("id/:employeeId")
+  @UseGuards(JwtAuthGuard, RolesGuard)
   @ApiOperation({
     description: "Update employee using id"
   })

@@ -3,6 +3,7 @@ import { InjectRepository } from "@nestjs/typeorm";
 import { Repository } from "typeorm";
 import { Schedule } from "./schedule.entity";
 import { UpdateResult, DeleteResult } from "typeorm";
+import { paginate, Pagination, IPaginationOptions, } from 'nestjs-typeorm-paginate';
 
 @Injectable()
 export class ScheduleService {
@@ -18,6 +19,10 @@ export class ScheduleService {
 
   async findAll(): Promise<Schedule[]> {
     return await this.scheduleRepository.find();
+  }
+
+  async paginate(options: IPaginationOptions): Promise<Pagination<Schedule>> {
+    return paginate<Schedule>(this.scheduleRepository, options);
   }
 
   async findOneById(scheduleId): Promise<Schedule> {

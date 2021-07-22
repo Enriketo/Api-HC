@@ -3,6 +3,7 @@ import { InjectRepository } from "@nestjs/typeorm";
 import { Repository } from "typeorm";
 import { TimeItems } from "./time_item.entity";
 import { UpdateResult, DeleteResult } from "typeorm";
+import { paginate, Pagination, IPaginationOptions, } from 'nestjs-typeorm-paginate';
 
 @Injectable()
 export class TimeItemsService {
@@ -18,6 +19,10 @@ export class TimeItemsService {
 
   async findAll(): Promise<TimeItems[]> {
     return await this.timeItemRepository.find();
+  }
+
+  async paginate(options: IPaginationOptions): Promise<Pagination<TimeItems>> {
+    return paginate<TimeItems>(this.timeItemRepository, options);
   }
 
   async findOneById(timeItemId): Promise<TimeItems> {

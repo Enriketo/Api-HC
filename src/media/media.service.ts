@@ -3,6 +3,7 @@ import { InjectRepository } from "@nestjs/typeorm";
 import { Repository } from "typeorm";
 import { Media } from "./media.entity";
 import { UpdateResult, DeleteResult } from "typeorm";
+import { paginate, Pagination, IPaginationOptions, } from 'nestjs-typeorm-paginate';
 
 @Injectable()
 export class MediaService {
@@ -18,6 +19,10 @@ export class MediaService {
 
   async findAll(): Promise<Media[]> {
     return await this.mediaRepository.find();
+  }
+
+  async paginate(options: IPaginationOptions): Promise<Pagination<Media>> {
+    return paginate<Media>(this.mediaRepository, options);
   }
 
   async findOneById(mediaId): Promise<Media> {

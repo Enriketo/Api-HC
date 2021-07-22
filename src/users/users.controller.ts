@@ -11,17 +11,21 @@ import {
   Delete,
   HttpException,
   UseGuards,
-  Request
+  Request,
+  Query
 } from "@nestjs/common";
 import { Users } from "./user.entity";
 import { UsersService } from "./users.service";
 import { CreateUserDto, UpdateUserDto } from "./dto/";
 import { ApiTags, ApiParam, ApiOperation, ApiResponse } from "@nestjs/swagger";
+import { RolesGuard } from "../auth/guards/roles.guard";
+import { JwtAuthGuard } from "../auth/guards/jwt-auth.guard";
+import { Pagination } from 'nestjs-typeorm-paginate';
 
 @ApiTags("Users")
 @Controller("api/users")
 export class UsersController {
-  constructor(private readonly usersService: UsersService) {}
+  constructor(private readonly usersService: UsersService) { }
 
   @Post()
   @ApiOperation({
@@ -37,6 +41,18 @@ export class UsersController {
   }
 
   @Get()
+  @UseGuards(JwtAuthGuard, RolesGuard)
+  async index(
+    @Query('page') page: number = 1,
+    @Query('limit') limit: number = 10,
+  ): Promise<Pagination<Users>> {
+    limit = limit > 100 ? 100 : limit;
+    return this.usersService.paginate({
+      page,
+      limit,
+      route: `/api/users`,
+    });
+  }
   @ApiOperation({
     description: "Get all users"
   })
@@ -50,6 +66,7 @@ export class UsersController {
   }
 
   @Get("id/:userId")
+  @UseGuards(JwtAuthGuard, RolesGuard)
   @ApiOperation({
     description: "Get user by id"
   })
@@ -68,6 +85,7 @@ export class UsersController {
   }
 
   @Put("id/:userId")
+  @UseGuards(JwtAuthGuard, RolesGuard)
   @ApiOperation({
     description: "Update user using id"
   })
@@ -93,6 +111,7 @@ export class UsersController {
   }
 
   @Delete("id/:userId")
+  @UseGuards(JwtAuthGuard, RolesGuard)
   @ApiOperation({
     description: "Delete user using id"
   })

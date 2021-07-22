@@ -8,12 +8,17 @@ import {
   NotFoundException,
   HttpStatus,
   Put,
-  Delete
+  Delete,
+  UseGuards,
+  Query
 } from "@nestjs/common";
 import { Media } from "./media.entity";
 import { MediaService } from "./media.service";
 import { CreateMediaDto, UpdateMediaDto } from "./dto/";
 import { ApiTags, ApiParam, ApiOperation, ApiResponse } from "@nestjs/swagger";
+import { RolesGuard } from "../auth/guards/roles.guard";
+import { JwtAuthGuard } from "../auth/guards/jwt-auth.guard";
+import { Pagination } from 'nestjs-typeorm-paginate';
 
 @ApiTags("Media")
 @Controller("api/media")
@@ -21,6 +26,7 @@ export class MediaController {
   constructor(private readonly mediaService: MediaService) {}
 
   @Post()
+  @UseGuards(JwtAuthGuard, RolesGuard)
   @ApiOperation({
     description: "Create media"
   })
@@ -34,6 +40,18 @@ export class MediaController {
   }
 
   @Get()
+  @UseGuards(JwtAuthGuard, RolesGuard)
+  async index(
+    @Query('page') page: number = 1,
+    @Query('limit') limit: number = 10,
+  ): Promise<Pagination<Media>> {
+    limit = limit > 100 ? 100 : limit;
+    return this.mediaService.paginate({
+      page,
+      limit,
+      route: `/api/media`,
+    });
+  }
   @ApiOperation({
     description: "Get all media"
   })
@@ -47,6 +65,7 @@ export class MediaController {
   }
 
   @Get("id/:mediaId")
+  @UseGuards(JwtAuthGuard, RolesGuard)
   @ApiOperation({
     description: "Get media by id"
   })
@@ -65,6 +84,7 @@ export class MediaController {
   }
 
   @Put("id/:mediaId")
+  @UseGuards(JwtAuthGuard, RolesGuard)
   @ApiOperation({
     description: "Update media using id"
   })
@@ -93,6 +113,7 @@ export class MediaController {
   }
 
   @Delete("id/:mediaId")
+  @UseGuards(JwtAuthGuard, RolesGuard)
   @ApiOperation({
     description: "Delete media using id"
   })

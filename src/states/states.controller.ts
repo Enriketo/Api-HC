@@ -8,12 +8,17 @@ import {
   NotFoundException,
   HttpStatus,
   Put,
-  Delete
+  Delete,
+  UseGuards,
+  Query
 } from "@nestjs/common";
 import { States } from "./state.entity";
 import { StatesService } from "./states.service";
 import { CreateStateDto, UpdateStateDto } from "./dto/";
 import { ApiTags, ApiParam, ApiOperation, ApiResponse } from "@nestjs/swagger";
+import { RolesGuard } from "../auth/guards/roles.guard";
+import { JwtAuthGuard } from "../auth/guards/jwt-auth.guard";
+import { Pagination } from 'nestjs-typeorm-paginate';
 
 @ApiTags("States")
 @Controller("api/states")
@@ -21,6 +26,7 @@ export class StatesController {
   constructor(private readonly statesService: StatesService) {}
 
   @Post()
+  @UseGuards(JwtAuthGuard, RolesGuard)
   @ApiOperation({
     description: "Create state"
   })
@@ -34,6 +40,18 @@ export class StatesController {
   }
 
   @Get()
+  @UseGuards(JwtAuthGuard, RolesGuard)
+  async index(
+    @Query('page') page: number = 1,
+    @Query('limit') limit: number = 10,
+  ): Promise<Pagination<States>> {
+    limit = limit > 100 ? 100 : limit;
+    return this.statesService.paginate({
+      page,
+      limit,
+      route: `/api/states`,
+    });
+  }
   @ApiOperation({
     description: "Get all states"
   })
@@ -47,6 +65,7 @@ export class StatesController {
   }
 
   @Get("id/:stateId")
+  @UseGuards(JwtAuthGuard, RolesGuard)
   @ApiOperation({
     description: "Get state by id"
   })
@@ -65,6 +84,7 @@ export class StatesController {
   }
 
   @Put("id/:stateId")
+  @UseGuards(JwtAuthGuard, RolesGuard)
   @ApiOperation({
     description: "Update state using id"
   })
@@ -93,6 +113,7 @@ export class StatesController {
   }
 
   @Delete("id/:stateId")
+  @UseGuards(JwtAuthGuard, RolesGuard)
   @ApiOperation({
     description: "Delete state using id"
   })

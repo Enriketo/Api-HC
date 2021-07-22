@@ -8,12 +8,17 @@ import {
   NotFoundException,
   HttpStatus,
   Put,
-  Delete
+  Delete,
+  UseGuards,
+  Query
 } from "@nestjs/common";
 import { Orders } from "./order.entity";
 import { OrdersService } from "./orders.service";
 import { CreateOrderDto, UpdateOrderDto } from "./dto/";
 import { ApiTags, ApiParam, ApiOperation, ApiResponse } from "@nestjs/swagger";
+import { RolesGuard } from "../auth/guards/roles.guard";
+import { JwtAuthGuard } from "../auth/guards/jwt-auth.guard";
+import { Pagination } from 'nestjs-typeorm-paginate';
 
 @ApiTags("Orders")
 @Controller("api/orders")
@@ -21,6 +26,7 @@ export class OrdersController {
   constructor(private readonly ordersService: OrdersService) {}
 
   @Post()
+  @UseGuards(JwtAuthGuard, RolesGuard)
   @ApiOperation({
     description: "Create order"
   })
@@ -34,6 +40,18 @@ export class OrdersController {
   }
 
   @Get()
+  @UseGuards(JwtAuthGuard, RolesGuard)
+  async index(
+    @Query('page') page: number = 1,
+    @Query('limit') limit: number = 10,
+  ): Promise<Pagination<Orders>> {
+    limit = limit > 100 ? 100 : limit;
+    return this.ordersService.paginate({
+      page,
+      limit,
+      route: `/api/orders`,
+    });
+  }
   @ApiOperation({
     description: "Get all orders"
   })
@@ -47,6 +65,7 @@ export class OrdersController {
   }
 
   @Get("id/:orderId")
+  @UseGuards(JwtAuthGuard, RolesGuard)
   @ApiOperation({
     description: "Get order by id"
   })
@@ -65,6 +84,7 @@ export class OrdersController {
   }
 
   @Put("id/:orderId")
+  @UseGuards(JwtAuthGuard, RolesGuard)
   @ApiOperation({
     description: "Update order using id"
   })
@@ -93,6 +113,7 @@ export class OrdersController {
   }
 
   @Delete("id/:orderId")
+  @UseGuards(JwtAuthGuard, RolesGuard)
   @ApiOperation({
     description: "Delete order using id"
   })

@@ -8,12 +8,17 @@ import {
   NotFoundException,
   HttpStatus,
   Put,
-  Delete
+  Delete,
+  UseGuards,
+  Query
 } from "@nestjs/common";
 import { Residences } from "./residence.entity";
 import { ResidencesService } from "./residences.service";
 import { CreateResidenceDto, UpdateResidenceDto } from "./dto/";
 import { ApiTags, ApiParam, ApiOperation, ApiResponse } from "@nestjs/swagger";
+import { RolesGuard } from "../auth/guards/roles.guard";
+import { JwtAuthGuard } from "../auth/guards/jwt-auth.guard";
+import { Pagination } from 'nestjs-typeorm-paginate';
 
 @ApiTags("Residences")
 @Controller("api/residences")
@@ -21,6 +26,7 @@ export class ResidencesController {
   constructor(private readonly residencesService: ResidencesService) {}
 
   @Post()
+  @UseGuards(JwtAuthGuard, RolesGuard)
   @ApiOperation({
     description: "Create residence"
   })
@@ -34,6 +40,18 @@ export class ResidencesController {
   }
 
   @Get()
+  @UseGuards(JwtAuthGuard, RolesGuard)
+  async index(
+    @Query('page') page: number = 1,
+    @Query('limit') limit: number = 10,
+  ): Promise<Pagination<Residences>> {
+    limit = limit > 100 ? 100 : limit;
+    return this.residencesService.paginate({
+      page,
+      limit,
+      route: `/api/residences`,
+    });
+  }
   @ApiOperation({
     description: "Get all residences"
   })
@@ -47,6 +65,7 @@ export class ResidencesController {
   }
 
   @Get("id/:residenceId")
+  @UseGuards(JwtAuthGuard, RolesGuard)
   @ApiOperation({
     description: "Get residence by id"
   })
@@ -65,6 +84,7 @@ export class ResidencesController {
   }
 
   @Put("id/:residenceId")
+  @UseGuards(JwtAuthGuard, RolesGuard)
   @ApiOperation({
     description: "Update residence using id"
   })
@@ -93,6 +113,7 @@ export class ResidencesController {
   }
 
   @Delete("id/:residenceId")
+  @UseGuards(JwtAuthGuard, RolesGuard)
   @ApiOperation({
     description: "Delete residence using id"
   })

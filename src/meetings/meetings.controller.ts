@@ -8,12 +8,17 @@ import {
   NotFoundException,
   HttpStatus,
   Put,
-  Delete
+  Delete,
+  UseGuards,
+  Query
 } from "@nestjs/common";
 import { Meetings } from "./meet.entity";
 import { MeetingsService } from "./meetings.service";
 import { CreateMeetDto, UpdateMeetDto } from "./dto/";
 import { ApiTags, ApiParam, ApiOperation, ApiResponse } from "@nestjs/swagger";
+import { RolesGuard } from "../auth/guards/roles.guard";
+import { JwtAuthGuard } from "../auth/guards/jwt-auth.guard";
+import { Pagination } from 'nestjs-typeorm-paginate';
 
 @ApiTags("Meetings")
 @Controller("api/meetings")
@@ -21,6 +26,7 @@ export class MeetingsController {
   constructor(private readonly meetingsService: MeetingsService) {}
 
   @Post()
+  @UseGuards(JwtAuthGuard, RolesGuard)
   @ApiOperation({
     description: "Create meet"
   })
@@ -34,6 +40,18 @@ export class MeetingsController {
   }
 
   @Get()
+  @UseGuards(JwtAuthGuard, RolesGuard)
+  async index(
+    @Query('page') page: number = 1,
+    @Query('limit') limit: number = 10,
+  ): Promise<Pagination<Meetings>> {
+    limit = limit > 100 ? 100 : limit;
+    return this.meetingsService.paginate({
+      page,
+      limit,
+      route: `/api/meetings`,
+    });
+  }
   @ApiOperation({
     description: "Get all meetings"
   })
@@ -47,6 +65,7 @@ export class MeetingsController {
   }
 
   @Get("id/:meetId")
+  @UseGuards(JwtAuthGuard, RolesGuard)
   @ApiOperation({
     description: "Get meet by id"
   })
@@ -65,6 +84,7 @@ export class MeetingsController {
   }
 
   @Put("id/:meetId")
+  @UseGuards(JwtAuthGuard, RolesGuard)
   @ApiOperation({
     description: "Update meet using id"
   })
@@ -93,6 +113,7 @@ export class MeetingsController {
   }
 
   @Delete("id/:meetId")
+  @UseGuards(JwtAuthGuard, RolesGuard)
   @ApiOperation({
     description: "Delete meet using id"
   })

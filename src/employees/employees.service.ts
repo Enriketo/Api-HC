@@ -6,6 +6,7 @@ import { UpdateResult, DeleteResult } from "typeorm";
 import { SECRET } from "../config";
 import { validate } from "class-validator";
 import { CreateEmployeeDto } from "./dto/create-employee.dto";
+import { paginate, Pagination, IPaginationOptions, } from 'nestjs-typeorm-paginate';
 
 export type Employee = any;
 const jwt = require("jsonwebtoken");
@@ -80,6 +81,10 @@ export class EmployeesService {
 
   async findAll(): Promise<Employees[]> {
     return await this.employeeRepository.find();
+  }
+
+  async paginate(options: IPaginationOptions): Promise<Pagination<Employees>> {
+    return paginate<Employees>(this.employeeRepository, options);
   }
 
   async findOneById(employeeId): Promise<Employees> {

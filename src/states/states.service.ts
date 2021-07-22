@@ -3,6 +3,7 @@ import { InjectRepository } from "@nestjs/typeorm";
 import { Repository } from "typeorm";
 import { States } from "./state.entity";
 import { UpdateResult, DeleteResult } from "typeorm";
+import { paginate, Pagination, IPaginationOptions, } from 'nestjs-typeorm-paginate';
 
 @Injectable()
 export class StatesService {
@@ -18,6 +19,10 @@ export class StatesService {
 
   async findAll(): Promise<States[]> {
     return await this.stateRepository.find();
+  }
+  
+  async paginate(options: IPaginationOptions): Promise<Pagination<States>> {
+    return paginate<States>(this.stateRepository, options);
   }
 
   async findOneById(stateId): Promise<States> {

@@ -8,12 +8,17 @@ import {
   NotFoundException,
   HttpStatus,
   Put,
-  Delete
+  Delete,
+  UseGuards,
+  Query
 } from "@nestjs/common";
 import { TimeItems } from "./time_item.entity";
 import { TimeItemsService } from "./time_items.service";
 import { CreateTimeItemDto, UpdateTimeItemDto } from "./dto/";
 import { ApiTags, ApiParam, ApiOperation, ApiResponse } from "@nestjs/swagger";
+import { RolesGuard } from "../auth/guards/roles.guard";
+import { JwtAuthGuard } from "../auth/guards/jwt-auth.guard";
+import { Pagination } from 'nestjs-typeorm-paginate';
 
 @ApiTags("TimeItems")
 @Controller("api/TimeItems")
@@ -21,6 +26,7 @@ export class TimeItemsController {
   constructor(private readonly timeItemsService: TimeItemsService) {}
 
   @Post()
+  @UseGuards(JwtAuthGuard, RolesGuard)
   @ApiOperation({
     description: "Create time item"
   })
@@ -34,6 +40,18 @@ export class TimeItemsController {
   }
 
   @Get()
+  @UseGuards(JwtAuthGuard, RolesGuard)
+  async index(
+    @Query('page') page: number = 1,
+    @Query('limit') limit: number = 10,
+  ): Promise<Pagination<TimeItems>> {
+    limit = limit > 100 ? 100 : limit;
+    return this.timeItemsService.paginate({
+      page,
+      limit,
+      route: `/api/timeItems`,
+    });
+  }
   @ApiOperation({
     description: "Get all time items"
   })
@@ -47,6 +65,7 @@ export class TimeItemsController {
   }
 
   @Get("id/:timeItemId")
+  @UseGuards(JwtAuthGuard, RolesGuard)
   @ApiOperation({
     description: "Get time item by id"
   })
@@ -65,6 +84,7 @@ export class TimeItemsController {
   }
 
   @Put("id/:timeItemId")
+  @UseGuards(JwtAuthGuard, RolesGuard)
   @ApiOperation({
     description: "Update time item using id"
   })
@@ -93,6 +113,7 @@ export class TimeItemsController {
   }
 
   @Delete("id/:timeItemId")
+  @UseGuards(JwtAuthGuard, RolesGuard)
   @ApiOperation({
     description: "Delete time item using id"
   })

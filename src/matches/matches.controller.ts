@@ -8,12 +8,17 @@ import {
   NotFoundException,
   HttpStatus,
   Put,
-  Delete
+  Delete,
+  UseGuards,
+  Query  
 } from "@nestjs/common";
 import { Matches } from "./match.entity";
 import { MatchesService } from "./matches.service";
 import { CreateMatchDto, UpdateMatchDto } from "./dto/";
 import { ApiTags, ApiParam, ApiOperation, ApiResponse } from "@nestjs/swagger";
+import { RolesGuard } from "../auth/guards/roles.guard";
+import { JwtAuthGuard } from "../auth/guards/jwt-auth.guard";
+import { Pagination } from 'nestjs-typeorm-paginate';
 
 @ApiTags("Matches")
 @Controller("api/matches")
@@ -21,6 +26,7 @@ export class MatchesController {
   constructor(private readonly matchesService: MatchesService) {}
 
   @Post()
+  @UseGuards(JwtAuthGuard, RolesGuard)
   @ApiOperation({
     description: "Create match"
   })
@@ -34,6 +40,18 @@ export class MatchesController {
   }
 
   @Get()
+  @UseGuards(JwtAuthGuard, RolesGuard)
+  async index(
+    @Query('page') page: number = 1,
+    @Query('limit') limit: number = 10,
+  ): Promise<Pagination<Matches>> {
+    limit = limit > 100 ? 100 : limit;
+    return this.matchesService.paginate({
+      page,
+      limit,
+      route: `/api/matches`,
+    });
+  }
   @ApiOperation({
     description: "Get all matches"
   })
@@ -47,6 +65,7 @@ export class MatchesController {
   }
 
   @Get("id/:matchId")
+  @UseGuards(JwtAuthGuard, RolesGuard)
   @ApiOperation({
     description: "Get match by id"
   })
@@ -65,6 +84,7 @@ export class MatchesController {
   }
 
   @Put("id/:matchId")
+  @UseGuards(JwtAuthGuard, RolesGuard)
   @ApiOperation({
     description: "Update match using id"
   })
@@ -93,6 +113,7 @@ export class MatchesController {
   }
 
   @Delete("id/:matchId")
+  @UseGuards(JwtAuthGuard, RolesGuard)
   @ApiOperation({
     description: "Delete match using id"
   })

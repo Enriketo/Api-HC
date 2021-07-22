@@ -8,12 +8,17 @@ import {
   NotFoundException,
   HttpStatus,
   Put,
-  Delete
+  Delete,
+  UseGuards,
+  Query  
 } from "@nestjs/common";
 import { Countries } from "./country.entity";
 import { CountriesService } from "./countries.service";
 import { CreateCountryDto, UpdateCountryDto } from "./dto/";
 import { ApiTags, ApiParam, ApiOperation, ApiResponse } from "@nestjs/swagger";
+import { RolesGuard } from "../auth/guards/roles.guard";
+import { JwtAuthGuard } from "../auth/guards/jwt-auth.guard";
+import { Pagination } from 'nestjs-typeorm-paginate';
 
 @ApiTags("Countries")
 @Controller("api/countries")
@@ -21,6 +26,7 @@ export class CountriesController {
   constructor(private readonly countriesService: CountriesService) {}
 
   @Post()
+  @UseGuards(JwtAuthGuard, RolesGuard)
   @ApiOperation({
     description: "Create country"
   })
@@ -34,6 +40,18 @@ export class CountriesController {
   }
 
   @Get()
+  @UseGuards(JwtAuthGuard, RolesGuard)
+  async index(
+    @Query('page') page: number = 1,
+    @Query('limit') limit: number = 10,
+  ): Promise<Pagination<Countries>> {
+    limit = limit > 100 ? 100 : limit;
+    return this.countriesService.paginate({
+      page,
+      limit,
+      route: `/api/countries`,
+    });
+  }
   @ApiOperation({
     description: "Get all countries"
   })
@@ -47,6 +65,7 @@ export class CountriesController {
   }
 
   @Get("id/:countryId")
+  @UseGuards(JwtAuthGuard, RolesGuard)
   @ApiOperation({
     description: "Get country by id"
   })
@@ -65,6 +84,7 @@ export class CountriesController {
   }
 
   @Put("id/:countryId")
+  @UseGuards(JwtAuthGuard, RolesGuard)
   @ApiOperation({
     description: "Update country using id"
   })
@@ -93,6 +113,7 @@ export class CountriesController {
   }
 
   @Delete("id/:countryId")
+  @UseGuards(JwtAuthGuard, RolesGuard)
   @ApiOperation({
     description: "Delete country using id"
   })

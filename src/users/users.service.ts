@@ -7,6 +7,7 @@ import { SECRET } from "../config";
 import { validate } from "class-validator";
 import { CreateUserDto } from "./dto/create-user.dto";
 const jwt = require("jsonwebtoken");
+import { paginate, Pagination, IPaginationOptions, } from 'nestjs-typeorm-paginate';
 
 export type User = any;
 
@@ -78,6 +79,10 @@ export class UsersService {
 
   async findAll(): Promise<Users[]> {
     return await this.userRepository.find();
+  }
+  
+  async paginate(options: IPaginationOptions): Promise<Pagination<Users>> {
+    return paginate<Users>(this.userRepository, options);
   }
 
   async findOneById(userId): Promise<Users> {
