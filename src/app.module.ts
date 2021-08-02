@@ -15,6 +15,7 @@ import { StatesModule } from "./states/states.module";
 import { CountriesModule } from "./countries/countries.module";
 import { MediaModule } from "./media/media.module";
 import { AuthModule } from "./auth/auth.module";
+//import { DataModule } from "./controllers/data.module";
 import { ImageUploadModule } from "./providers/images/imageupload.module";
 import fs = require("fs");
 
@@ -49,8 +50,9 @@ import fs = require("fs");
     MeetingsModule,
     AuthModule,
     ImageUploadModule,
+//    DataModule,
   ],
   providers: [AppService],
   controllers: [AppController],
 })
-export class AppModule {}
+export class AppModule { }

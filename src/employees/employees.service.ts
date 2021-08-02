@@ -18,7 +18,7 @@ export class EmployeesService {
   constructor(
     @InjectRepository(Employees)
     private employeeRepository: Repository<Employees>
-  ) {}
+  ) { }
 
   async addEmployee(
     dto: CreateEmployeeDto
