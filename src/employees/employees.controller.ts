@@ -17,7 +17,7 @@ import { EmployeesService } from "./employees.service";
 import { CreateEmployeeDto, UpdateEmployeeDto } from "./dto/";
 import { ApiTags, ApiParam, ApiOperation, ApiResponse } from "@nestjs/swagger";
 import { Roles } from "../auth/roles.decorator";
-import { role } from '../Employees/employee.entity';
+import { role } from '../employees/employee.entity';
 import { RolesGuard } from "../auth/guards/roles.guard";
 import { JwtAuthGuard } from "../auth/guards/jwt-auth.guard";
 import { Pagination } from 'nestjs-typeorm-paginate';
