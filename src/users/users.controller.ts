@@ -37,7 +37,7 @@ export class UsersController {
   })
   @ApiResponse({ status: 404, description: "Not Found" })
   async create(@Body() createUser: CreateUserDto) {
-    return await this.usersService.create(createUser);
+    return await this.usersService.addUser(createUser);
   }
 
   @Get()

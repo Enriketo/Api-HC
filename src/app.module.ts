@@ -15,7 +15,6 @@ import { StatesModule } from "./states/states.module";
 import { CountriesModule } from "./countries/countries.module";
 import { MediaModule } from "./media/media.module";
 import { AuthModule } from "./auth/auth.module";
-//import { DataModule } from "./controllers/data.module";
 import { ImageUploadModule } from "./providers/images/imageupload.module";
 import fs = require("fs");
 
@@ -26,11 +25,9 @@ import fs = require("fs");
     TypeOrmModule.forRoot({
       type: "mysql",
       host: "apihc.cexnqztz0ddk.sa-east-1.rds.amazonaws.com",
-      //host: 'apihc.ccwsw5pi0yw8.us-east-2.rds.amazonaws.com',
       port: 3306,
       username: "apihc",
       password: "TheHotCompany12345678$*",
-      //password: '12345678',
       database: "hcdata",
       entities: [__dirname + "/**/*.entity{.ts,.js}"],
       synchronize: true,

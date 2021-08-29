@@ -1,8 +1,9 @@
 import { Injectable, BadRequestException } from "@nestjs/common";
 import { UsersService } from "../users/users.service";
 import { EmployeesService } from "../employees/employees.service";
-//import { DataService } from "../controllers/data.service";
+import { DataService } from "../controllers/data.service";
 import { JwtService } from "@nestjs/jwt";
+import * as bcrypt from 'bcrypt';
 
 @Injectable()
 export class AuthService {
@@ -10,7 +11,7 @@ export class AuthService {
     private readonly usersService: UsersService,
     private readonly employeesService: EmployeesService,
     private readonly jwtService: JwtService,
-//    private readonly dataService: DataService,
+    private readonly dataService: DataService,
   ) { }
 
   async validateUser(
@@ -29,10 +30,10 @@ export class AuthService {
     }
 
     const usr = user.shift();
-    if (usr && usr.username === username && usr.password === password) {
+    const isMatch = await bcrypt.compare(password, usr.password);
+    if (usr && usr.username === username && isMatch) {
       const { password, ...result } = usr;
-//      const data = await this.dataService.getData(usr);
-      return result;//, data ];
+      return result;
     } else {
       throw new BadRequestException(`User or password invalid`);
     }

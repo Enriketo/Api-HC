@@ -4,7 +4,7 @@ import { PassportModule } from "@nestjs/passport";
 import { UsersModule } from "../users/users.module";
 import { EmployeesModule } from "../employees/employees.module";
 import { AuthService } from "./auth.service";
-//import { DataModule } from "../controllers/data.module";
+import { DataModule } from "../controllers/data.module";
 import { jwtConstants } from "./constants";
 import { JwtStrategy } from "./strategies/jwt.strategy";
 import { LocalStrategy } from "./strategies/local.strategy";
@@ -19,9 +19,9 @@ import { RolesGuard } from "./guards/roles.guard";
       signOptions: { expiresIn: `5400s` }
     }),
     EmployeesModule,
-//    DataModule,
+    DataModule,
   ],
-  providers: [AuthService, LocalStrategy, JwtStrategy, RolesGuard], //DataModule],
+  providers: [AuthService, LocalStrategy, JwtStrategy, RolesGuard], 
   exports: [AuthService]
 })
 export class AuthModule {}

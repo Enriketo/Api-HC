@@ -7,6 +7,7 @@ import { SECRET } from "../config";
 import { validate } from "class-validator";
 import { CreateEmployeeDto } from "./dto/create-employee.dto";
 import { paginate, Pagination, IPaginationOptions, } from 'nestjs-typeorm-paginate';
+import * as bcrypt from 'bcrypt';
 
 export type Employee = any;
 const jwt = require("jsonwebtoken");
@@ -44,19 +45,12 @@ export class EmployeesService {
     const newEmployee = new Employees();
     newEmployee.username = username;
     newEmployee.email = email;
-    newEmployee.password = password;
+    const hash = await bcrypt.hash(password, 10);
+    newEmployee.password = hash;
 
-    const errors = await validate(newEmployee);
-    if (errors.length > 0) {
-      const err = { username: "Userinput is not valid." };
-      throw new HttpException(
-        { message: "Input data validation failed", err },
-        HttpStatus.BAD_REQUEST
-      );
-    } else {
-      const savedEmployee = await this.employeeRepository.save(newEmployee);
-      return this.buildEmployeeRO(savedEmployee);
-    }
+    const savedEmployee = await this.employeeRepository.save(newEmployee);
+    return this.buildEmployeeRO(savedEmployee);
+
   }
 
   async findOne(username: string): Promise<Employee | undefined> {

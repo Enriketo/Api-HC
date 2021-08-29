@@ -21,18 +21,8 @@ import { TimeItemsModule } from "../time_items/time_items.module";
     ScheduleModule,
     StatesModule,
     TimeItemsModule,
-    DataService,
   ],
   providers: [
-    CitiesModule,
-    CountriesModule,
-    MatchesModule,
-    MeetingsModule,
-    OrdersModule,
-    ResidencesModule,
-    ScheduleModule,
-    StatesModule,
-    TimeItemsModule,
     DataService,
   ],
 

@@ -8,6 +8,7 @@ import { validate } from "class-validator";
 import { CreateUserDto } from "./dto/create-user.dto";
 const jwt = require("jsonwebtoken");
 import { paginate, Pagination, IPaginationOptions, } from 'nestjs-typeorm-paginate';
+import * as bcrypt from 'bcrypt';
 
 export type User = any;
 
@@ -46,25 +47,17 @@ export class UsersService {
     const newUser = new Users();
     newUser.username = username;
     newUser.email = email;
-    newUser.password = password;
+    const hash = await bcrypt.hash(password, 10);
+    newUser.password = hash;
+    
+    const savedUser = await this.userRepository.save(newUser);
+    return this.buildUserRO(savedUser);
 
-    const errors = await validate(newUser);
-    if (errors.length > 0) {
-      const err = { username: "Userinput is not valid." };
-      throw new HttpException(
-        { message: "Input data validation failed", err },
-        HttpStatus.BAD_REQUEST
-      );
-    } else {
-      const savedUser = await this.userRepository.save(newUser);
-      return this.buildUserRO(savedUser);
-    }
   }
 
   async getUser(usr): Promise<any> {
     return new Promise(resolve => {
       const user = this.userRepository.find(usr);
-      console.log(user);
       if (!user) {
         throw new HttpException("User does not exist!", 404);
       }
@@ -73,7 +66,6 @@ export class UsersService {
   }
 
   async create(user): Promise<Users> {
-    console.log(user);
     return await this.userRepository.save(user);
   }
 
