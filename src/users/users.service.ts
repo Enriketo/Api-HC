@@ -4,7 +4,6 @@ import { Repository, getRepository } from "typeorm";
 import { Users } from "./user.entity";
 import { UpdateResult, DeleteResult } from "typeorm";
 import { SECRET } from "../config";
-import { validate } from "class-validator";
 import { CreateUserDto } from "./dto/create-user.dto";
 const jwt = require("jsonwebtoken");
 import { paginate, Pagination, IPaginationOptions, } from 'nestjs-typeorm-paginate';

@@ -1,5 +1,5 @@
 import { Module } from "@nestjs/common";
-import { DataService } from "./data.service";
+//import { DataService } from "./data.service";
 import { CitiesModule } from "../cities/cities.module";
 import { CountriesModule } from "../countries/countries.module";
 import { MatchesModule } from "../matches/matches.module";
@@ -22,11 +22,11 @@ import { TimeItemsModule } from "../time_items/time_items.module";
     StatesModule,
     TimeItemsModule,
   ],
-  providers: [
-    DataService,
-  ],
+  //providers: [
+  //  DataService,
+  //],
 
-  exports: [DataService]
+  //exports: [DataService]
 })
 export class DataModule { }
 

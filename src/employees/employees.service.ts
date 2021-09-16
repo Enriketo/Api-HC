@@ -4,7 +4,6 @@ import { Repository, getRepository } from "typeorm";
 import { Employees } from "./employee.entity";
 import { UpdateResult, DeleteResult } from "typeorm";
 import { SECRET } from "../config";
-import { validate } from "class-validator";
 import { CreateEmployeeDto } from "./dto/create-employee.dto";
 import { paginate, Pagination, IPaginationOptions, } from 'nestjs-typeorm-paginate';
 import * as bcrypt from 'bcrypt';

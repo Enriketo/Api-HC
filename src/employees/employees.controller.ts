@@ -37,7 +37,7 @@ export class EmployeesController {
   })
   @ApiResponse({ status: 404, description: "Not Found" })
   async create(@Body() createEmployee: CreateEmployeeDto) {
-    return await this.employeesService.create(createEmployee);
+    return await this.employeesService.addEmployee(createEmployee);
   }
 
   @Get()
