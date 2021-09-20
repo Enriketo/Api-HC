@@ -35,7 +35,7 @@ export class Countries {
     enum: continent,
     default: continent.A
   })
-  location: continent; // json
+  location: continent; 
 
   @Column({ length: 3 })
   phonePrefix: string;

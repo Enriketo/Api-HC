@@ -90,22 +90,6 @@ export class CreateEmployeeDto {
   @ApiProperty()
   readonly totalPenalities: number;
 
-  //@IsNotEmpty()
-  //@ApiProperty()
-  //readonly timeItemId: string;
-
-  @IsNotEmpty()
-  @ApiProperty()
-  readonly recidence: number;
-
-  @IsNotEmpty()
-  @ApiProperty()
-  readonly mediaId: number;
-
-  @IsNotEmpty()
-  @ApiProperty()
-  readonly timeItemId: number;
-
   @IsNotEmpty()
   @ApiProperty()
   readonly createdAt: Date;

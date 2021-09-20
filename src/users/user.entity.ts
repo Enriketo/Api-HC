@@ -29,7 +29,7 @@ export enum gender {
   undefined = "undefined"
 }
 
-@Entity()
+@Entity('users')
 @Unique(["username", "email"])
 export class Users {
   @PrimaryGeneratedColumn()

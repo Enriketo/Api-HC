@@ -19,7 +19,7 @@ export class EmployeesService {
   constructor(
     @InjectRepository(Employees)
     private employeeRepository: Repository<Employees>
-  ) { }
+  ) {}
 
   async addEmployee(
     dto: CreateEmployeeDto
@@ -28,8 +28,8 @@ export class EmployeesService {
     const { username, email, password } = dto;
     const qb = await getRepository(Employees)
       .createQueryBuilder("employee")
-      .where("user.username = :username", { username })
-      .orWhere("user.email = :email", { email });
+      .where("employee.username = :username", { username })
+      .orWhere("employee.email = :email", { email });
 
     const employee = await qb.getOne();
 

@@ -55,7 +55,7 @@ export enum penality {
   none = "none"
 }
 
-@Entity()
+@Entity('employees')
 @Unique(["username", "email"])
 export class Employees {
   @PrimaryGeneratedColumn()
@@ -151,9 +151,6 @@ export class Employees {
   @Column()
   totalPenalities: number;
 
-  //    @Column({ length: 20 })
-  //    timeItemId: string;
-
   @Column()
   recidence: number;
 
@@ -163,17 +160,17 @@ export class Employees {
   @Column()
   timeItemId: number;
 
-  //    @ManyToOne(type => Cities, city => city.id)
-  //    city: Cities[];
+  @ManyToOne(type => Cities, city => city.id)
+  city: Cities[];
 
-  //    @OneToOne(type => Media, media => media.id)
-  //    media: Media[];
-  //
-  //    @OneToOne(type => TimeItems, id => id)
-  //    timeItem: TimeItems[];
+  @OneToOne(type => Media, media => media.id)
+  media: Media[];
+  
+  @OneToOne(type => TimeItems, id => id)
+  timeItem: TimeItems[];
 
-  //    @OneToMany(type => Matches, match => match.id)
-  //    match: Matches[];
+  @OneToMany(type => Matches, match => match.id)
+  match: Matches[];
 
   @CreateDateColumn({ type: "timestamp" })
   createdAt: Date;
