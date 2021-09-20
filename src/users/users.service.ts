@@ -46,9 +46,9 @@ export class UsersService {
     const newUser = new Users();
     newUser.username = username;
     newUser.email = email;
+    //Hashing password 
     const hash = await bcrypt.hash(password, 10);
     newUser.password = hash;
-    
     const savedUser = await this.userRepository.save(newUser);
     return this.buildUserRO(savedUser);
 

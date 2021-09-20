@@ -7,6 +7,7 @@ import { SECRET } from "../config";
 import { CreateEmployeeDto } from "./dto/create-employee.dto";
 import { paginate, Pagination, IPaginationOptions, } from 'nestjs-typeorm-paginate';
 import * as bcrypt from 'bcrypt';
+var CryptoJS = require("crypto-js");
 
 export type Employee = any;
 const jwt = require("jsonwebtoken");
@@ -44,12 +45,15 @@ export class EmployeesService {
     const newEmployee = new Employees();
     newEmployee.username = username;
     newEmployee.email = email;
+    //Hashing password 
     const hash = await bcrypt.hash(password, 10);
     newEmployee.password = hash;
+    //Bank number to cripted data
+    const crypted = await CryptoJS.AES.encrypt(newEmployee.paymentCode, 'HotCompanyAPP').toString();
+    newEmployee.paymentCode = crypted;
 
     const savedEmployee = await this.employeeRepository.save(newEmployee);
     return this.buildEmployeeRO(savedEmployee);
-
   }
 
   async findOne(username: string): Promise<Employee | undefined> {
