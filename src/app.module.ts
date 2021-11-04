@@ -24,7 +24,7 @@ import fs = require("fs");
   imports: [
     TypeOrmModule.forRoot({
       type: "mysql",
-      host: "apihc.cexnqztz0ddk.sa-east-1.rds.amazonaws.com",
+      host: "hcdatabase.cklm6npzykxy.sa-east-1.rds.amazonaws.com",
       port: 3306,
       username: "hcappadmin",
       password: "N3bjYctRmI2XripB77Gf",
