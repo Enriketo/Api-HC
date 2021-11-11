@@ -3,7 +3,7 @@ import * as multer from "multer";
 import * as AWS from "aws-sdk";
 import * as multerS3 from "multer-s3";
 
-const hcbucket = "prod-hc-media";
+const hcbucket = "hc.media";
 const s3 = new AWS.S3();
 AWS.config.update({
   accessKeyId: "AKIA3DSUEOFVUTBJOJGX",
