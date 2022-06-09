@@ -1,6 +1,6 @@
 import { Injectable, BadRequestException } from "@nestjs/common";
-import { UsersService } from "../users/users.service";
-import { EmployeesService } from "../employees/employees.service";
+import { UsersService } from "../services/users.service";
+import { EmployeesService } from "../services/employees.service";
 //import { DataService } from "../controllers/data.service";
 import { JwtService } from "@nestjs/jwt";
 import * as bcrypt from 'bcrypt';

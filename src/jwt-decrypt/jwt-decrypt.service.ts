@@ -1,5 +1,5 @@
 import { Injectable } from "@nestjs/common";
-import { Users } from "../users/user.entity";
+import { Users } from "../entities/user.entity";
 import { SECRET } from "../config";
 import * as jwt from "jsonwebtoken";
 

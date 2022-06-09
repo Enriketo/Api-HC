@@ -2,18 +2,18 @@ import { Module } from "@nestjs/common";
 import { TypeOrmModule } from "@nestjs/typeorm";
 import { AppService } from "./app.service";
 import { AppController } from "./app.controller";
-import { CitiesModule } from "./cities/cities.module";
-import { UsersModule } from "./users/users.module";
-import { EmployeesModule } from "./employees/employees.module";
-import { ResidencesModule } from "./residences/residences.module";
-import { TimeItemsModule } from "./time_items/time_items.module";
-import { MeetingsModule } from "./meetings/meetings.module";
-import { ScheduleModule } from "./schedule/schedule.module";
-import { OrdersModule } from "./orders/orders.module";
-import { MatchesModule } from "./matches/matches.module";
-import { StatesModule } from "./states/states.module";
-import { CountriesModule } from "./countries/countries.module";
-import { MediaModule } from "./media/media.module";
+import { CitiesModule } from "./modules/cities.module";
+import { UsersModule } from "./modules/users.module";
+import { EmployeesModule } from "./modules/employees.module";
+import { ResidencesModule } from "./modules/residences.module";
+import { TimeItemsModule } from "./modules/time_items.module";
+import { MeetingsModule } from "./modules/meetings.module";
+import { ScheduleModule } from "./modules/schedule.module";
+import { OrdersModule } from "./modules/orders.module";
+import { MatchesModule } from "./modules/matches.module";
+import { StatesModule } from "./modules/states.module";
+import { CountriesModule } from "./modules/countries.module";
+import { MediaModule } from "./modules/media.module";
 import { AuthModule } from "./auth/auth.module";
 import { ImageUploadModule } from "./providers/images/imageupload.module";
 import fs = require("fs");
@@ -24,11 +24,11 @@ import fs = require("fs");
   imports: [
     TypeOrmModule.forRoot({
       type: "mysql",
-      host: "hcdatabase.cklm6npzykxy.sa-east-1.rds.amazonaws.com",
+      host: "database-1.c6vtoyiphaas.sa-east-1.rds.amazonaws.com",
       port: 3306,
-      username: "hcappadmin",
-      password: "N3bjYctRmI2XripB77Gf",
-      database: "hcdatabase",
+      username: "admin",
+      password: "Password123456",
+      database: "HC_DB",
       entities: [__dirname + "/**/*.entity{.ts,.js}"],
       synchronize: true,
       autoLoadEntities: true,

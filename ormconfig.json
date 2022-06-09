@@ -1,10 +1,10 @@
 {
   "type": "mysql",
-  "host": "hcdatabase.cklm6npzykxy.sa-east-1.rds.amazonaws.com",
+  "host": "database-1.c6vtoyiphaas.sa-east-1.rds.amazonaws.com",
   "port": 3306,
-  "username": "hcappadmin",
-  "password": "N3bjYctRmI2XripB77Gf",
-  "database": "hcdatabase",
+  "username": "admin",
+  "password": "Password123456",
+  "database": "HC_DB",
   "entities": ["src/**/*.entity{.js}"],
   "synchronize": true,
   "migrationsTableName": "migrations",
@@ -12,4 +12,3 @@
   "cli": {
     "migrationsDir": "migration"
   }
-}
