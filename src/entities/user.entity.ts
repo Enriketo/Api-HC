@@ -32,8 +32,8 @@ export enum gender {
 @Entity('users')
 @Unique(["username", "email"])
 export class Users {
-  @PrimaryGeneratedColumn()
-  id: "increment";
+  @PrimaryGeneratedColumn('increment')
+  id: number;
 
   @Column({ length: 20 })
   firstName: string;
