@@ -28,7 +28,7 @@ import fs = require("fs");
       port: 3306,
       username: "root",
       password: "0000",
-      database: "hc_db",
+      database: "db-hc",
       entities: [__dirname + "/**/*.entity{.ts,.js}"],
       synchronize: true,
       autoLoadEntities: true,

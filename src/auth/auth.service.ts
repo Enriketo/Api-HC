@@ -1,7 +1,6 @@
 import { Injectable, BadRequestException } from "@nestjs/common";
 import { UsersService } from "../services/users.service";
 import { EmployeesService } from "../services/employees.service";
-//import { DataService } from "../controllers/data.service";
 import { JwtService } from "@nestjs/jwt";
 import * as bcrypt from 'bcrypt';
 
@@ -11,8 +10,15 @@ export class AuthService {
     private readonly usersService: UsersService,
     private readonly employeesService: EmployeesService,
     private readonly jwtService: JwtService,
-    //private readonly dataService: DataService,
   ) { }
+
+  //Login user
+  async login(usr: any) {
+    const payload = usr;
+    return {
+      access_token: this.jwtService.sign(payload)
+    };
+  }
 
   async validateUser(
     username: string,
@@ -37,12 +43,5 @@ export class AuthService {
     } else {
       throw new BadRequestException(`User or password invalid`);
     }
-  }
-
-  async login(usr: any) {
-    const payload = usr;
-    return {
-      access_token: this.jwtService.sign(payload)
-    };
   }
 }

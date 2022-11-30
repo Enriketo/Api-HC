@@ -27,6 +27,7 @@ import { Pagination } from 'nestjs-typeorm-paginate';
 export class UsersController {
   constructor(private readonly usersService: UsersService) { }
 
+  //Create users
   @Post()
   @ApiOperation({
     description: "Create user"
@@ -40,6 +41,7 @@ export class UsersController {
     return await this.usersService.addUser(createUser);
   }
 
+  //Find all users
   @Get()
   @UseGuards(JwtAuthGuard, RolesGuard)
   async index(
@@ -65,6 +67,7 @@ export class UsersController {
     return this.usersService.findAll();
   }
 
+  //Find user by ID
   @Get("id/:userId")
   @UseGuards(JwtAuthGuard, RolesGuard)
   @ApiOperation({
@@ -84,6 +87,7 @@ export class UsersController {
     return res.status(HttpStatus.OK).json(user);
   }
 
+  //Edit user by ID
   @Put("id/:userId")
   @UseGuards(JwtAuthGuard, RolesGuard)
   @ApiOperation({
@@ -110,6 +114,7 @@ export class UsersController {
     });
   }
 
+  //Delete user by ID
   @Delete("id/:userId")
   @UseGuards(JwtAuthGuard, RolesGuard)
   @ApiOperation({
