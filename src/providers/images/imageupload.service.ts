@@ -3,11 +3,11 @@ import * as multer from "multer";
 import * as AWS from "aws-sdk";
 import * as multerS3 from "multer-s3";
 
-const hcbucket = "hc.media";
+const hcbucket = "hc-qa-storage";
 const s3 = new AWS.S3();
 AWS.config.update({
-  accessKeyId: "AKIA3DSUEOFVUTBJOJGX",
-  secretAccessKey: "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"
+  accessKeyId: "AKIA52FASF2DPCPTSKGO",
+  secretAccessKey: "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"
 });
 
 @Injectable()
