@@ -24,11 +24,11 @@ import fs = require("fs");
   imports: [
     TypeOrmModule.forRoot({
       type: "mysql",
-      host: "database-1.c6vtoyiphaas.sa-east-1.rds.amazonaws.com",
+      host: "database-1.c0z89plrkuvl.us-east-1.rds.amazonaws.com",
       port: 3306,
       username: "admin",
-      password: "Password123456",
-      database: "HC_DB",
+      password: "Gd5g8ZQB9Ooy6KsKEhAQ",
+      database: "hc-db",
       entities: [__dirname + "/**/*.entity{.ts,.js}"],
       synchronize: true,
       autoLoadEntities: true,
