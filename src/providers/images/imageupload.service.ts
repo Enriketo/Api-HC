@@ -3,11 +3,11 @@ import * as multer from "multer";
 import * as AWS from "aws-sdk";
 import * as multerS3 from "multer-s3";
 
-const hcbucket = "hc.media";
+const hcbucket = "hc-w-storage";
 const s3 = new AWS.S3();
 AWS.config.update({
-  accessKeyId: "AKIA3DSUEOFVUTBJOJGX",
-  secretAccessKey: "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"
+  accessKeyId: "AKIA3TUZLDI2CSAAKUXK",
+  secretAccessKey: "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"
 });
 
 @Injectable()
@@ -38,5 +38,5 @@ export class ImageUploadService {
         cb(null, `${Date.now().toString()} - ${file.originalname}`);
       }
     })
-  }).array("upload", 1);
+  }).array("upload", 10);
 }
