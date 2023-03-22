@@ -6,8 +6,8 @@ import * as multerS3 from "multer-s3";
 const hcbucket = "hc-w-storage";
 const s3 = new AWS.S3();
 AWS.config.update({
-  accessKeyId: "AKIA3TUZLDI2IGCZF6ZI",
-  secretAccessKey: "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"
+  accessKeyId: "AKIA3TUZLDI2IYPKIJRJ",
+  secretAccessKey: "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"
 });
 
 @Injectable()
