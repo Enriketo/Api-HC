@@ -16,6 +16,8 @@ import { CountriesModule } from "./modules/countries.module";
 import { MediaModule } from "./modules/media.module";
 import { AuthModule } from "./auth/auth.module";
 import { ImageUploadModule } from "./providers/images/imageupload.module";
+import { TermsModule } from "./modules/terms.module";
+import { OtpModule } from './modules/otp.module'
 import fs = require("fs");
 
 //TODO Dont forget setup typeorm config
@@ -24,10 +26,10 @@ import fs = require("fs");
   imports: [
     TypeOrmModule.forRoot({
       type: "mysql",
-      host: "database-1.c0z89plrkuvl.us-east-1.rds.amazonaws.com",
+      host: "localhost",
       port: 3306,
-      username: "admin",
-      password: "Gd5g8ZQB9Ooy6KsKEhAQ",
+      username: "root",
+      password: "01234567890",
       database: "hc-db",
       entities: [__dirname + "/**/*.entity{.ts,.js}"],
       synchronize: true,
@@ -47,6 +49,8 @@ import fs = require("fs");
     MeetingsModule,
     AuthModule,
     ImageUploadModule,
+    TermsModule,
+    OtpModule,
 //    DataModule,
   ],
   providers: [AppService],

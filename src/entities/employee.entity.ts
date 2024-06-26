@@ -58,106 +58,120 @@ export enum penality {
 @Entity('employees')
 @Unique(["username", "email"])
 export class Employees {
-  @PrimaryGeneratedColumn()
-  id: "increment";
+  @PrimaryGeneratedColumn('uuid')
+  id: 'increment';
 
-  @Column({ length: 20 })
+  @Column({ length: 20, nullable: true, default: 'Unknown'})
   firstName: string;
 
-  @Column({ length: 20 })
+  @Column({ length: 20, nullable: true, default: 'Unknown' })
   lastName: string;
 
-  @Column({ length: 12 })
+  @Column({ length: 12, nullable: true, default: 'Unknown' })
   username: string;
 
   @Column({
     type: "enum",
     enum: doc_type,
-    default: doc_type.cc
+    default: doc_type.cc,
+    nullable: true, 
   })
   docType: doc_type;
 
-  @Column()
+  @Column({ nullable: true, default: 0 })
   docNumber: number;
 
   @Column({ length: 30 })
   email: string;
 
-  @Column({ length: 255 })
+  @Column({ length: 6 })
   password: string;
 
-  @Column()
+  @Column({ nullable: true })
+  resetToken: string; // Token para restablecimiento de contraseña
+
+  @Column({ nullable: true })
+  resetTokenExpires: Date; // Fecha de expiración del token de restablecimiento
+
+  @Column({ nullable: true, default: false })
   isAdmin: boolean;
 
   @Column({
     type: "enum",
     enum: gender,
-    default: gender.male
+    default: gender.male,
+    nullable: true
   })
   gender: gender;
 
-  @Column()
+  @Column({ nullable: true, default: false})
   showName: boolean;
 
   @Column({ length: 20 })
   preferences: string;
 
-  @Column()
+  @Column({ nullable: true, default: false })
   discapacity: boolean;
 
-  @Column()
+  @Column({ nullable: true, default: false })
   discapacityAcpt: boolean;
 
-  @Column()
+  @Column({ nullable: true, default: 'Unknown' })
   address: string;
 
-  @Column({ length: 30 })
+  @Column({ length: 30, nullable: true, default: 'Unknown' })
   paymentCode: string;
 
   @Column({
     type: "enum",
     enum: bank,
-    default: bank.bank1
+    default: bank.bank1,
+    nullable: true
   })
   bank: bank;
 
-  @Column({
-    type: "enum",
-    enum: status,
-    default: status.online
-  })
-  status: status;
+  @Column({ nullable: true, default: false })
+  status: boolean;
+  
+  //@Column({//cambiar a bolean 
+  //  type: "enum",//crear endpoint 
+  //  enum: status,
+  //  default: status.online
+  //})
+  //status: status;
 
   @Column({
     type: "enum",
     enum: role,
-    default: role.admin
+    default: role.admin,
+    nullable: true
   })
   role: role;
 
-  @Column()
+  @Column({ nullable: true, default: false })
   optIn: boolean;
 
-  @Column()
-  averageCalification: number;
+  @Column({ nullable: true, default: 0 })
+  averageCalification: number;//controlador para esto 
 
   @Column({
     type: "enum",
     enum: penality,
-    default: penality.low
+    default: penality.low,
+    nullable: true
   })
   penality: penality;
 
-  @Column()
+  @Column({ nullable: true, default: 0 })
   totalPenalities: number;
 
-  @Column()
+  @Column({ nullable: true, default: 0 })
   recidence: number;
 
-  @Column()
+  @Column({ nullable: true, default: 0 })
   mediaId: number;
 
-  @Column()
+  @Column({ nullable: true, default: 0 })
   timeItemId: number;
 
   @ManyToOne(type => Cities, city => city.id)

@@ -10,9 +10,9 @@ export class UpdateUserDto {
   @ApiProperty()
   readonly lastName: string;
 
-  @IsNotEmpty()
-  @ApiProperty()
-  readonly password: string;
+  //@IsNotEmpty()
+  //@ApiProperty()
+  //readonly password: string;
 
   @IsNotEmpty()
   @ApiProperty()

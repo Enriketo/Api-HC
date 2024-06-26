@@ -32,8 +32,8 @@ export enum gender {
 @Entity('users')
 @Unique(["username", "email"])
 export class Users {
-  @PrimaryGeneratedColumn()
-  id: "increment";
+  @PrimaryGeneratedColumn('uuid')
+  id: 'increment';
 
   @Column({ length: 20 })
   firstName: string;
@@ -47,8 +47,14 @@ export class Users {
   @Column({ length: 30 })
   email: string;
 
-  @Column({ length: 255 })
+  @Column({ length: 6 })
   password: string;
+
+  @Column({ nullable: true })
+  resetToken: string; // Token para restablecimiento de contraseña
+
+  @Column({ nullable: true })
+  resetTokenExpires: Date; // Fecha de expiración del token de restablecimiento
 
   @Column({
     type: "enum",

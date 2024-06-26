@@ -85,7 +85,8 @@ export class EmployeesController {
     return res.status(HttpStatus.OK).json(employee);
   }
 
-  @Put("id/:employeeId")
+  @Put("id/:employeeId")//
+  //@Put("id/:StatusEmployeeId")//
   @UseGuards(JwtAuthGuard, RolesGuard)
   @ApiOperation({
     description: "Update employee using id"

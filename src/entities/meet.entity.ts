@@ -16,7 +16,9 @@ export enum meeting_status {
   user_arrived = "userArrived",
   employee_arrived = "employeeArrived",
   on_process = "onProcess",
-  finished = "finished"
+  finished = "finished",
+  pay_refused = "payRefused",// lo hace administración 
+  payed = "payed"// lo hace administración 
 }
 
 @Entity()

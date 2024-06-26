@@ -1,11 +1,12 @@
 {
   "name": "hc-api",
-  "version": "0.0.1",
+  "version": "1.0.0",
   "description": "",
   "author": "",
   "license": "MIT",
   "scripts": {
     "build": "nest build",
+    "build2": "xcopy /Y src\\utils\\terms.html dist\\src\\utils\\terms.html",
     "format": "prettier --write \"src/**/*.ts\" \"test/**/*.ts\"",
     "start": "nest start",
     "start:dev": "nest start --watch",
@@ -43,6 +44,7 @@
     "multer-s3": "^2.9.0",
     "mysql2": "^2.1.0",
     "nestjs-typeorm-paginate": "^2.6.0",
+    "nodemailer": "^6.9.14",
     "passport": "^0.4.1",
     "passport-jwt": "^4.0.0",
     "passport-local": "^1.0.0",
@@ -51,6 +53,7 @@
     "rxjs": "^6.5.4",
     "sequelize": "^5.21.8",
     "sequelize-typescript": "^1.1.0",
+    "speakeasy": "^2.0.0",
     "swagger-ui-express": "^4.1.4",
     "typeorm": "^0.2.25"
   },

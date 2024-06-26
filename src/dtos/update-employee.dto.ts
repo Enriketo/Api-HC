@@ -2,63 +2,63 @@ import { IsNotEmpty } from "class-validator";
 import { ApiProperty } from "@nestjs/swagger";
 
 export class UpdateEmployeeDto {
-  @IsNotEmpty()
+  //@IsNotEmpty()
   @ApiProperty()
   readonly firstName: string;
 
-  @IsNotEmpty()
+  //@IsNotEmpty()
   @ApiProperty()
   readonly lastName: string;
 
-  @IsNotEmpty()
-  @ApiProperty()
-  readonly password: string;
+  //@IsNotEmpty()
+  //@ApiProperty()
+  //readonly password: string;
 
-  @IsNotEmpty()
+  //@IsNotEmpty()
   @ApiProperty()
   readonly isAdmin: boolean;
 
-  @IsNotEmpty()
+  //@IsNotEmpty()
   @ApiProperty()
   readonly gender: string;
 
-  @IsNotEmpty()
+  //@IsNotEmpty()
   @ApiProperty()
   readonly showName: boolean;
 
-  @IsNotEmpty()
+  //@IsNotEmpty()
   @ApiProperty()
   readonly preferences: string;
 
-  @IsNotEmpty()
+  //@IsNotEmpty()
   @ApiProperty()
   readonly discapacity: boolean;
 
-  @IsNotEmpty()
+  //@IsNotEmpty()
   @ApiProperty()
   readonly discapacityAcpt: boolean;
 
-  @IsNotEmpty()
+  //@IsNotEmpty()
   @ApiProperty()
   readonly address: string;
 
-  @IsNotEmpty()
+  //@IsNotEmpty()
   @ApiProperty()
   readonly paymentCode: string;
 
-  @IsNotEmpty()
+  //@IsNotEmpty()
   @ApiProperty()
   readonly bank: string;
 
-  @IsNotEmpty()
+  //@IsNotEmpty()
   @ApiProperty()
   readonly status: string;
 
-  @IsNotEmpty()
+  //@IsNotEmpty()
   @ApiProperty()
   readonly role: string;
 
-  @IsNotEmpty()
+  //@IsNotEmpty()
   @ApiProperty()
   readonly optIn: boolean;
 
