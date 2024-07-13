@@ -28,7 +28,7 @@ import fs = require("fs");
       type: "mysql",
       host: "hc-db.c8xrkwv6mos5.us-east-2.rds.amazonaws.com",
       port: 3306,
-      username: "root",
+      username: "admin",
       password: "Gd5g8ZQB9Ooy6KsKEhAQ",
       database: "hc-db",
       entities: [__dirname + "/**/*.entity{.ts,.js}"],
