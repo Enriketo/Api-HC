@@ -1,26 +1,93 @@
 import { Controller, Post, Body, BadRequestException } from '@nestjs/common';
 import { OtpService } from '../auth/strategies/mail/otp.service';
+import { UsersService } from "../services/users.service";
+import { EmployeesService } from "../services/employees.service";
+import { AuthDto } from '../dtos/auth.dto';
+import { OtpDto } from '../dtos/otp.dto';
+//import { ResetPasswordDto } from '../dtos/rstPss.dto';
+//import { PasswordResetService } from '../auth/strategies/mail/password-reset.service';
 
 @Controller('auth')
 export class OtpController {
-  constructor(private readonly otpService: OtpService) {}
+  constructor(
+    private readonly otpService: OtpService,
+    private readonly usersService: UsersService,
+    private readonly employeesService: EmployeesService,
+    //private readonly psswdRstService: PasswordResetService,
+    //private readonly rstPss: ResetPasswordDto,
+  ) {}
 
-  @Post('')
-  async loginWithOtp(@Body() body: { email: string }): Promise<{ success: boolean }> {
-    // Validar el formato del correo electrónico usando una expresión regular simple
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    if (!emailRegex.test(body.email)) {
-      throw new BadRequestException('Correo electrónico no válido');
+  @Post('otp')
+  async loginWithOtp(@Body() authDto: AuthDto): Promise<{ success: boolean }> {
+    const { email, type, updatedAt } = authDto;
+  
+    // Validar el formato del correo electrónico
+    const user = type === 'U'
+      ? await this.usersService.findOneByMail(email)
+      : await this.employeesService.findOneByMail(email);
+  
+    if (!user) {
+      throw new BadRequestException('User not found');
     }
-
-    // Envía el código OTP por correo electrónico
+  
     const userSecret = this.otpService.generateSecret();
     const otp = this.otpService.generateOtpCode(userSecret);
-    await this.otpService.sendOtpByEmail(body.email, otp);
-
-    // Puedes almacenar userSecret en la base de datos para verificar más tarde
+    await this.otpService.sendOtpByEmail(email, otp);
+  
+    // Guardar el secreto generado en el usuario correspondiente
+    const expiryDate = this.otpService.generateOtpExpiry(5); // OTP válido por 5 minutos
+    if (type === 'U') {
+      await this.usersService.updateUserSecret(user.id, userSecret, expiryDate, updatedAt);
+    } else {
+      await this.employeesService.updateEmployeeSecret(user.id, userSecret, expiryDate, updatedAt);
+    }
 
     return { success: true };
   }
   
+  @Post('verify-otp')
+  async verifyOtp(@Body() verifyOtpDto: OtpDto): Promise<{ success: boolean }> {
+    const { email, otp, type } = verifyOtpDto;
+
+    const user = type === 'U'
+      ? await this.usersService.findOneByMail(email)
+      : await this.employeesService.findOneByMail(email);
+
+    if (!user) {
+      throw new BadRequestException('Usuario no encontrado');
+    }
+
+    if (new Date() > new Date(user.tokenExpires)) {
+      throw new BadRequestException('OTP expirado');
+    }
+
+    const isValid = this.otpService.verifyOtpCode(user.token, otp);
+
+    if (!isValid) {
+      throw new BadRequestException('OTP inválido');
+    }
+
+    return { success: true };
+  }
+
+//  @Post('rstPssOtp')
+//  async resetPassword(@Body() resetPasswordDto: ResetPasswordDto): Promise<{ success: boolean }> {
+//    const { email, type, newPassword, otp } = resetPasswordDto;
+//    try {
+//      await this.psswdRstService.resetPassword(email, type, newPassword, otp);
+//      return { success: true };
+//    } catch (error) {
+//      throw new BadRequestException(error.message);
+//    }
+//  }
+//
+//  private async findUserByType(email: string, type: string) {
+//    if (type === 'U') {
+//      return await this.usersService.findOneByMail(email);
+//    } else if (type === 'E') {
+//      return await this.employeesService.findOneByMail(email);
+//    } else {
+//      throw new BadRequestException('Tipo de usuario no válido');
+//    }
+//  }
 }

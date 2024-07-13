@@ -99,7 +99,7 @@ export class EmployeesController {
   @ApiResponse({ status: 404, description: "Not Found" })
   async updateEmployee(
     @Res() res,
-    @Param("employeeId") employeeId: number,
+    @Param("employeeId") employeeId: string,
     @Body() updateEmployeeDto: UpdateEmployeeDto
   ) {
     const editedEmployee = await this.employeesService.editEmployee(

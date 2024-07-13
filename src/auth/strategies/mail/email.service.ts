@@ -25,4 +25,14 @@ export class EmailService {
       text: `Tu código OTP es: ${otp}`,
     });
   }
+
+  //token otp para reestablecer contraseña
+  async sendOtpEmail2(to: string, otp: string): Promise<void> {
+    await this.transporter.sendMail({
+      from: 'authenticate@hotcompanyweb.com', //llevar a variables de entorno
+      to: to,
+      subject: 'Código OTP para reestablecer contraseña',
+      text: `Tu código OTP es: ${otp}`,
+    });
+  }
 }

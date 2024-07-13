@@ -84,14 +84,14 @@ export class Employees {
   @Column({ length: 30 })
   email: string;
 
-  @Column({ length: 6 })
+  @Column({ length: 255 })
   password: string;
 
   @Column({ nullable: true })
-  resetToken: string; // Token para restablecimiento de contraseña
+  token: string; // Token para restablecimiento de contraseña
 
   @Column({ nullable: true })
-  resetTokenExpires: Date; // Fecha de expiración del token de restablecimiento
+  tokenExpires: Date; // Fecha de expiración del token de restablecimiento
 
   @Column({ nullable: true, default: false })
   isAdmin: boolean;
@@ -107,7 +107,7 @@ export class Employees {
   @Column({ nullable: true, default: false})
   showName: boolean;
 
-  @Column({ length: 20 })
+  @Column({ length: 20, nullable: true, default: 'Unknown' })
   preferences: string;
 
   @Column({ nullable: true, default: false })
@@ -119,7 +119,7 @@ export class Employees {
   @Column({ nullable: true, default: 'Unknown' })
   address: string;
 
-  @Column({ length: 30, nullable: true, default: 'Unknown' })
+  @Column({ length: 255, nullable: true, default: 'Unknown' })
   paymentCode: string;
 
   @Column({

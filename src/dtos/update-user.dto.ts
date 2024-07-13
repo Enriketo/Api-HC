@@ -2,11 +2,11 @@ import { IsNotEmpty } from "class-validator";
 import { ApiProperty } from "@nestjs/swagger";
 
 export class UpdateUserDto {
-  @IsNotEmpty()
+  //@IsNotEmpty()
   @ApiProperty()
   readonly firstName: string;
 
-  @IsNotEmpty()
+  //@IsNotEmpty()
   @ApiProperty()
   readonly lastName: string;
 
@@ -14,35 +14,35 @@ export class UpdateUserDto {
   //@ApiProperty()
   //readonly password: string;
 
-  @IsNotEmpty()
+  //@IsNotEmpty()
   @ApiProperty()
   readonly gender: string;
 
-  @IsNotEmpty()
+  //@IsNotEmpty()
   @ApiProperty()
   readonly phone: number;
 
-  @IsNotEmpty()
+  //@IsNotEmpty()
   @ApiProperty()
   readonly discapacity: boolean;
 
-  @IsNotEmpty()
+  //@IsNotEmpty()
   @ApiProperty()
   readonly optIn: boolean;
 
-  @IsNotEmpty()
+  //@IsNotEmpty()
   @ApiProperty()
   readonly showName: boolean;
 
-  @IsNotEmpty()
+  //@IsNotEmpty()
   @ApiProperty()
   readonly preferences: string;
 
-  @IsNotEmpty()
+  //@IsNotEmpty()
   @ApiProperty()
   readonly address: string;
 
-  @IsNotEmpty()
+  //@IsNotEmpty()
   @ApiProperty()
   readonly updatedAt: Date;
 }

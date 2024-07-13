@@ -72,7 +72,7 @@ export class EmployeesService {
   }
 
   async create(employee): Promise<Employees> {
-    console.log(employee);
+    console.log(employee);//retirar
     return await this.employeeRepository.save(employee);
   }
 
@@ -86,6 +86,10 @@ export class EmployeesService {
 
   async findOneById(employeeId): Promise<Employees> {
     return await this.employeeRepository.findOne(employeeId);
+  }
+
+  async findOneByMail(email): Promise<Employees> {
+    return await this.employeeRepository.findOne({ where: { email } });
   }
 
   async editEmployee(employeeId, employee): Promise<UpdateResult> {
@@ -120,5 +124,13 @@ export class EmployeesService {
     };
 
     return { user: employeeRO };
+  }
+
+  async updateEmployeeSecret(employeeId: string, newSecret: string, expiryDate: Date, updatedAt: Date ): Promise<void> {
+    await this.employeeRepository.update(employeeId, {
+      token: newSecret,
+      tokenExpires: expiryDate, 
+      updatedAt: updatedAt
+    });
   }
 }

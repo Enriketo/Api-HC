@@ -29,7 +29,14 @@ export class OtpService {
     return isValid;
   }
 
+  generateOtpExpiry(minutes: number): Date {
+    const now = new Date();
+    now.setMinutes(now.getMinutes() + minutes);
+    return now;
+  }
+
   async sendOtpByEmail(email: string, otp: string): Promise<void> {
     await this.emailService.sendOtpEmail(email, otp);
   }
+
 }

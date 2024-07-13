@@ -35,26 +35,26 @@ export class Users {
   @PrimaryGeneratedColumn('uuid')
   id: 'increment';
 
-  @Column({ length: 20 })
+  @Column({ length: 20, nullable: true, default: 'Unknown'})
   firstName: string;
 
-  @Column({ length: 20 })
+  @Column({ length: 20, nullable: true, default: 'Unknown' })
   lastName: string;
 
-  @Column({ length: 15 })
+  @Column({ length: 12, nullable: true, default: 'Unknown' })
   username: string;
 
   @Column({ length: 30 })
   email: string;
 
-  @Column({ length: 6 })
+  @Column({ length: 255 })
   password: string;
+  
+  @Column({ nullable: true })
+  token: string; // Token para restablecimiento de contraseña
 
   @Column({ nullable: true })
-  resetToken: string; // Token para restablecimiento de contraseña
-
-  @Column({ nullable: true })
-  resetTokenExpires: Date; // Fecha de expiración del token de restablecimiento
+  tokenExpires: Date; // Fecha de expiración del token de restablecimiento
 
   @Column({
     type: "enum",
@@ -63,25 +63,25 @@ export class Users {
   })
   gender: gender;
 
-  @Column()
+  @Column({nullable: true, default: 0})
   phone: number;
 
-  @Column()
+  @Column({ default: false })
   discapacity: boolean;
 
-  @Column()
+  @Column({ default: false })
   optIn: boolean;
 
-  @Column()
+  @Column({ default: false })
   showName: boolean;
 
-  @Column({ type: "timestamp" })
+  @Column({ type: "timestamp", nullable: true })
   dob: Date;
 
-  @Column({ length: 20 })
+  @Column({ length: 20, nullable: true, default: 'unknown' })
   preferences: string;
 
-  @Column({ length: 20 })
+  @Column({ length: 20, nullable: true, default: 'Unknown' })
   address: string;
 
   @ManyToOne(

@@ -80,6 +80,10 @@ export class UsersService {
     return await this.userRepository.findOne(userId);
   }
 
+  async findOneByMail(email): Promise<Users> {
+    return await this.userRepository.findOne({ where: { email } });
+  }
+
   async editUser(userId, user): Promise<UpdateResult> {
     return await this.userRepository.update(userId, user);
   }
@@ -113,4 +117,17 @@ export class UsersService {
 
     return { user: userRO };
   }
+
+  async updateUserSecret(userId: string, newSecret: string, expiryDate: Date, updatedAt: Date ): Promise<void> {
+    await this.userRepository.update(userId, {
+      token: newSecret,
+      tokenExpires: expiryDate, 
+      updatedAt: updatedAt
+    });
+  }
+  
+  async updateUserPassword(userId: string, newPassword: string): Promise<void> {
+    await this.userRepository.update(userId, { password: newPassword, token: null, tokenExpires: null });
+  }
+
 }

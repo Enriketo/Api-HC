@@ -1,9 +1,9 @@
 {
   "type": "mysql",
-  "host": "localhost",
+  "host": "hc-db.c8xrkwv6mos5.us-east-2.rds.amazonaws.com",
   "port": 3306,
   "username": "root",
-  "password": "01234567890",
+  "password": "Gd5g8ZQB9Ooy6KsKEhAQ",
   "database": "hc-db",
   "entities": ["src/**/*.entity{.js}"],
   "synchronize": true,
