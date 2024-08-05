@@ -13,8 +13,6 @@ export class OtpController {
     private readonly otpService: OtpService,
     private readonly usersService: UsersService,
     private readonly employeesService: EmployeesService,
-    //private readonly psswdRstService: PasswordResetService,
-    //private readonly rstPss: ResetPasswordDto,
   ) {}
 
   @Post('otp')
@@ -70,24 +68,4 @@ export class OtpController {
     return { success: true };
   }
 
-//  @Post('rstPssOtp')
-//  async resetPassword(@Body() resetPasswordDto: ResetPasswordDto): Promise<{ success: boolean }> {
-//    const { email, type, newPassword, otp } = resetPasswordDto;
-//    try {
-//      await this.psswdRstService.resetPassword(email, type, newPassword, otp);
-//      return { success: true };
-//    } catch (error) {
-//      throw new BadRequestException(error.message);
-//    }
-//  }
-//
-//  private async findUserByType(email: string, type: string) {
-//    if (type === 'U') {
-//      return await this.usersService.findOneByMail(email);
-//    } else if (type === 'E') {
-//      return await this.employeesService.findOneByMail(email);
-//    } else {
-//      throw new BadRequestException('Tipo de usuario no válido');
-//    }
-//  }
 }
