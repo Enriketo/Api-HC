@@ -36,7 +36,7 @@ export class Media {
   format: string;
 
   @Column({ length: 200 })
-  url: string;
+  urlA: string;
 
   @Column({ length: 200 })
   documentA: string;
@@ -54,7 +54,13 @@ export class Media {
   urlD: string;
 
   @Column({ length: 200 })
+  urlE: string;
+
+  @Column({ length: 200 })
   urlV: string;
+
+  @Column({ length: 200 })
+  urlV2: string;
 
   @OneToOne(
     type => Residences,

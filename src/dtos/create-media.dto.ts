@@ -12,7 +12,7 @@ export class CreateMediaDto {
 
   @IsNotEmpty()
   @ApiProperty()
-  readonly url: string;
+  readonly urlA: string;
 
   @IsNotEmpty()
   @ApiProperty()
@@ -36,7 +36,15 @@ export class CreateMediaDto {
 
   @IsNotEmpty()
   @ApiProperty()
+  readonly urlE: string;
+
+  @IsNotEmpty()
+  @ApiProperty()
   readonly urlV: string;
+
+  @IsNotEmpty()
+  @ApiProperty()
+  readonly urlV2: string;
 
   @IsNotEmpty()
   @ApiProperty()
