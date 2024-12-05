@@ -15,7 +15,11 @@ async function bootstrap() {
   const document = SwaggerModule.createDocument(app, options);
   SwaggerModule.setup("api", app, document);
 
-  app.enableCors();
+  app.enableCors({
+    origin: ['http://localhost:8000', 'http://3.137.39.122:8000'], // Agrega las URLs que necesitas
+    methods: ['GET', 'POST', 'PUT', 'DELETE'], // Métodos que quieres permitir
+    allowedHeaders: ['Content-Type', 'Authorization'], // Headers permitidos
+  });
   app.useGlobalPipes(new ValidationPipe());
 
   await app.listen(8000);
