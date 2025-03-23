@@ -19,7 +19,7 @@ async function bootstrap() {
   //CORS 
   const whitelist = [
     '*',
-    'https://juansebastiandiazv.github.io',
+//    'https://juansebastiandiazv.github.io',
     'https://www.hotcompanyapp.company',
     'https://hotcompanyapp.company',
 //    'https://juansebastiandiazv.github.io/Hot_workers_Hotels',
