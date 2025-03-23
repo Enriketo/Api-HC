@@ -20,8 +20,8 @@ async function bootstrap() {
   const whitelist = [
 //    '*',
     'https://juansebastiandiazv.github.io',
-    'https://www.hotcompanyapp.company',
-    'https://hotcompanyapp.company',
+//    'https://www.hotcompanyapp.company',
+//    'https://hotcompanyapp.company',
 //    'https://juansebastiandiazv.github.io/Hot_workers_Hotels',
   ];
 
@@ -34,7 +34,7 @@ async function bootstrap() {
     } 
   }, 
   methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS", "HEAD"], 
-//  allowedHeaders: ["Content-Type", "Authorization", "X-Requested-With"], 
+  allowedHeaders: ["Content-Type", "Authorization", "X-Requested-With"], 
   credentials: true, 
 };
   
