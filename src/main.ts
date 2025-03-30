@@ -1,8 +1,8 @@
 import { NestFactory } from "@nestjs/core";
 import { AppModule } from "./app.module";
 import { SwaggerModule, DocumentBuilder } from "@nestjs/swagger";
-import { ValidationPipe } from '@nestjs/common';
-import * as cors from 'cors';
+import { ValidationPipe } from "@nestjs/common";
+import * as cors from "cors";
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
@@ -15,29 +15,30 @@ async function bootstrap() {
     .build();
   const document = SwaggerModule.createDocument(app, options);
   SwaggerModule.setup("api", app, document);
-  
-  //CORS 
+
+  //CORS
   const whitelist = [
-//    '*',
-    'https://juansebastiandiazv.github.io',
-//    'https://www.hotcompanyapp.company',
-//    'https://hotcompanyapp.company',
-//    'https://juansebastiandiazv.github.io/Hot_workers_Hotels',
+    "*",
+    //    'https://juansebastiandiazv.github.io',
+    //    'https://www.hotcompanyapp.company',
+    //    'https://hotcompanyapp.company',
+    //    'https://juansebastiandiazv.github.io/Hot_workers_Hotels',
   ];
 
- const corsOptions = { 
-  origin: function (origin, callback) { 
-    if (whitelist.indexOf(origin) !== -1 || !origin) { 
-      callback(null, true); 
-    } else { 
-      callback(new Error("Not allowed by CORS")); 
-    } 
-  }, 
-  methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS", "HEAD"], 
-  allowedHeaders: ["Content-Type", "Authorization", "X-Requested-With"], 
-  credentials: true, 
-};
-  
+  const corsOptions = {
+    origin: function(origin, callback) {
+      if (!origin || whitelist.includes(origin)) {
+        callback(null, true);
+      } else {
+        console.error(`CORS blocked for origin: ${origin}`);
+        callback(new Error("Not allowed by CORS"));
+      }
+    },
+    methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS", "HEAD"],
+    allowedHeaders: ["Content-Type", "Authorization", "X-Requested-With"],
+    credentials: true,
+  };
+
   app.use(cors(corsOptions));
   app.useGlobalPipes(new ValidationPipe());
 
