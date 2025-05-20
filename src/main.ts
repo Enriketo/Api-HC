@@ -17,14 +17,23 @@ async function bootstrap() {
   
   // Configuración de CORS
   const whitelist = [
-    "https://juansebastiandiazv.github.io",
-    "https://www.hotcompanyapp.company",
-    "https://hotcompanyapp.company",
+    'https://juansebastiandiazv.github.io',
+    'https://www.hotcompanyapp.company',
+    'https://hotcompanyapp.company',
+    'https://juansebastiandiazv.github.io/Hot_workers_Hotels',
+    'https://juansebastiandiazv.github.io/Hot_workers_Hotels/',
+    'https://juansebastiandiazv.github.io/Hot_workers_Hotels/register-general'
   ];
 
   app.enableCors({
     origin: function (origin, callback) {
-      if (whitelist.indexOf(origin) !== -1 || !origin) {
+      // Verificar si el origen está en la whitelist o es una subruta de los dominios permitidos
+      const isWhitelisted = whitelist.some(domain => 
+        origin === domain || 
+        origin.startsWith(domain + '/')
+      );
+      
+      if (isWhitelisted || !origin) {
         callback(null, true);
       } else {
         callback(new Error("Not allowed by CORS"));
