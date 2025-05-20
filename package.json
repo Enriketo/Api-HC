@@ -40,7 +40,7 @@
     "fastify-swagger": "^2.5.1",
     "jsonwebtoken": "^8.5.1",
     "jwt-decode": "^3.0.0",
-    "multer": "^1.4.2",
+    "multer": "^2.0.0",
     "multer-s3": "^2.9.0",
     "mysql2": "^2.1.0",
     "nestjs-typeorm-paginate": "^2.6.0",
