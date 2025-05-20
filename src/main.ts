@@ -15,30 +15,9 @@ async function bootstrap() {
   const document = SwaggerModule.createDocument(app, options);
   SwaggerModule.setup("api", app, document);
   
-  // Configuración de CORS
-  const whitelist = [
-    'https://juansebastiandiazv.github.io',
-    'https://www.hotcompanyapp.company',
-    'https://hotcompanyapp.company',
-    'https://juansebastiandiazv.github.io/Hot_workers_Hotels',
-    'https://juansebastiandiazv.github.io/Hot_workers_Hotels/',
-    'https://juansebastiandiazv.github.io/Hot_workers_Hotels/register-general'
-  ];
-
+  // Configuración de CORS simplificada
   app.enableCors({
-    origin: function (origin, callback) {
-      // Verificar si el origen está en la whitelist o es una subruta de los dominios permitidos
-      const isWhitelisted = whitelist.some(domain => 
-        origin === domain || 
-        origin.startsWith(domain + '/')
-      );
-      
-      if (isWhitelisted || !origin) {
-        callback(null, true);
-      } else {
-        callback(new Error("Not allowed by CORS"));
-      }
-    },
+    origin: 'https://juansebastiandiazv.github.io',
     methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS", "HEAD"],
     allowedHeaders: ["Content-Type", "Authorization", "X-Requested-With"],
     credentials: true,
