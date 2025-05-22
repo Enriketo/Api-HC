@@ -15,7 +15,27 @@ async function bootstrap() {
   const document = SwaggerModule.createDocument(app, options);
   SwaggerModule.setup("api", app, document);
 
-  app.useGlobalPipes(new ValidationPipe());
+  // Configuración de CORS permisiva para desarrollo
+  app.enableCors({
+    origin: '*',  // Permite todos los orígenes
+    methods: '*',  // Permite todos los métodos
+    allowedHeaders: '*',  // Permite todos los headers
+    exposedHeaders: '*',  // Expone todos los headers
+    credentials: true,
+    maxAge: 3600,
+    preflightContinue: false,
+    optionsSuccessStatus: 204
+  });
+
+  // Configuración global de pipes
+  app.useGlobalPipes(new ValidationPipe({
+    whitelist: true,
+    transform: true,
+    forbidNonWhitelisted: true,
+    transformOptions: {
+      enableImplicitConversion: true
+    }
+  }));
 
   await app.listen(8000);
   console.log(`Application is running on: ${await app.getUrl()}`);
