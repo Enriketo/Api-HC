@@ -14,16 +14,6 @@ async function bootstrap() {
     .build();
   const document = SwaggerModule.createDocument(app, options);
   SwaggerModule.setup("api", app, document);
-  
-  // Configuración de CORS más permisiva
-  app.enableCors({
-    origin: 'https://juansebastiandiazv.github.io',
-    methods: 'GET,HEAD,PUT,PATCH,POST,DELETE,OPTIONS',
-    allowedHeaders: 'Content-Type,Authorization,X-Requested-With',
-    credentials: true,
-    preflightContinue: false,
-    optionsSuccessStatus: 204
-  });
 
   app.useGlobalPipes(new ValidationPipe());
 
