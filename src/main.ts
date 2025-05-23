@@ -17,14 +17,8 @@ async function bootstrap() {
 
   // Configuración de CORS para desarrollo
   app.enableCors({
-    origin: ['https://juansebastiandiazv.github.io', 'http://localhost:3000'],
-    methods: ['GET', 'POST', 'PUT', 'DELETE', 'PATCH', 'OPTIONS'],
-    allowedHeaders: ['Content-Type', 'Authorization', 'Accept'],
-    exposedHeaders: ['Content-Range', 'X-Content-Range'],
-    credentials: true,
-    maxAge: 3600,
-    preflightContinue: false,
-    optionsSuccessStatus: 204
+    origin: false, // Deshabilitamos CORS en NestJS ya que lo manejamos en Nginx
+    credentials: true
   });
 
   // Configuración global de pipes
