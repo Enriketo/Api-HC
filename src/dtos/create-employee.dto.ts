@@ -1,100 +1,114 @@
-import { IsNotEmpty } from "class-validator";
+import { IsNotEmpty, IsString, IsEmail, IsBoolean, IsNumber, IsOptional } from "class-validator";
 import { ApiProperty } from "@nestjs/swagger";
 
 export class CreateEmployeeDto {
-  //@IsNotEmpty()
-  @ApiProperty()  
+  @IsString()
+  @IsOptional()
+  @ApiProperty()
   readonly firstName: string;
 
-  //@IsNotEmpty()
+  @IsString()
+  @IsOptional()
   @ApiProperty()
   readonly lastName: string;
 
-  //@IsNotEmpty()
+  @IsString()
+  @IsNotEmpty()
   @ApiProperty()
   readonly username: string;
 
-  //@IsNotEmpty()
+  @IsString()
+  @IsOptional()
   @ApiProperty()
   readonly docType: string;
 
-  //@IsNotEmpty()
+  @IsNumber()
+  @IsOptional()
   @ApiProperty()
   readonly docNumber: number;
 
+  @IsEmail()
   @IsNotEmpty()
   @ApiProperty()
   readonly email: string;
 
+  @IsString()
   @IsNotEmpty()
   @ApiProperty()
   readonly password: string;
 
-  //@IsNotEmpty()
-  @ApiProperty()
+  @IsBoolean()
+  @IsOptional()
+  @ApiProperty({ default: false })
   readonly isAdmin: boolean;
 
-  //@IsNotEmpty()
+  @IsString()
+  @IsOptional()
   @ApiProperty()
   readonly gender: string;
 
-  //@IsNotEmpty()
-  @ApiProperty()
+  @IsBoolean()
+  @IsOptional()
+  @ApiProperty({ default: true })
   readonly showName: boolean;
 
-  //@IsNotEmpty()
+  @IsString()
+  @IsOptional()
   @ApiProperty()
   readonly preferences: string;
 
-  //@IsNotEmpty()
-  @ApiProperty()
+  @IsBoolean()
+  @IsOptional()
+  @ApiProperty({ default: false })
   readonly discapacity: boolean;
 
-  //@IsNotEmpty()
-  @ApiProperty()
+  @IsBoolean()
+  @IsOptional()
+  @ApiProperty({ default: false })
   readonly discapacityAcpt: boolean;
 
-  //@IsNotEmpty()
+  @IsString()
+  @IsOptional()
   @ApiProperty()
   readonly address: string;
 
-  //@IsNotEmpty()
+  @IsString()
+  @IsOptional()
   @ApiProperty()
   readonly paymentCode: string;
 
-  //@IsNotEmpty()
+  @IsString()
+  @IsOptional()
   @ApiProperty()
   readonly bank: string;
 
-  //@IsNotEmpty()
-  @ApiProperty()
+  @IsBoolean()
+  @IsOptional()
+  @ApiProperty({ default: true })
   readonly status: boolean;
 
-  //@IsNotEmpty()
+  @IsString()
+  @IsOptional()
   @ApiProperty()
   readonly role: string;
 
-  //@IsNotEmpty()
-  @ApiProperty()
+  @IsBoolean()
+  @IsOptional()
+  @ApiProperty({ default: false })
   readonly optIn: boolean;
 
-  //@IsNotEmpty()
-  @ApiProperty()
+  @IsNumber()
+  @IsOptional()
+  @ApiProperty({ default: 0 })
   readonly averageCalification: number;
 
-  //@IsNotEmpty()
+  @IsString()
+  @IsOptional()
   @ApiProperty()
   readonly penality: string;
 
-  //@IsNotEmpty()
-  @ApiProperty()
+  @IsNumber()
+  @IsOptional()
+  @ApiProperty({ default: 0 })
   readonly totalPenalities: number;
-
-  @IsNotEmpty()
-  @ApiProperty()
-  readonly createdAt: Date;
-
-  @IsNotEmpty()
-  @ApiProperty()
-  readonly updatedAt: Date;
 }

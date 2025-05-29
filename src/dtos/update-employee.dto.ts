@@ -1,12 +1,14 @@
-import { IsNotEmpty } from "class-validator";
+import { IsString, IsBoolean, IsOptional, IsNotEmpty } from "class-validator";
 import { ApiProperty } from "@nestjs/swagger";
 
 export class UpdateEmployeeDto {
-  //@IsNotEmpty()
+  @IsString()
+  @IsOptional()
   @ApiProperty()
   readonly firstName: string;
 
-  //@IsNotEmpty()
+  @IsString()
+  @IsOptional()
   @ApiProperty()
   readonly lastName: string;
 
@@ -14,52 +16,64 @@ export class UpdateEmployeeDto {
   //@ApiProperty()
   //readonly password: string;
 
-  //@IsNotEmpty()
-  @ApiProperty()
+  @IsBoolean()
+  @IsOptional()
+  @ApiProperty({ default: false })
   readonly isAdmin: boolean;
 
-  //@IsNotEmpty()
+  @IsString()
+  @IsOptional()
   @ApiProperty()
   readonly gender: string;
 
-  //@IsNotEmpty()
-  @ApiProperty()
+  @IsBoolean()
+  @IsOptional()
+  @ApiProperty({ default: true })
   readonly showName: boolean;
 
-  //@IsNotEmpty()
+  @IsString()
+  @IsOptional()
   @ApiProperty()
   readonly preferences: string;
 
-  //@IsNotEmpty()
-  @ApiProperty()
+  @IsBoolean()
+  @IsOptional()
+  @ApiProperty({ default: false })
   readonly discapacity: boolean;
 
-  //@IsNotEmpty()
-  @ApiProperty()
+  @IsBoolean()
+  @IsOptional()
+  @ApiProperty({ default: false })
   readonly discapacityAcpt: boolean;
 
-  //@IsNotEmpty()
+  @IsString()
+  @IsOptional()
   @ApiProperty()
   readonly address: string;
 
-  //@IsNotEmpty()
+  @IsString()
+  @IsOptional()
   @ApiProperty()
   readonly paymentCode: string;
 
-  //@IsNotEmpty()
+  @IsString()
+  @IsOptional()
   @ApiProperty()
   readonly bank: string;
 
-  //@IsNotEmpty()
-  @ApiProperty()
-  readonly status: string;
+  @IsBoolean()
+  @IsOptional()
+  @ApiProperty({ default: true })
+  readonly status: boolean;
 
-  //@IsNotEmpty()
+  @IsString()
+  @IsOptional()
   @ApiProperty()
   readonly role: string;
 
-  //@IsNotEmpty()
-  @ApiProperty()
+  @IsBoolean()
+  @IsOptional()
+  @ApiProperty({ default: false })
   readonly optIn: boolean;
 
   @IsNotEmpty()

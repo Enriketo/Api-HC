@@ -15,10 +15,16 @@ async function bootstrap() {
   const document = SwaggerModule.createDocument(app, options);
   SwaggerModule.setup("api", app, document);
 
-  // Configuración de CORS para desarrollo
+  // Configuración de CORS
   app.enableCors({
-    origin: false, // Deshabilitamos CORS en NestJS ya que lo manejamos en Nginx
-    credentials: true
+    origin: ['https://juansebastiandiazv.github.io', 'http://localhost:3000'],
+    methods: ['GET', 'POST', 'PUT', 'PATCH', 'DELETE', 'OPTIONS'],
+    allowedHeaders: ['Content-Type', 'Authorization', 'Accept'],
+    exposedHeaders: ['Content-Range', 'X-Content-Range'],
+    credentials: true,
+    maxAge: 3600,
+    preflightContinue: false,
+    optionsSuccessStatus: 204
   });
 
   // Configuración global de pipes

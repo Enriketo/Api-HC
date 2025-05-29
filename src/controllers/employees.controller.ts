@@ -10,13 +10,17 @@ import {
   Put,
   Delete,
   UseGuards,
-  Query
+  Query,
+  Patch,
+  UnauthorizedException,
+  HttpException
 } from "@nestjs/common";
 import { Employees } from "../entities/employee.entity";
 import { EmployeesService } from "../services/employees.service";
 import { CreateEmployeeDto } from "../dtos/create-employee.dto";
 import { UpdateEmployeeDto } from "../dtos/update-employee.dto";
-import { ApiTags, ApiParam, ApiOperation, ApiResponse } from "@nestjs/swagger";
+import { UpdatePasswordDto } from "../dtos/update-password.dto";
+import { ApiTags, ApiParam, ApiOperation, ApiResponse, ApiBearerAuth } from "@nestjs/swagger";
 import { Roles } from "../auth/roles.decorator";
 import { role } from '../entities/employee.entity';
 import { RolesGuard } from "../auth/guards/roles.guard";
@@ -24,6 +28,7 @@ import { JwtAuthGuard } from "../auth/guards/jwt-auth.guard";
 import { Pagination } from 'nestjs-typeorm-paginate';
 
 @ApiTags("Employees")
+@ApiBearerAuth()
 @Controller("api/employees")
 export class EmployeesController {
   constructor(private readonly employeesService: EmployeesService) {}
@@ -138,5 +143,48 @@ export class EmployeesController {
       message: "Employee has been deleted!",
       employee: deletedEmployee
     });
+  }
+
+  @Patch(':id/password')
+  @UseGuards(JwtAuthGuard)
+  @ApiOperation({
+    description: "Actualizar contraseña del empleado"
+  })
+  @ApiParam({ name: "id" })
+  @ApiResponse({
+    status: 200,
+    description: "Contraseña actualizada exitosamente"
+  })
+  @ApiResponse({ status: 401, description: "Contraseña actual incorrecta" })
+  @ApiResponse({ status: 404, description: "Empleado no encontrado" })
+  async updatePassword(
+    @Param('id') id: string,
+    @Body() updatePasswordDto: UpdatePasswordDto
+  ) {
+    try {
+      // Verificar que las contraseñas nuevas coincidan
+      if (updatePasswordDto.newPassword !== updatePasswordDto.confirmPassword) {
+        throw new UnauthorizedException('Las contraseñas nuevas no coinciden');
+      }
+
+      await this.employeesService.updatePassword(
+        id,
+        updatePasswordDto.currentPassword,
+        updatePasswordDto.newPassword
+      );
+
+      return {
+        statusCode: HttpStatus.OK,
+        message: 'Contraseña actualizada exitosamente'
+      };
+    } catch (error) {
+      if (error instanceof HttpException) {
+        throw error;
+      }
+      throw new HttpException(
+        'Error al actualizar la contraseña',
+        HttpStatus.INTERNAL_SERVER_ERROR
+      );
+    }
   }
 }

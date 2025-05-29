@@ -133,4 +133,41 @@ export class EmployeesService {
       updatedAt: updatedAt
     });
   }
+
+  async updatePassword(employeeId: string, currentPassword: string, newPassword: string): Promise<void> {
+    try {
+      // Buscar el empleado
+      const employee = await this.employeeRepository.findOne(employeeId);
+      if (!employee) {
+        throw new HttpException('Empleado no encontrado', HttpStatus.NOT_FOUND);
+      }
+
+      // Verificar la contraseña actual
+      const isPasswordValid = await bcrypt.compare(currentPassword, employee.password);
+      if (!isPasswordValid) {
+        throw new HttpException('La contraseña actual es incorrecta', HttpStatus.UNAUTHORIZED);
+      }
+
+      // Hashear la nueva contraseña
+      const hashedPassword = await bcrypt.hash(newPassword, 10);
+
+      // Actualizar la contraseña
+      const updateResult = await this.employeeRepository.update(employeeId, {
+        password: hashedPassword,
+        updatedAt: new Date()
+      });
+
+      if (updateResult.affected === 0) {
+        throw new HttpException('Error al actualizar la contraseña', HttpStatus.INTERNAL_SERVER_ERROR);
+      }
+    } catch (error) {
+      if (error instanceof HttpException) {
+        throw error;
+      }
+      throw new HttpException(
+        'Error al actualizar la contraseña',
+        HttpStatus.INTERNAL_SERVER_ERROR
+      );
+    }
+  }
 }
