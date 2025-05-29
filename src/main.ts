@@ -17,8 +17,8 @@ async function bootstrap() {
 
   // Configuración de CORS
   app.enableCors({
-    origin: ['https://juansebastiandiazv.github.io', 'http://localhost:3000'],
-    methods: ['GET', 'POST', 'PUT', 'PATCH', 'DELETE', 'OPTIONS'],
+    origin: true, // Permite todos los orígenes durante el desarrollo
+    methods: 'GET,HEAD,PUT,PATCH,POST,DELETE,OPTIONS',
     allowedHeaders: ['Content-Type', 'Authorization', 'Accept'],
     exposedHeaders: ['Content-Range', 'X-Content-Range'],
     credentials: true,
